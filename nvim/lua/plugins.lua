@@ -8,4 +8,8 @@ vim.cmd [[packadd packer.nvim]]
 
 packer.startup(function(use)
   use 'wbthomason/packer.nvim'
+  use {
+    'nvim-lualine/lualine.nvim', -- statusline .. review
+    requires = { 'nvim-tree/nvim-web-devicons', opt = true }
+  }
 end)
