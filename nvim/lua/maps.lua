@@ -11,8 +11,3 @@ keymap.set('n','ts',':vsplit<Return><C-w>w', {silent = true})
 keymap.set('','ty',':tabnext<Return>')
 keymap.set('','tr',':tabprevious<Return>')
 keymap.set('','tq',':tabclose<Return>')
-keymap.set('','','')
-keymap.set('','','')
-keymap.set('','','')
-keymap.set('','','')
-
