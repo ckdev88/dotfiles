@@ -1,6 +1,4 @@
 vim.cmd('autocmd!')
-set
-clipboard += unnamedplus
 local vo = vim.opt
 
 vim.scriptencoding = 'utf-8'
