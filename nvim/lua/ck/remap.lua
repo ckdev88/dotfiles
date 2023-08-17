@@ -3,6 +3,8 @@ vim.g.mapleader = ' '
 keymap.set('n', '<leader>e', ':Ex<Return>')
 keymap.set('n', 'x', '"_x')          -- prevent yanking with x
 keymap.set('n', '<C-a>', 'gg<S-v>G') -- select all
+keymap.set('n', 'U', ':redo<Return>')
+
 
 -- disables
 -- nnoremap <c-z> <nop> -- TODO: test
