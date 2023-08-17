@@ -1,31 +1,33 @@
 vim.cmd('autocmd!')
+set
+clipboard += unnamedplus
+local vo = vim.opt
 
 vim.scriptencoding = 'utf-8'
-vim.opt.encoding = 'utf-8'
-vim.opt.fileencoding = 'utf-8'
+vo.encoding = 'utf-8'
+vo.fileencoding = 'utf-8'
 
-vim.opt.autoindent = true
-vim.opt.expandtab = false
-vim.opt.shiftwidth = 4
-vim.opt.tabstop = 4
-vim.opt.softtabstop = 4
-vim.opt.smarttab = true
-vim.opt.ai = true -- Auto indent
-vim.opt.si = true -- Smart indent
-vim.opt.breakindent = true
+vo.autoindent = true
+vo.expandtab = false
+vo.shiftwidth = 4
+vo.tabstop = 4
+vo.softtabstop = 4
+vo.smarttab = true
+vo.ai = true
+vo.si = true
+vo.breakindent = true
 
-vim.opt.number = true
-vim.opt.scrolloff = 20
-vim.opt.showcmd = true
-vim.opt.cmdheight = 1
-vim.opt.laststatus = 2
-vim.opt.shell = 'fish'
-vim.opt.backupskip = '/tmp/*,/private/tmp/*'
-vim.opt.termguicolors = true
--- vim.opt.path:append { '**' } -- Also search in subfolders
-vim.opt.wildignore:append { '*/node_modules/*' }
+vo.number = true
+vo.scrolloff = 20
+vo.showcmd = true
+vo.cmdheight = 1
+vo.laststatus = 2
+vo.shell = 'fish'
+vo.backupskip = '/tmp/*,/private/tmp/*'
+vo.termguicolors = true
+vo.wildignore:append { '*/node_modules/*' }
 
-vim.opt.termguicolors = true
--- vim.opt.winblend = 0
--- vim.opt.wildoptions = 'pum'
--- vim.opt.pumblend = 5
+vo.termguicolors = true
+vo.guicursor = ''
+
+vo.updatetime = 50

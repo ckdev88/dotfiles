@@ -1,9 +1,17 @@
-local keymap = vim.keymap
+local km = vim.keymap
 vim.g.mapleader = ' '
-keymap.set('n', '<leader>e', ':Ex<Return>')
-keymap.set('n', 'x', '"_x')          -- prevent yanking with x
-keymap.set('n', '<C-a>', 'gg<S-v>G') -- select all
-keymap.set('n', 'U', ':redo<Return>')
+km.set('n', '<leader>e', ':Ex<Return>', { desc = '[E]plore files' })
+km.set('n', 'x', '"_x', { desc = '[X]nay yank on x' })
+km.set('n', 'U', ':redo<Return>', { desc = '[U]ndo the [u]ndo' })
+
+km.set('n', '<C-a>', 'gg<S-v>G', { desc = '[A]ll select uniform, toggle' })
+km.set("v", "J", ":m '<+1<CR>gv=gv", { desc = "[L] selected line (down)" }) -- TODO: needs refining
+km.set("v", "K", ":m '>-2<CR>gv=gv", { desc = "[K] selected line (up)" })   -- TODO: needs refining
+km.set('n', '<leader>de', [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><left>]],
+	{ desc = 'Change all occurences of word on cursor position' })
+
+km.set('n', 'J', 'mzJ`z', { desc = 'keep j in horizontal place' })
+km.set('v', '<leader>y', "\"+y")
 
 
 -- disables
@@ -11,9 +19,9 @@ keymap.set('n', 'U', ':redo<Return>')
 -- nnoremap <C-z> <nop> -- TODO: test
 
 -- tabs
--- keymap.set('n', 'te', ':tabedit<Return>', {silent = true})
--- keymap.set('n','ts',':vsplit<Return><C-w>w', {silent = true})
--- keymap.set('','tt','<C-w>w<Return>') -- should be toggle prev/curr, not working
--- keymap.set('','ty',':tabnext<Return>')
--- keymap.set('','tr',':tabprevious<Return>')
--- keymap.set('','tq',':tabclose<Return>')
+-- km.set('n', 'te', ':tabedit<Return>', {silent = true})
+-- km.set('n','ts',':vsplit<Return><C-w>w', {silent = true})
+-- km.set('','tt','<C-w>w<Return>') -- should be toggle prev/curr, not working
+-- km.set('','ty',':tabnext<Return>')
+-- km.set('','tr',':tabprevious<Return>')
+-- km.set('','tq',':tabclose<Return>')
