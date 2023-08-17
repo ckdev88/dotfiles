@@ -11,8 +11,6 @@ km.set('n', '<leader>de', [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><left>]]
 	{ desc = 'Change all occurences of word on cursor position' })
 
 km.set('n', 'J', 'mzJ`z', { desc = 'keep j in horizontal place' })
-km.set('v', '<leader>y', "\"+y")
-
 
 -- disables
 -- nnoremap <c-z> <nop> -- TODO: test
