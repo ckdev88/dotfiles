@@ -1,5 +1,14 @@
-local bi = require('telescope.builtin')
 local km = vim.keymap
+
+local bi = require('telescope.builtin') -- See `:help telescope.builtin`
+
+km.set('n', '<leader>/', function()
+  -- You can pass additional configuration to telescope to change theme, layout, etc.
+  require('telescope.builtin').current_buffer_fuzzy_find(require('telescope.themes').get_dropdown {
+    winblend = 10,
+    previewer = false,
+  })
+end, { desc = '[/] Fuzzily search in current buffer' })
 
 km.set('n', '<leader>sr', bi.oldfiles, { desc = '[S]earch [R]ecently opened files' })
 km.set('n', '<leader>sb', bi.buffers, { desc = '[S]earch current [B]uffers' })
