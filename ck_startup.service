@@ -1,0 +1,11 @@
+# placed in /etc/systemd/system/
+
+[Unit]
+Description=Start clean
+
+[Service]
+ExecStart=/usr/bin/ck_startup
+Type=simple
+
+[Install]
+WantedBy=multi-user.target
