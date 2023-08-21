@@ -30,7 +30,7 @@ lsp.format_on_save({
 		['rust_analyzer'] = { 'rust' },
 		['astro-language-server'] = { 'astro' },
 		['vue-language-server'] = { 'vue' },
-		['typescript-language-server'] = { 'typescript', 'tsx', 'typescriptreact' }, -- TODO: seems to work... not fully though
+	['typescript-language-server'] = { 'typescript', 'tsx', 'typescriptreact' }, -- TODO: seems to work... not fully though
 		['eslint-lsp'] = { 'typescript', 'tsx', 'typescriptreact' }, -- TODO: is (mostly?) ignored
 		['prettier'] = { 'typescript', 'tsx', 'typescriptreact', 'html', 'css' }, -- TODO: is (mostly?) ignored
 		['stylelint-lsp'] = { 'css' } -- TODO: doesnt seem to work
