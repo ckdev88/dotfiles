@@ -12,14 +12,6 @@ if not vim.loop.fs_stat(lazypath) then
 end
 vim.opt.rtp:prepend(lazypath)
 
-local mode_map = { -- shorten obvious descriptions NORMAL, VISUAL, SELECT & REPLACE, used in lualine sections
-  ['n'] = 'N',
-  ['v'] = 'V',
-  ['vs'] = 'V',
-  ['s'] = 'SEL',
-  ['r'] = 'RPL',
-}
-
 require('lazy').setup({
   -- Git related plugins
   'tpope/vim-fugitive',
@@ -101,10 +93,7 @@ require('lazy').setup({
       },
       sections = {
         lualine_a = {
-          function()
-            return mode_map[vim.api.nvim_get_mode().mode] or vim.api.nvim_get_mode()
-          end
-        },
+          { 'mode', fmt = function(res) return res:sub(1, 3) end } },
       },
     },
   },
@@ -155,7 +144,6 @@ require('lazy').setup({
   --    For additional information see: https://github.com/folke/lazy.nvim#-structuring-your-plugins
   -- { import = 'custom.plugins' },
 }, {})
-
 
 -- Keymaps for better default experience
 -- See `:help vim.keymap.set()`
@@ -297,7 +285,6 @@ local on_attach = function(_, bufnr)
   end, { desc = 'Format current buffer with LSP' })
 end
 
-
 -- See `:help telescope.builtin`
 local bi = require('telescope.builtin')
 km.set('n', '<leader>/', function()
@@ -325,7 +312,6 @@ km.set('n', '[d', vim.diagnostic.goto_prev, { desc = 'Go to previous diagnostic 
 km.set('n', ']d', vim.diagnostic.goto_next, { desc = 'Go to next diagnostic message' })
 km.set('n', '<leader>e', vim.diagnostic.open_float, { desc = 'Open floating diagnostic message' })
 km.set('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Open diagnostics list' })
-
 
 -- Enable the following language servers
 --  Feel free to add/remove any LSPs that you want here. They will automatically be installed.
@@ -367,8 +353,6 @@ local servers = {
 -- 	}
 -- })
 --
-
-
 
 -- Setup neovim lua configuration
 require('neodev').setup()
