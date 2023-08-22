@@ -1,3 +1,3 @@
-require('remap')
-require('base')
-require('plugins')
+require('ck-kick.remap')
+require('ck-kick.base')
+require('ck-kick.plugins')
