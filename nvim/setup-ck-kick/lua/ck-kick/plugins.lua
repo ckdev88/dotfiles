@@ -12,6 +12,14 @@ if not vim.loop.fs_stat(lazypath) then
 end
 vim.opt.rtp:prepend(lazypath)
 
+local mode_map = { -- shorten obvious descriptions NORMAL, VISUAL, SELECT & REPLACE, used in lualine sections
+  ['n'] = 'N',
+  ['v'] = 'V',
+  ['vs'] = 'V',
+  ['s'] = 'SEL',
+  ['r'] = 'RPL',
+}
+
 require('lazy').setup({
   -- Git related plugins
   'tpope/vim-fugitive',
@@ -86,6 +94,17 @@ require('lazy').setup({
         theme = 'onedark',
         component_separators = '|',
         section_separators = '',
+        path = 1,
+        shorting_target = 70,
+        file_status = false,
+
+      },
+      sections = {
+        lualine_a = {
+          function()
+            return mode_map[vim.api.nvim_get_mode().mode] or vim.api.nvim_get_mode()
+          end
+        },
       },
     },
   },
@@ -238,7 +257,6 @@ require('nvim-treesitter.configs').setup {
   },
 }
 
-
 -- [[ Configure LSP ]]
 --  This function gets run when an LSP connects to a particular buffer.
 local on_attach = function(_, bufnr)
@@ -280,13 +298,6 @@ local on_attach = function(_, bufnr)
 end
 
 
-
-
-
-
-
-
-
 -- See `:help telescope.builtin`
 local bi = require('telescope.builtin')
 km.set('n', '<leader>/', function()
@@ -316,14 +327,6 @@ km.set('n', '<leader>e', vim.diagnostic.open_float, { desc = 'Open floating diag
 km.set('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Open diagnostics list' })
 
 
-
-
-
-
-
-
-
-
 -- Enable the following language servers
 --  Feel free to add/remove any LSPs that you want here. They will automatically be installed.
 --
@@ -346,9 +349,6 @@ local servers = {
     },
   },
 }
-
-
-
 
 -- lsp.format_on_save({
 -- 	format_opts = {
