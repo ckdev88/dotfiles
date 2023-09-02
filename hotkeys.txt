@@ -1,0 +1,8 @@
+Meta+S killall -9 kaccess ; killall -9 agent
+Tools (Fn + F1) audacious --headless --play-pause --quit-after-play
+Media Next (Fn + F8) audacious --fwd
+Media Previous (Fn + F6) audacious --rew
+Media Stop (Fn + F5) kill -3 audacious
+Volume Mute (Fn + F4) pactl set-sink-mute @DEFAULT_SINK@ toggle
+Volume Down (Fn + F2) pactl set-sink-volume @DEFAULT_SINK@ -5%%
+Volume Up (Fn + F3) pactl set-sink-volume @DEFAULT_SINK@ +5%%
