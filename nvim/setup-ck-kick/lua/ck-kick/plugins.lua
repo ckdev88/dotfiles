@@ -89,7 +89,6 @@ require('lazy').setup({
         path = 1,
         shorting_target = 70,
         file_status = false,
-
       },
       sections = {
         lualine_a = {
@@ -158,10 +157,6 @@ require('lazy').setup({
 -- Keymaps for better default experience
 -- See `:help vim.keymap.set()`
 km.set({ 'n', 'v' }, '<Space>', '<Nop>', { silent = true })
-
--- Remap for dealing with word wrap
-km.set('n', 'k', "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = true })
-km.set('n', 'j', "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = true })
 
 -- Highlight on yank - See `:help vim.highlight.on_yank()`
 local highlight_group = vim.api.nvim_create_augroup('YankHighlight', { clear = true })
@@ -280,7 +275,6 @@ local on_attach = function(_, bufnr)
   nmap('<leader>ws', require('telescope.builtin').lsp_dynamic_workspace_symbols, '[W]orkspace [S]ymbols')
 
   nmap('K', vim.lsp.buf.hover, 'Hover Documentation') -- See `:help K` for why this keymap
-  nmap('<C-k>', vim.lsp.buf.signature_help, 'Signature Documentation')
 
   -- Lesser used LSP functionality
   nmap('gD', vim.lsp.buf.declaration, '[G]oto [D]eclaration')
