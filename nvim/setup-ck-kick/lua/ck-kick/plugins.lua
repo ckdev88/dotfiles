@@ -25,7 +25,7 @@ require('lazy').setup({
     'neovim/nvim-lspconfig',
     dependencies = {
       -- Automatically install LSPs to stdpath for neovim
-      { 'williamboman/mason.nvim', config = true },
+      { 'williamboman/mason.nvim', config = true,  opts = { ensure_installed = { "html-lsp", "prettier" } } },
       'williamboman/mason-lspconfig.nvim',
 
       -- Useful status updates for LSP
@@ -136,6 +136,16 @@ require('lazy').setup({
   require 'kickstart.plugins.autoformat',
   -- require 'kickstart.plugins.debug',
 
+  {
+    "nvim-neo-tree/neo-tree.nvim",
+    branch = "v3.x",
+    dependencies = {
+      "nvim-lua/plenary.nvim",
+      "nvim-tree/nvim-web-devicons", -- not strictly required, but recommended
+      "MunifTanjim/nui.nvim",
+    }
+  }
+
   -- NOTE: The import below can automatically add your own plugins, configuration, etc from `lua/custom/plugins/*.lua`
   --    You can use this folder to prevent any conflicts with this init.lua if you're interested in keeping
   --    up-to-date with whatever is in the kickstart repo.
@@ -183,11 +193,11 @@ pcall(require('telescope').load_extension, 'fzf')
 -- See `:help nvim-treesitter`
 require('nvim-treesitter.configs').setup {
   -- Add languages to be installed here that you want installed for treesitter
-  ensure_installed = { 'astro', 'c', 'cpp', 'css', 'go', 'lua', 'python', 'rust', 'tsx', 'typescript', 'vimdoc',
-    'vim' },
+  ensure_installed = { 'c', 'cpp', 'css', 'go', 'lua', 'python', 'rust', 'tsx', 'typescript',
+    'vimdoc', 'vim' }, -- tijdelijk astro hieruit gehaald, om te kijken of deze sommige keren de opmaak sloopt
 
   -- Autoinstall languages that are not installed. Defaults to false (but you can change for yourself!)
-  auto_install = false,
+  auto_install = true,
 
   highlight = { enable = true },
   indent = { enable = true },
@@ -328,15 +338,33 @@ local servers = {
   -- pyright = {},
   -- rust_analyzer = {},
   tsserver = { 'typescript', 'tsx', 'typescriptreact' },
-  html = { filetypes = { 'html', 'twig', 'hbs', 'php' } },
+  html = { filetypes = { 'html', 'twig', 'hbs', 'php', 'css' } }, -- tijdelijk astro hieruit gehaald
   lua_ls = {
     Lua = {
       workspace = { checkThirdParty = false },
       telemetry = { enable = false },
     },
   },
+  eslint = { 'typescript', 'tsx', 'typescriptreact' }, -- TODO: is (mostly?) ignored
+  -- prettier = { 'typescript', 'tsx', 'typescriptreact', 'html', 'css' }, -- TODO: is (mostly?) ignored
+  stylelint_lsp = { filetypes = { 'css' } },
 }
-
+-- local status, prettier = pcall(require, "prettier")
+-- if (not status) then return end
+--
+-- prettier.setup {
+--   bin = 'prettierd',
+--   filetypes = {
+--     "css",
+--     "javascript",
+--     "javascriptreact",
+--     "typescript",
+--     "typescriptreact",
+--     "json",
+--     "scss",
+--     "less"
+--   }
+-- }
 -- lsp.format_on_save({
 -- 	format_opts = {
 -- 		async = false,
