@@ -28,6 +28,18 @@ km.set({ 'n', 'v', 'i' }, '<C-e>', ':Neotree toggle=true position=right<Return>'
 km.set({ 'n', 'v', 'i' }, '<C-b>', ':Neotree toggle=true position=right source=buffers<Return>',
 	{ desc = 'Explore [b]uffers with Neotree' })
 
+-- experiment, switch naar vorige, meest recente buffer
+km.set('n', '<A-[>', ':brewind<Return>', { silent = true, desc = 'Switch to previous buffer ([Tab])' }) -- TODO: turn these two into a toggle
+km.set('n', '<A-]>', ':blast<Return>', { silent = true, desc = 'Switch to last buffer ([Tab])' })       -- TODO: turn these two into a toggle
+
+
 -- for tabs, see :help :tab and/or press <C-w>
 -- See `:help vim.o`
 -- See `:help mapleader`
+
+
+-- handige standaard bindings om niet te vergeten
+-- 'n', <C-`> uitbreidende Visual selectie vanaf de cursor, zelfde als <C-2>, daarom C-2 remapped
+--
+-- beperkingen om niet te vergeten
+-- 'alle', <Alt - alle nummers> worden gebruikt door Konsole, fijne terminal-manager, dus niets mee doen in nvim
