@@ -27,7 +27,6 @@ require('lazy').setup({
       -- Automatically install LSPs to stdpath for neovim
       { 'williamboman/mason.nvim', config = true,  opts = { ensure_installed = { "html-lsp", "prettier" } } },
       'williamboman/mason-lspconfig.nvim',
-
       -- Useful status updates for LSP
       -- NOTE: `opts = {}` is the same as calling `require('fidget').setup({})`
       { 'j-hui/fidget.nvim',       tag = 'legacy', opts = {} },
@@ -190,6 +189,7 @@ require('nvim-treesitter.configs').setup {
   -- Add languages to be installed here that you want installed for treesitter
   ensure_installed = { 'c', 'cpp', 'css', 'go', 'lua', 'python', 'rust', 'tsx', 'typescript',
     'vimdoc', 'vim' }, -- tijdelijk astro hieruit gehaald, om te kijken of deze sommige keren de opmaak sloopt
+  -- tijdelijk ook css hieruit gehaald, suckt namelijk behoorlijk hard als iedere keer de tabs verdwijnen, niet zeker of het hierdoor komt
 
   -- Autoinstall languages that are not installed. Defaults to false (but you can change for yourself!)
   auto_install = true,
@@ -286,6 +286,7 @@ local on_attach = function(_, bufnr)
 
   -- Create a command `:Format` local to the LSP buffer
   vim.api.nvim_buf_create_user_command(bufnr, 'Format', function(_)
+    print('formatten? asdf')
     vim.lsp.buf.format()
   end, { desc = 'Format current buffer with LSP' })
 end
@@ -332,7 +333,7 @@ local servers = {
   -- pyright = {},
   -- rust_analyzer = {},
   tsserver = { 'typescript', 'tsx', 'typescriptreact' },
-  html = { filetypes = { 'html', 'twig', 'hbs', 'php', 'css' } }, -- tijdelijk astro hieruit gehaald
+  html = { filetypes = { 'html', 'twig', 'hbs', 'php' } }, -- tijdelijk astro, css hieruit gehaald
   lua_ls = {
     Lua = {
       workspace = { checkThirdParty = false },

@@ -6,9 +6,9 @@ return {
   'neovim/nvim-lspconfig',
   config = function()
     -- Switch for controlling whether you want autoformatting.
-    --  Use :KickstartFormatToggle to toggle autoformatting on or off
+    --  Use :ToggleFormat to toggle autoformatting on or off
     local format_is_enabled = true
-    vim.api.nvim_create_user_command('KickstartFormatToggle', function()
+    vim.api.nvim_create_user_command('ToggleFormat', function()
       format_is_enabled = not format_is_enabled
       print('Setting autoformatting to: ' .. tostring(format_is_enabled))
     end, {})
@@ -54,13 +54,13 @@ return {
           buffer = bufnr,
           callback = function()
             if not format_is_enabled then
+              print('not format enabled! asdf')
               return
             end
-
+            print('ola! beginnen met formatten voordat we gaan opslaan? asdf')
             vim.lsp.buf.format {
-              -- async = true, -- TODO: dit was true, standaard waarde en nut hiervan achterhalen
-              async = false,
-              --              timeout_ms = 10000,
+              async = true,
+              timeout_ms = 1000,
               filter = function(c)
                 return c.id == client.id
               end,
@@ -71,44 +71,3 @@ return {
     })
   end,
 }
-
--- TODO: stuff below needs te be implemented somewhere
-
--- local lsp = require('lsp-zero').preset({})
---
--- -- .ensure_installed() will be removed. Use the module mason-lspconfig to install LSP servers
--- -- TODO: refactor into Mason code
--- lsp.ensure_installed({
--- 	'tsserver',
--- 	'eslint',
--- 	'rust_analyzer',
--- 	-- 'stylelint'
--- })
---
---
--- lsp.on_attach(function(client, bufnr)
--- 	print('lsp.on_attach loaded')
--- 	-- :help lsp-zero-keybindings
--- 	lsp.default_keymaps({ buffer = bufnr })
--- end)
---
--- require('lspconfig').lua_ls.setup(lsp.nvim_lua_ls())
---
--- lsp.format_on_save({
--- 	format_opts = {
--- 		async = false,
--- 		timeout_ms = 10000,
--- 	},
--- 	servers = {
--- 		['lua_ls'] = { 'lua' },
--- 		['rust_analyzer'] = { 'rust' },
--- 		['astro-language-server'] = { 'astro' },
--- 		['vue-language-server'] = { 'vue' },
--- 	['typescript-language-server'] = { 'typescript', 'tsx', 'typescriptreact' }, -- TODO: seems to work... not fully though
--- 		['eslint-lsp'] = { 'typescript', 'tsx', 'typescriptreact' }, -- TODO: is (mostly?) ignored
--- 		['prettier'] = { 'typescript', 'tsx', 'typescriptreact', 'html', 'css' }, -- TODO: is (mostly?) ignored
--- 		['stylelint-lsp'] = { 'css' } -- TODO: doesnt seem to work
--- 	}
--- })
---
--- lsp.setup() -- .setup() will be removed -- TODO: what will be the replacement?
