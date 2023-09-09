@@ -9,8 +9,10 @@ km.set({ 'n', 'v' }, '<Space>', '<Nop>', { silent = true })
 km.set('n', 'k', "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = true, desc = 'deal with word wrap' })
 km.set('n', 'j', "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = true, desc = 'deal with word wrap' })
 
-km.set("v", "J", ":m '<+1<CR>gv=gv", { desc = "[L] selected line (down)" }) -- TODO: needs refining, only does 1 line
-km.set("v", "K", ":m '>-2<CR>gv=gv", { desc = "[K] selected line (up)" })   -- TODO: needs refining, only does 1 line
+km.set('n', '<A-j>', "V:m '<+1<CR>gv=gv");
+km.set("v", "<A-j>", ":m '<+1<CR>gv=gv", { desc = "[L] selected line (down)" }) -- TODO: needs refining, only does 1 line
+km.set('n', '<A-k>', "V:m '>-2<CR>gv=gv")
+km.set("v", "<A-k>", ":m '>-2<CR>gv=gv", { desc = "[K] selected line (up)" })   -- TODO: needs refining, only does 1 line
 
 km.set('v', '<leader>cd', 'yp<CR>gv=gv', { desc = "duplicate selected line and keep new in selected visual mode" })
 

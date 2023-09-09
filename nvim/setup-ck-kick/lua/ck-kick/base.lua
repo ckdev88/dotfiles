@@ -6,8 +6,8 @@ vo.encoding = 'utf-8'
 vo.fileencoding = 'utf-8'
 
 vo.smartindent = false -- default: false
-vo.cindent = false     -- default: false
-vo.autoindent = true   -- default: true
+vo.cindent = true     -- default: false
+vo.autoindent = false   -- default: true
 vo.tabstop = 4         --default: 8
 -- vo.expandtab = true
 
