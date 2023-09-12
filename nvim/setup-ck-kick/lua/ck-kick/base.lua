@@ -5,11 +5,11 @@ vim.scriptencoding = 'utf-8'
 vo.encoding = 'utf-8'
 vo.fileencoding = 'utf-8'
 
-vo.smartindent = true -- default: false
-vo.cindent = true     -- default: false
-vo.autoindent = true  -- default: true
-vo.tabstop = 4        -- default: 8
-vo.expandtab = true   -- default: false
+-- vo.smartindent = true -- default: false
+-- vo.cindent = true     -- default: false
+-- vo.autoindent = true  -- default: true
+-- vo.tabstop = 4        -- default: 8
+-- vo.expandtab = true   -- default: false
 
 -- vo.autoindent = true
 --vo.expandtab = true

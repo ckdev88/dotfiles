@@ -15,7 +15,7 @@ km.set('v', '<A-k>', ":m '>-2<CR>gv=gv", { desc = 'Move current line up by 1' })
 
 -- ----------------------------------------------
 -- prettier , nagaan of configs in nvim nodig zijn, of een enkele npm install -g prettier voldoende is, die kan overschrijven op projectniveau
-km.set('n', '<leader>fp', ':! prettier --write %', { expr = true, silent = true, desc = '[F]ormat with [P]rettier]' })
+km.set('n', '<leader>fp', ':! prettier --write %<CR>', { silent = true, desc = '[F]ormat with [P]rettier]' })
 -- ----------------------------------------------
 
 
