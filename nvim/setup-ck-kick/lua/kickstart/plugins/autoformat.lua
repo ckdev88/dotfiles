@@ -50,18 +50,21 @@ return {
         -- Create an autocmd that will run *before* we save the buffer.
         --  Run the formatting command for the LSP that has just attached.
         vim.api.nvim_create_autocmd('BufWritePre', {
+          print('BufWritePre starting .. asdf'),
           group = get_augroup(client),
           buffer = bufnr,
           callback = function()
             if not format_is_enabled then
-              print('not format enabled! asdf')
+              print('not format_is_enabled ...  asdf')
               return
             end
             print('ola! beginnen met formatten voordat we gaan opslaan? asdf')
+
             vim.lsp.buf.format {
-              async = true,
-              timeout_ms = 1000,
-              filter = function(c)
+              async = false,
+              timeout_ms = 2000,
+
+              filter = function(c) -- TODO: somehow the c's are taken out of source code?
                 return c.id == client.id
               end,
             }

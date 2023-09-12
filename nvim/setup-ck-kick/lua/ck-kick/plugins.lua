@@ -170,6 +170,7 @@ vim.api.nvim_create_autocmd('TextYankPost', {
 -- Telescope -- See `:help telescope` and `:help telescope.setup()`
 require('telescope').setup {
   defaults = {
+    layout_config = { width = .99 },
     mappings = {
       i = {
         ['<C-u>'] = false,
@@ -187,13 +188,12 @@ pcall(require('telescope').load_extension, 'fzf')
 -- See `:help nvim-treesitter`
 require('nvim-treesitter.configs').setup {
   -- Add languages to be installed here that you want installed for treesitter
-  ensure_installed = { 'c', 'cpp', 'css', 'go', 'lua', 'python', 'rust', 'tsx', 'typescript',
-    'vimdoc', 'vim' }, -- tijdelijk astro hieruit gehaald, om te kijken of deze sommige keren de opmaak sloopt
+  ensure_installed = { 'c', 'cpp', 'go', 'lua', 'python', 'rust', 'tsx', 'javascript', 'typescript',
+    'vimdoc',
+    'vim' }, -- tijdelijk astro hieruit gehaald, om te kijken of deze sommige keren de opmaak sloopt
   -- tijdelijk ook css hieruit gehaald, suckt namelijk behoorlijk hard als iedere keer de tabs verdwijnen, niet zeker of het hierdoor komt
 
-  -- Autoinstall languages that are not installed. Defaults to false (but you can change for yourself!)
-  auto_install = true,
-
+  auto_install = true, -- default: false, (auto installs languages)
   highlight = { enable = true },
   indent = { enable = true },
   incremental_selection = {
@@ -269,7 +269,7 @@ local on_attach = function(_, bufnr)
 
   nmap('gd', vim.lsp.buf.definition, '[G]oto [D]efinition')
   nmap('gr', require('telescope.builtin').lsp_references, '[G]oto [R]eferences')
-  nmap('gI', vim.lsp.buf.implementation, '[G]oto [I]mplementation')
+  nmap('gI', require('telescope.builtin').lsp_implementations, '[G]oto [I]mplementation')
   nmap('<leader>D', vim.lsp.buf.type_definition, 'Type [D]efinition')
   nmap('<leader>ds', require('telescope.builtin').lsp_document_symbols, '[D]ocument [S]ymbols')
   nmap('<leader>ws', require('telescope.builtin').lsp_dynamic_workspace_symbols, '[W]orkspace [S]ymbols')
@@ -341,43 +341,7 @@ local servers = {
     },
   },
   eslint = { 'typescript', 'tsx', 'typescriptreact' }, -- TODO: is (mostly?) ignored
-  -- prettier = { 'typescript', 'tsx', 'typescriptreact', 'html', 'css' }, -- TODO: is (mostly?) ignored
-  stylelint_lsp = { filetypes = { 'css' } },
 }
--- local status, prettier = pcall(require, "prettier")
--- if (not status) then return end
---
--- prettier.setup {
---   bin = 'prettierd',
---   filetypes = {
---     "css",
---     "javascript",
---     "javascriptreact",
---     "typescript",
---     "typescriptreact",
---     "json",
---     "scss",
---     "less"
---   }
--- }
--- lsp.format_on_save({
--- 	format_opts = {
--- 		async = false,
--- 		timeout_ms = 10000,
--- 	},
--- 	servers = {
--- 		['lua_ls'] = { 'lua' },
--- 		['rust_analyzer'] = { 'rust' },
--- 		['astro-language-server'] = { 'astro' },
--- 		['vue-language-server'] = { 'vue' },
--- 	['typescript-language-server'] = { 'typescript', 'tsx', 'typescriptreact' }, -- TODO: seems to work... not fully though
--- 		['eslint-lsp'] = { 'typescript', 'tsx', 'typescriptreact' }, -- TODO: is (mostly?) ignored
--- 		['prettier'] = { 'typescript', 'tsx', 'typescriptreact', 'html', 'css' }, -- TODO: is (mostly?) ignored
--- 		['stylelint-lsp'] = { 'css' } -- TODO: doesnt seem to work
--- 	}
--- })
---
-
 -- Setup neovim lua configuration
 require('neodev').setup()
 
