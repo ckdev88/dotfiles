@@ -157,15 +157,6 @@ require('lazy').setup({
 -- See `:help vim.keymap.set()`
 km.set({ 'n', 'v' }, '<Space>', '<Nop>', { silent = true })
 
--- Highlight on yank - See `:help vim.highlight.on_yank()`
-local highlight_group = vim.api.nvim_create_augroup('YankHighlight', { clear = true })
-vim.api.nvim_create_autocmd('TextYankPost', {
-  callback = function()
-    vim.highlight.on_yank()
-  end,
-  group = highlight_group,
-  pattern = '*',
-})
 
 -- Telescope -- See `:help telescope` and `:help telescope.setup()`
 require('telescope').setup {
@@ -188,10 +179,7 @@ pcall(require('telescope').load_extension, 'fzf')
 -- See `:help nvim-treesitter`
 require('nvim-treesitter.configs').setup {
   -- Add languages to be installed here that you want installed for treesitter
-  ensure_installed = { 'c', 'cpp', 'go', 'lua', 'python', 'rust', 'tsx', 'javascript', 'typescript',
-    'vimdoc',
-    'vim' }, -- tijdelijk astro hieruit gehaald, om te kijken of deze sommige keren de opmaak sloopt
-  -- tijdelijk ook css hieruit gehaald, suckt namelijk behoorlijk hard als iedere keer de tabs verdwijnen, niet zeker of het hierdoor komt
+  ensure_installed = { 'c', 'cpp', 'go', 'lua', 'python', 'rust', 'tsx', 'javascript', 'typescript', 'vimdoc', 'vim' },
 
   auto_install = true, -- default: false, (auto installs languages)
   highlight = { enable = true },
