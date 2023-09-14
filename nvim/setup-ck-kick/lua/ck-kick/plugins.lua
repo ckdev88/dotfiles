@@ -321,7 +321,7 @@ local servers = {
   -- pyright = {},
   -- rust_analyzer = {},
   tsserver = { 'typescript', 'tsx', 'typescriptreact' },
-  html = { filetypes = { 'html', 'twig', 'hbs', 'php' } }, -- tijdelijk astro, css hieruit gehaald
+  html = { filetypes = { 'html', 'twig', 'hbs', 'php' } },
   lua_ls = {
     Lua = {
       workspace = { checkThirdParty = false },
