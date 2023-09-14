@@ -25,7 +25,7 @@ vo.fileencoding = 'utf-8'
 
 vo.number = false -- default: true
 -- vo.relativenumber = true -- default:false
-vo.scrolloff = 20
+vo.scrolloff = 15
 vo.showcmd = true
 vo.cmdheight = 1
 vo.laststatus = 2
@@ -37,10 +37,11 @@ vo.wildignore:append { '*/node_modules/*' }
 vo.guicursor = ''
 vo.cursorline = false; -- default:false
 vo.undofile = true
+vo.ignorecase = true   -- case-insensitive searching unless \C or capital in search
+vo.smartcase = true    -- case-insensitive searching unless \C or capital in search
+vo.breakindent = true  -- default:false
 
-vo.ignorecase = true -- case-insensitive searching unless \C or capital in search
-vo.smartcase = true  -- case-insensitive searching unless \C or capital in search
-
+--
 -- decrease update time
 vo.updatetime = 250
 vo.timeoutlen = 300
