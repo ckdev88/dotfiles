@@ -41,10 +41,10 @@ km.set('n', 'U', ':redo<Return>', { desc = '[U]ndo the [u]ndo' })
 km.set('n', '<C-a>', 'gg<S-v>G', { desc = '[A]ll select uniform, toggle' })
 
 -- Neotree
-km.set({ 'n', 'v', 'i' }, '<C-e>', ':Neotree toggle=true position=right<Return>',
-	{ desc = '[e]xplore file tree with Neotree' })
-km.set({ 'n', 'v', 'i' }, '<C-b>', ':Neotree toggle=true position=right source=buffers<Return>',
-	{ desc = 'Explore [b]uffers with Neotree' })
+km.set({ 'n', 'v', 'i' }, '<C-e>', ':Neotree toggle=true position=right<CR>',
+	{ silent = true, desc = '[e]xplore file tree with Neotree' })
+km.set({ 'n', 'v', 'i' }, '<C-b>', ':Neotree toggle=true position=right source=buffers<CR>',
+	{ silent = true, desc = 'Explore [b]uffers with Neotree' })
 
 -- experiment, switch naar vorige, meest recente buffer
 km.set('n', '<A-[>', ':brewind<Return>', { silent = true, desc = 'Switch to previous buffer ([Tab])' }) -- TODO: turn these two into a toggle
