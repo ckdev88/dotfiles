@@ -35,11 +35,11 @@ vo.termguicolors = true
 vo.wildignore:append { '*/node_modules/*' }
 
 vo.guicursor = ''
-vo.cursorline = false; -- default:false
+vo.cursorline = true; -- default:false
 vo.undofile = true
-vo.ignorecase = true   -- case-insensitive searching unless \C or capital in search
-vo.smartcase = true    -- case-insensitive searching unless \C or capital in search
-vo.breakindent = true  -- default:false
+vo.ignorecase = true  -- case-insensitive searching unless \C or capital in search
+vo.smartcase = true   -- case-insensitive searching unless \C or capital in search
+vo.breakindent = true -- default:false
 
 --
 -- decrease update time
