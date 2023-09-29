@@ -1,8 +1,0 @@
-#!/bin/sh
-# placed in /usr/bin/
-sleep 2
-pgrep -f geoclue | awk '{print "kill -9 " $1}' | sh
-pgrep -f blueman-applet | awk '{print "kill -9 " $1}' | sh
-pgrep -f kaccess | awk '{print "kill -9 " $1}' | sh
-
-
