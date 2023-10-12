@@ -28,9 +28,9 @@ vo.breakindent = true               -- default:false
 
 vo.signcolumn = 'yes'               -- keep signcolumn on by default (yes good? no true?)
 vo.completeopt = 'menuone,noselect' -- better completion
--- vo.hlsearch = true                  -- highlight on search
+vo.hlsearch = true                  -- highlight on search
 
-vo.mouse = 'a' -- Enable mouse mode
+vo.mouse = 'a'                      -- Enable mouse mode
 
 -- Set completeopt to have a better completion experience
 vo.completeopt = 'menuone,noselect'

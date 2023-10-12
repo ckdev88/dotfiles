@@ -42,8 +42,16 @@ require('lazy').setup({
 		},
 	},
 
-	-- Useful plugin to show pending keybinds.
-	{ 'folke/which-key.nvim',  opts = {} },
+	{
+		-- Create key bindings that stick. WhichKey is a lua plugin for Neovim 0.5 that displays a popup with possible keybindings of the command you started typing.
+		'folke/which-key.nvim',
+		event = "VeryLazy",
+		init = function()
+			vim.o.timeout = true
+			vim.o.timeoutlen = 300
+		end,
+		opts = {}
+	},
 	{
 		-- Adds git related signs to the gutter, as well as utilities for managing changes
 		'lewis6991/gitsigns.nvim',
@@ -69,21 +77,20 @@ require('lazy').setup({
 		'nvim-lualine/lualine.nvim',
 		opts = {
 			options = {
-				icons_enabled = true,
-				component_separators = '|',
+				component_separators = '',
 				section_separators = '',
 				path = 1,
 				shorting_target = 70,
-				file_status = false,
 			},
 			sections = {
 				lualine_a = {
-					{ 'mode', fmt = function(res) return res:sub(1, 3) end } },
+					{ 'mode', fmt = function(res) return res:sub(1, 3) end } -- only use first 3 letters of modes, ex: NORMAL -> NOR, INSERT -> INS, etc.
+				},
 			},
 		},
 	},
 
-	{ 'numToStr/Comment.nvim', opts = {} }, -- "gc" to comment visual regions/lines
+	{ 'numToStr/Comment.nvim', opts = {}, lazy = false }, -- "gc" to comment visual regions/lines
 
 	{
 		'nvim-telescope/telescope.nvim',
@@ -109,29 +116,21 @@ require('lazy').setup({
 			build = ':TSUpdate',
 		},
 
-		-- NOTE: Next Step on Your Neovim Journey: Add/Configure additional "plugins" for kickstart
-		--       These are some example plugins that I've included in the kickstart repository.
-		--       Uncomment any of the lines below to enable them.
 		require 'kickstart.plugins.autoformat',
-		-- require 'kickstart.plugins.debug',
+		require 'kickstart.plugins.debug',
 
+		{ 'nvim-tree/nvim-web-devicons', event = "VeryLazy" },
 		{
 			"nvim-neo-tree/neo-tree.nvim",
 			branch = "v3.x",
 			dependencies = {
 				"nvim-lua/plenary.nvim",
-				"nvim-tree/nvim-web-devicons", -- not strictly required, but recommended
+				-- "nvim-tree/nvim-web-devicons", -- commented because already lazy loaded via nvim-tree/nvim-web-devicons
 				"MunifTanjim/nui.nvim",
 			}
 		},
-		-- NOTE: The import below can automatically add your own plugins, configuration, etc from `lua/custom/plugins/*.lua`
-		--    You can use this folder to prevent any conflicts with this init.lua if you're interested in keeping
-		--    up-to-date with whatever is in the kickstart repo.
-		--    Uncomment the following line and add your plugins to `lua/custom/plugins/*.lua` to get going.
-		--
-		--    For additional information see: https://github.com/folke/lazy.nvim#-structuring-your-plugins
-		-- { import = 'custom.plugins' },
-	}, })
+	},
+})
 
 -- Keymaps for better default experience
 -- See `:help vim.keymap.set()`
@@ -153,9 +152,8 @@ pcall(require('telescope').load_extension, 'fzf') -- Enable telescope fzf native
 
 -- See `:help nvim-treesitter`
 require('nvim-treesitter.configs').setup {
-	ensure_installed = { 'c', 'cpp', 'go', 'lua', 'python', 'rust', 'tsx', 'javascript', 'typescript', 'vimdoc', 'vim' }, -- Add languages to be installed here that you want installed for treesitter
-
-
+	ensure_installed = { 'c', 'cpp', 'go', 'lua', 'python', 'rust', 'tsx', 'javascript', 'typescript', 'vimdoc', 'vim',
+		'vue' },
 	auto_install = true, -- default: false, (auto installs languages)
 	highlight = { enable = true },
 	indent = { enable = true },
@@ -261,17 +259,17 @@ km.set('n', '<leader>/', function()
 	})
 end, { desc = '[/] Fuzzily search in current buffer' })
 
-km.set('n', '<leader>sr', bi.oldfiles, { desc = '[S]earch [R]ecently opened files' })
-km.set('n', '<leader>sb', bi.buffers, { desc = '[S]earch current [B]uffers' })
+km.set('n', '<leader>tr', bi.oldfiles, { desc = '[R]ecently opened' })
+km.set('n', '<leader>tb', bi.buffers, { desc = '[B]uffers' })
 
-km.set('n', '<leader>sf', bi.find_files, { desc = '[S]earch [F]iles' })
-km.set('n', '<leader>sh', bi.help_tags, { desc = '[S]earch [H]elp' })
-km.set('n', '<leader>sw', bi.grep_string, { desc = '[S]earch current [W]ord' })
-km.set('n', '<leader>sg', bi.live_grep, { desc = '[S]earch [G]rep' })
-km.set('n', '<leader>sd', bi.diagnostics, { desc = '[S]earch [D]iagnostics' })
-km.set('n', '<leader>gf', bi.git_files, { desc = 'Search [G]it [F]iles' })
+km.set('n', '<leader>tf', bi.find_files, { desc = '[F]iles' })
+km.set('n', '<leader>th', bi.help_tags, { desc = '[H]elps' })
+km.set('n', '<leader>tw', bi.grep_string, { desc = 'current [W]ords' })
+km.set('n', '<leader>tgr', bi.live_grep, { desc = '[G]reps' })
+km.set('n', '<leader>td', bi.diagnostics, { desc = '[D]iagnostics' })
+km.set('n', '<leader>tgf', bi.git_files, { desc = '[G]it [F]iles' })
 
-km.set('n', '<leader>sm', ':Telescope keymaps<Return>', { desc = '[S]how [M]aps' })
+km.set('n', '<leader>tm', ':Telescope keymaps<Return>', { desc = '[M]aps' })
 
 -- Diagnostic keymaps
 km.set('n', '[d', vim.diagnostic.goto_prev, { desc = 'Go to previous diagnostic message' })
