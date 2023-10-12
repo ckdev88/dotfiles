@@ -50,6 +50,8 @@ km.set({ 'n', 'v', 'i' }, '<C-b>', ':Neotree toggle=true position=right source=b
 km.set('n', '<A-[>', ':brewind<Return>', { silent = true, desc = 'Switch to previous buffer ([Tab])' }) -- TODO: turn these two into a toggle
 km.set('n', '<A-]>', ':blast<Return>', { silent = true, desc = 'Switch to last buffer ([Tab])' })       -- TODO: turn these two into a toggle
 
+-- Symbols-outline
+km.set('n', '<C-s>', ':SymbolsOutline<Return>', { desc = 'SymbolsOutline toggle' })
 
 -- for tabs, see :help :tab and/or press <C-w>
 -- See `:help vim.o`
