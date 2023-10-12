@@ -134,7 +134,7 @@ require('lazy').setup({
 	{
 		'simrat39/symbols-outline.nvim',
 		opts = {
-			auto_preview = true -- would use if weren't so slow to load
+			-- auto_preview = true -- would use if weren't so slow to load
 		},
 		-- event = 'VeryLazy'
 	}
