@@ -14,20 +14,20 @@ vim.opt.rtp:prepend(lazypath)
 
 require('lazy').setup({
 	-- Git related plugins
-	'tpope/vim-fugitive',
+	'tpope/vim-fugitive', -- /tpope/vim-fugitive, also see :Git difftool
 	'tpope/vim-rhubarb',
-	'tpope/vim-sleuth', -- Detect tabstop and shiftwidth automatically
+	-- 'tpope/vim-sleuth', -- Detect tabstop and shiftwidth automatically, idk if this is actually useful
 
 	{
 		-- LSP Configuration & Plugins
 		'neovim/nvim-lspconfig',
 		dependencies = {
 			-- Automatically install LSPs to stdpath for neovim
-			{ 'williamboman/mason.nvim', config = true,  opts = { ensure_installed = { "html-lsp", "prettier" } } },
+			{ 'williamboman/mason.nvim', config = true, opts = { ensure_installed = { "html-lsp", "prettier" } } },
 			'williamboman/mason-lspconfig.nvim',
 			-- Useful status updates for LSP
 			-- NOTE: `opts = {}` is the same as calling `require('fidget').setup({})`
-			{ 'j-hui/fidget.nvim',       tag = 'legacy', opts = {} },
+			-- { 'j-hui/fidget.nvim',       tag = 'legacy', opts = {} }, -- not sure if this is actually that helpful, keep it lean..
 			'folke/neodev.nvim', -- Additional lua configuration, makes nvim stuff amazing!
 		},
 	},

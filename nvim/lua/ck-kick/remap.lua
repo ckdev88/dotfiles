@@ -8,8 +8,8 @@ km.set({ 'n', 'v' }, '<Space>', '<Nop>', { silent = true })
 km.set('n', 'k', 'v:count == 0 ? "gk" : "k"', { expr = true, silent = true, desc = 'deal with word wrap' })
 km.set('n', 'j', 'v:count == 0 ? "gj" : "j"', { expr = true, silent = true, desc = 'deal with word wrap' })
 
-km.set('n', '<A-j>', "V:m '<+1<CR>gv=gv", { desc = 'Switch to visiual mode and move current line down by 1' })
-km.set('n', '<A-k>', "V:m '>-2<CR>gv=gv", { desc = 'Switch to visiual mode and move current line up by 1' })
+km.set('n', '<A-j>', "V:m '<+1<CR>gv=gv", { desc = 'Switch to visual mode and move current line down by 1' })
+km.set('n', '<A-k>', "V:m '>-2<CR>gv=gv", { desc = 'Switch to visual mode and move current line up by 1' })
 km.set('v', '<A-j>', ":m '<+1<CR>gv=gv", { desc = 'Move current line down by 1' }) -- TODO: needs refining, only does 1 line, should do all of selected
 km.set('v', '<A-k>', ":m '>-2<CR>gv=gv", { desc = 'Move current line up by 1' })   -- TODO: needs refining, only does 1 line, shoudl do all of selected
 
