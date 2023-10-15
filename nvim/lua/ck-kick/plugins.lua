@@ -23,7 +23,11 @@ require('lazy').setup({
 		'neovim/nvim-lspconfig',
 		dependencies = {
 			-- Automatically install LSPs to stdpath for neovim
-			{ 'williamboman/mason.nvim', config = true, opts = { ensure_installed = { "html-lsp", "prettier" } } },
+			{
+				'williamboman/mason.nvim',
+				config = true,
+				opts = { ensure_installed = { 'html-lsp', 'prettier' } }
+			},
 			'williamboman/mason-lspconfig.nvim',
 			-- Useful status updates for LSP
 			-- NOTE: `opts = {}` is the same as calling `require('fidget').setup({})`
@@ -45,7 +49,7 @@ require('lazy').setup({
 	{
 		-- Create key bindings that stick. WhichKey is a lua plugin for Neovim 0.5 that displays a popup with possible keybindings of the command you started typing.
 		'folke/which-key.nvim',
-		event = "VeryLazy",
+		event = 'VeryLazy',
 		init = function()
 			vim.o.timeout = true
 			vim.o.timeoutlen = 300
@@ -67,8 +71,10 @@ require('lazy').setup({
 			on_attach = function(bufnr)
 				km.set('n', '<leader>gp', require('gitsigns').prev_hunk,
 					{ buffer = bufnr, desc = '[G]o to [P]revious Hunk' })
-				km.set('n', '<leader>gn', require('gitsigns').next_hunk, { buffer = bufnr, desc = '[G]o to [N]ext Hunk' })
-				km.set('n', '<leader>ph', require('gitsigns').preview_hunk, { buffer = bufnr, desc = '[P]review [H]unk' })
+				km.set('n', '<leader>gn', require('gitsigns').next_hunk,
+					{ buffer = bufnr, desc = '[G]o to [N]ext Hunk' })
+				km.set('n', '<leader>ph', require('gitsigns').preview_hunk,
+					{ buffer = bufnr, desc = '[P]review [H]unk' })
 			end,
 		},
 	},
@@ -90,7 +96,7 @@ require('lazy').setup({
 		},
 	},
 
-	{ 'numToStr/Comment.nvim', opts = {}, lazy = false }, -- "gc" to comment visual regions/lines
+	{ 'numToStr/Comment.nvim', opts = {}, lazy = false }, -- 'gc' to comment visual regions/lines
 
 	{
 		'nvim-telescope/telescope.nvim',
@@ -119,14 +125,14 @@ require('lazy').setup({
 		require 'kickstart.plugins.autoformat',
 		require 'kickstart.plugins.debug',
 
-		{ 'nvim-tree/nvim-web-devicons', event = "VeryLazy" },
+		{ 'nvim-tree/nvim-web-devicons', event = 'VeryLazy' },
 		{
-			"nvim-neo-tree/neo-tree.nvim",
-			branch = "v3.x",
+			'nvim-neo-tree/neo-tree.nvim',
+			branch = 'v3.x',
 			dependencies = {
-				"nvim-lua/plenary.nvim",
-				-- "nvim-tree/nvim-web-devicons", -- commented because already lazy loaded via nvim-tree/nvim-web-devicons
-				"MunifTanjim/nui.nvim",
+				'nvim-lua/plenary.nvim',
+				-- 'nvim-tree/nvim-web-devicons', -- commented because already lazy loaded via nvim-tree/nvim-web-devicons
+				'MunifTanjim/nui.nvim',
 			}
 		},
 	},
@@ -137,13 +143,19 @@ require('lazy').setup({
 			-- auto_preview = true -- would use if weren't so slow to load
 		},
 		-- event = 'VeryLazy'
-	}
+	},
 
+	{
+		'kylechui/nvim-surround',
+		opts = {},
+		event = 'VeryLazy'
+	}
 })
 
 -- Keymaps for better default experience
 -- See `:help vim.keymap.set()`
 --
+-- [[ Configure nvim-cmp ]] -- See `:help cmp`
 require('telescope').setup { -- Telescope -- See `:help telescope` and `:help telescope.setup()`
 	defaults = {
 		layout_config = { width = .99 },
@@ -161,7 +173,8 @@ pcall(require('telescope').load_extension, 'fzf') -- Enable telescope fzf native
 
 -- See `:help nvim-treesitter`
 require('nvim-treesitter.configs').setup {
-	ensure_installed = { 'c', 'cpp', 'go', 'lua', 'python', 'rust', 'tsx', 'javascript', 'typescript', 'vimdoc', 'vim',
+	ensure_installed = { 'c', 'cpp', 'go', 'lua', 'python', 'rust', 'tsx', 'javascript', 'typescript', 'vimdoc',
+		'vim',
 		'vue' },
 	auto_install = true, -- default: false, (auto installs languages)
 	highlight = { enable = true },
@@ -287,20 +300,14 @@ km.set('n', '<leader>e', vim.diagnostic.open_float, { desc = 'Open floating diag
 km.set('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Open diagnostics list' })
 
 -- Enable the following language servers
---  Feel free to add/remove any LSPs that you want here. They will automatically be installed.
+--  add/remove any LSPs. They will automatically be installed.
 --
 --  Add any additional override configuration in the following tables. They will be passed to
---  the `settings` field of the server config. You must look up that documentation yourself.
+--  the `settings` field of the server config.
 --
---  If you want to override the default filetypes that your language server will attach to you can
---  If you want to override the default filetypes that your language server will attach to you can
---  define the property 'filetypes' to the map in question.
+--  override default filetypes your language server will attach to, define property 'filetypes' to the map in question.
 local servers = {
-	-- clangd = {},
-	-- gopls = {},
-	-- pyright = {},
-	-- rust_analyzer = {},
-	tsserver = { 'typescript', 'tsx', 'typescriptreact' },
+	-- tsserver = { 'typescript', 'tsx', 'typescriptreact' },
 	html = { filetypes = { 'html', 'twig', 'hbs', 'php' } },
 	lua_ls = {
 		Lua = {
@@ -308,7 +315,7 @@ local servers = {
 			telemetry = { enable = false },
 		},
 	},
-	eslint = { 'typescript', 'tsx', 'typescriptreact' }, -- TODO: is (mostly?) ignored
+	--	eslint = { 'typescript', 'tsx', 'typescriptreact' }, -- TODO: is (mostly?) ignored
 }
 -- Setup neovim lua configuration
 require('neodev').setup()
@@ -335,7 +342,6 @@ mason_lspconfig.setup_handlers {
 	end
 }
 
--- [[ Configure nvim-cmp ]] -- See `:help cmp`
 local cmp = require 'cmp'
 local luasnip = require 'luasnip'
 require('luasnip.loaders.from_vscode').lazy_load()

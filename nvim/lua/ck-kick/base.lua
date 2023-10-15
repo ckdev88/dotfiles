@@ -9,7 +9,7 @@ vo.expandtab = true -- default: false
 vo.expandtab = true
 vo.shiftwidth = 4
 
-vo.number = false -- default: true
+vo.number = true
 vo.scrolloff = 15
 vo.showcmd = true
 vo.cmdheight = 1
