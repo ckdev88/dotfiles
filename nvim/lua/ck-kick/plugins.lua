@@ -96,7 +96,7 @@ require('lazy').setup({
 		},
 	},
 
-	{ 'numToStr/Comment.nvim',       opts = {},         lazy = false }, -- 'gc' to comment visual regions/lines
+	{ 'numToStr/Comment.nvim',         opts = {}, lazy = false }, -- 'gc' to comment visual regions/lines
 
 	{
 		'nvim-telescope/telescope.nvim',
@@ -137,13 +137,7 @@ require('lazy').setup({
 		},
 	},
 
-	{
-		'simrat39/symbols-outline.nvim',
-		opts = {
-			-- auto_preview = true -- would use if weren't so slow to load
-		},
-		-- event = 'VeryLazy'
-	},
+	{ 'simrat39/symbols-outline.nvim', opts = {}, },
 
 	{
 		'kylechui/nvim-surround',
@@ -151,16 +145,19 @@ require('lazy').setup({
 		event = 'VeryLazy'
 	},
 
-	{ 'norcalli/nvim-colorizer.lua', event = 'VeryLazy' }
+	{ 'NvChad/nvim-colorizer.lua', event = 'VeryLazy' }
 
 })
 
-require('colorizer').setup({
-	css = {
+require('colorizer').setup {
+	filetypes = { 'css', 'html' },
+	user_default_options = {
 		css = true,
-		css_fn = true
-	}
-})
+		css_fn = true,
+		tailwind = true,
+		sass = { enable = true, parsers = { "css" }, },
+	},
+}
 
 -- Keymaps for better default experience
 -- See `:help vim.keymap.set()`
