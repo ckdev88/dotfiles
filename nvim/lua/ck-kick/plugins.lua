@@ -26,13 +26,13 @@ require('lazy').setup({
 			{
 				'williamboman/mason.nvim',
 				config = true,
-				opts = { ensure_installed = { 'html-lsp', 'prettier' } }
+				opts = { ensure_installed = { 'html-lsp', 'prettier', 'tsserver' } }
 			},
 			'williamboman/mason-lspconfig.nvim',
 			-- Useful status updates for LSP
 			-- NOTE: `opts = {}` is the same as calling `require('fidget').setup({})`
-			-- { 'j-hui/fidget.nvim',       tag = 'legacy', opts = {} }, -- not sure if this is actually that helpful, keep it lean..
-			'folke/neodev.nvim', -- Additional lua configuration, makes nvim stuff amazing!
+			{ 'j-hui/fidget.nvim', tag = 'legacy', opts = {} }, -- not sure if this is actually that helpful, keep it lean..
+			'folke/neodev.nvim',                       -- Additional lua configuration, makes nvim stuff amazing!
 		},
 	},
 
@@ -173,7 +173,7 @@ pcall(require('telescope').load_extension, 'fzf') -- Enable telescope fzf native
 
 -- See `:help nvim-treesitter`
 require('nvim-treesitter.configs').setup {
-	ensure_installed = { 'c', 'cpp', 'go', 'lua', 'python', 'rust', 'tsx', 'javascript', 'typescript', 'vimdoc',
+	ensure_installed = { 'c', 'cpp', 'go', 'lua', 'python', 'rust', 'tsx', 'javascript', 'jsdoc', 'typescript', 'vimdoc',
 		'vim',
 		'vue' },
 	auto_install = true, -- default: false, (auto installs languages)
@@ -307,15 +307,15 @@ km.set('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Open diagnostics l
 --
 --  override default filetypes your language server will attach to, define property 'filetypes' to the map in question.
 local servers = {
-	-- tsserver = { 'typescript', 'tsx', 'typescriptreact' },
-	html = { filetypes = { 'html', 'twig', 'hbs', 'php' } },
+	-- tsserver = { 'typescript', 'tsx', 'typescriptreact', 'jsdoc' },
+	-- html = { filetypes = { 'html', 'twig', 'hbs', 'php' } },
 	lua_ls = {
 		Lua = {
 			workspace = { checkThirdParty = false },
 			telemetry = { enable = false },
 		},
 	},
-	--	eslint = { 'typescript', 'tsx', 'typescriptreact' }, -- TODO: is (mostly?) ignored
+	-- --	eslint = { 'typescript', 'tsx', 'typescriptreact' }, -- TODO: is (mostly?) ignored
 }
 -- Setup neovim lua configuration
 require('neodev').setup()
