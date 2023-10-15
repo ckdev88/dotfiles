@@ -96,7 +96,7 @@ require('lazy').setup({
 		},
 	},
 
-	{ 'numToStr/Comment.nvim', opts = {}, lazy = false }, -- 'gc' to comment visual regions/lines
+	{ 'numToStr/Comment.nvim',       opts = {},         lazy = false }, -- 'gc' to comment visual regions/lines
 
 	{
 		'nvim-telescope/telescope.nvim',
@@ -149,6 +149,16 @@ require('lazy').setup({
 		'kylechui/nvim-surround',
 		opts = {},
 		event = 'VeryLazy'
+	},
+
+	{ 'norcalli/nvim-colorizer.lua', event = 'VeryLazy' }
+
+})
+
+require('colorizer').setup({
+	css = {
+		css = true,
+		css_fn = true
 	}
 })
 
