@@ -150,7 +150,7 @@ require('lazy').setup({
 })
 
 require('colorizer').setup {
-	filetypes = { 'css', 'html' },
+	filetypes = { 'css', 'html', 'tsx' },
 	user_default_options = {
 		css = true,
 		css_fn = true,
@@ -352,6 +352,8 @@ mason_lspconfig.setup_handlers {
 local cmp = require 'cmp'
 local luasnip = require 'luasnip'
 require('luasnip.loaders.from_vscode').lazy_load()
+luasnip.filetype_extend("typescript", { "javascript" })
+
 luasnip.config.setup {}
 
 cmp.setup {
