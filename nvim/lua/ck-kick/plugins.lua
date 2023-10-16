@@ -32,7 +32,7 @@ require('lazy').setup({
 			-- Useful status updates for LSP
 			-- NOTE: `opts = {}` is the same as calling `require('fidget').setup({})`
 			{ 'j-hui/fidget.nvim', tag = 'legacy', opts = {} }, -- not sure if this is actually that helpful, keep it lean..
-			'folke/neodev.nvim',                       -- Additional lua configuration, makes nvim stuff amazing!
+			'folke/neodev.nvim',
 		},
 	},
 
@@ -180,9 +180,9 @@ pcall(require('telescope').load_extension, 'fzf') -- Enable telescope fzf native
 
 -- See `:help nvim-treesitter`
 require('nvim-treesitter.configs').setup {
-	ensure_installed = { 'c', 'cpp', 'go', 'lua', 'python', 'rust', 'tsx', 'javascript', 'jsdoc', 'typescript', 'vimdoc',
-		'vim',
-		'vue' },
+	ensure_installed = {
+		'c', 'cpp', 'go', 'lua', 'python', 'rust', 'tsx', 'javascript', 'jsdoc', 'typescript', 'vimdoc', 'vim', 'vue'
+	},
 	auto_install = true, -- default: false, (auto installs languages)
 	highlight = { enable = true },
 	indent = { enable = true },
