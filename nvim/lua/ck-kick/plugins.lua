@@ -46,7 +46,19 @@ require('lazy').setup({
 		},
 	},
 
-	{ 'folke/which-key.nvim',   event = 'VeryLazy' },
+	{
+		"folke/which-key.nvim",
+		event = "VeryLazy",
+		init = function()
+			vim.o.timeout = true
+			vim.o.timeoutlen = 300
+		end,
+		opts = {
+			-- your configuration comes here
+			-- or leave it empty to use the default settings
+			-- refer to the configuration section below
+		}
+	},
 
 	{ 'lewis6991/gitsigns.nvim' },
 
@@ -67,7 +79,7 @@ require('lazy').setup({
 		},
 	},
 
-	{ 'numToStr/Comment.nvim',         event = 'VeryLazy' }, -- 'gc' to comment visual regions/lines
+	{ 'numToStr/Comment.nvim',  opts = {}, lazy = false }, -- 'gc' to comment visual regions/lines
 
 	{
 		'nvim-telescope/telescope.nvim',
@@ -116,7 +128,7 @@ require('lazy').setup({
 		event = 'VeryLazy'
 	},
 
-	{ 'NvChad/nvim-colorizer.lua', event = 'VeryLazy' },
+	{ 'NvChad/nvim-colorizer.lua',     event = 'VeryLazy' },
 
 	-- { 'mfussenegger/nvim-dap' },
 	-- { 'rcarriga/nvim-dap-ui' }
@@ -299,7 +311,7 @@ local servers = {
 }
 -- Setup neovim lua configuration
 require('neodev').setup({
-	library = { plugins = { "nvim-dap-ui" }, types = true },
+	--	library = { plugins = { "nvim-dap-ui" }, types = true },
 })
 
 -- nvim-cmp supports additional completion capabilities, so broadcast that to servers
