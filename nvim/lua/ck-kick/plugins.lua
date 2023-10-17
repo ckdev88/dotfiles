@@ -53,11 +53,7 @@ require('lazy').setup({
 			vim.o.timeout = true
 			vim.o.timeoutlen = 300
 		end,
-		opts = {
-			-- your configuration comes here
-			-- or leave it empty to use the default settings
-			-- refer to the configuration section below
-		}
+		opts = {}
 	},
 
 	{ 'lewis6991/gitsigns.nvim' },
@@ -105,8 +101,13 @@ require('lazy').setup({
 			build = ':TSUpdate',
 		},
 
+		-- autoformat plugins
 		require 'kickstart.plugins.autoformat',
+		-- /autoformat plugins
+
+		-- debugging plugins
 		require 'kickstart.plugins.debug',
+		-- /debugging plugins
 
 		{ 'nvim-tree/nvim-web-devicons', event = 'VeryLazy' },
 		{
