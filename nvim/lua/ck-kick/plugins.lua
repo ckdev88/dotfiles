@@ -16,7 +16,7 @@ require('lazy').setup({
 	-- Git related plugins
 	'tpope/vim-fugitive', -- /tpope/vim-fugitive, also see :Git difftool
 	'tpope/vim-rhubarb',
-	-- 'tpope/vim-sleuth', -- Detect tabstop and shiftwidth automatically, idk if this is actually useful
+	-- 'tpope/vim-sleuth', -- Detect tabstop and shiftwidth automatically, idk if this is useful
 
 	{
 		-- LSP Configuration & Plugins
@@ -46,38 +46,9 @@ require('lazy').setup({
 		},
 	},
 
-	{
-		-- Create key bindings that stick. WhichKey is a lua plugin for Neovim 0.5 that displays a popup with possible keybindings of the command you started typing.
-		'folke/which-key.nvim',
-		event = 'VeryLazy',
-		init = function()
-			vim.o.timeout = true
-			vim.o.timeoutlen = 300
-		end,
-		opts = {}
-	},
-	{
-		-- Adds git related signs to the gutter, as well as utilities for managing changes
-		'lewis6991/gitsigns.nvim',
-		opts = {
-			-- See `:help gitsigns.txt`
-			signs = {
-				add = { text = '+' },
-				change = { text = '~' },
-				delete = { text = '_' },
-				topdelete = { text = '‾' },
-				changedelete = { text = '~' },
-			},
-			on_attach = function(bufnr)
-				km.set('n', '<leader>gp', require('gitsigns').prev_hunk,
-					{ buffer = bufnr, desc = '[G]o to [P]revious Hunk' })
-				km.set('n', '<leader>gn', require('gitsigns').next_hunk,
-					{ buffer = bufnr, desc = '[G]o to [N]ext Hunk' })
-				km.set('n', '<leader>ph', require('gitsigns').preview_hunk,
-					{ buffer = bufnr, desc = '[P]review [H]unk' })
-			end,
-		},
-	},
+	{ 'folke/which-key.nvim',   event = 'VeryLazy' },
+
+	{ 'lewis6991/gitsigns.nvim' },
 
 	{
 		'nvim-lualine/lualine.nvim',
@@ -96,7 +67,7 @@ require('lazy').setup({
 		},
 	},
 
-	{ 'numToStr/Comment.nvim',         opts = {}, lazy = false }, -- 'gc' to comment visual regions/lines
+	{ 'numToStr/Comment.nvim',         event = 'VeryLazy' }, -- 'gc' to comment visual regions/lines
 
 	{
 		'nvim-telescope/telescope.nvim',
@@ -145,8 +116,10 @@ require('lazy').setup({
 		event = 'VeryLazy'
 	},
 
-	{ 'NvChad/nvim-colorizer.lua', event = 'VeryLazy' }
+	{ 'NvChad/nvim-colorizer.lua', event = 'VeryLazy' },
 
+	-- { 'mfussenegger/nvim-dap' },
+	-- { 'rcarriga/nvim-dap-ui' }
 })
 
 require('colorizer').setup {
@@ -325,7 +298,9 @@ local servers = {
 	-- --	eslint = { 'typescript', 'tsx', 'typescriptreact' }, -- TODO: is (mostly?) ignored
 }
 -- Setup neovim lua configuration
-require('neodev').setup()
+require('neodev').setup({
+	library = { plugins = { "nvim-dap-ui" }, types = true },
+})
 
 -- nvim-cmp supports additional completion capabilities, so broadcast that to servers
 local capabilities = vim.lsp.protocol.make_client_capabilities()
