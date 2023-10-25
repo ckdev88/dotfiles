@@ -61,5 +61,3 @@ km.set('n', '<C-s>', ':SymbolsOutline<Return>', { desc = 'SymbolsOutline toggle'
 -- handige standaard bindings om niet te vergeten
 -- 'n', <C-`> uitbreidende Visual selectie vanaf de cursor, zelfde als <C-2>, daarom C-2 remapped
 --
--- beperkingen om niet te vergeten
--- 'alle', <Alt - alle nummers> worden gebruikt door Konsole, fijne terminal-manager, dus niets mee doen in nvim
