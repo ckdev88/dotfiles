@@ -26,7 +26,7 @@ require('lazy').setup({
 			{
 				'williamboman/mason.nvim',
 				config = true,
-				opts = { ensure_installed = { 'html-lsp', 'prettier', 'tsserver' } }
+				opts = { ensure_installed = { 'html-lsp', 'prettier', 'tsserver', 'vue-language-server', 'css-lsp' } }
 			},
 			'williamboman/mason-lspconfig.nvim',
 			-- Useful status updates for LSP
