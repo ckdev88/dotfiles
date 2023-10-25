@@ -385,3 +385,13 @@ cmp.setup {
 		{ name = 'luasnip' },
 	},
 }
+
+-- which-key grouped names
+local wk = require("which-key")
+wk.register({
+	c = { name = "+ LSP [C]ode" },
+	f = { name = "+ Formatting" },
+	r = { name = "+ Replace / Rename" },
+	t = { name = "+ Telescope" },
+	w = { name = "+ Workspace" }
+}, { prefix = "<leader>" })
