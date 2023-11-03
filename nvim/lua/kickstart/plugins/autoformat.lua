@@ -57,7 +57,7 @@ return {
 							print('Not format_is_enabled...')
 							return
 						end
-						print('Begin format before saving...')
+						-- print('Begin format before saving...')
 
 						vim.lsp.buf.format {
 							async = false,
