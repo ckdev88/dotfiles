@@ -5,6 +5,7 @@ local km = vim.keymap
 
 km.set({ 'n', 'v' }, '<C-z>', '<nop>', { desc = 'Disable CTRL-Z which exits in a super weird way' })
 km.set({ 'n', 'v' }, '<Space>', '<Nop>', { silent = true })
+km.set('n', 'q', '<nop>', { desc = 'disable macro shortcut, TODO: define later on different key' })
 km.set('n', 'k', 'v:count == 0 ? "gk" : "k"', { expr = true, silent = true, desc = 'deal with word wrap' })
 km.set('n', 'j', 'v:count == 0 ? "gj" : "j"', { expr = true, silent = true, desc = 'deal with word wrap' })
 
@@ -15,7 +16,8 @@ km.set('v', '<A-k>', ":m '>-2<CR>gv=gv", { desc = 'Move current line up by 1' })
 
 -- ----------------------------------------------
 -- prettier , nagaan of configs in nvim nodig zijn, of een enkele npm install -g prettier voldoende is, die kan overschrijven op projectniveau
-km.set('n', '<leader>fp', ':! prettier --write %<CR>', { silent = true, desc = '[F]ormat with [P]rettier]' })
+km.set('n', '<leader>fp', ':! prettier --write %<CR>',
+	{ expr = false, silent = true, desc = '[F]ormat with [P]rettier]' })
 -- ----------------------------------------------
 
 

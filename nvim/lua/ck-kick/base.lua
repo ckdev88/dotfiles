@@ -1,10 +1,16 @@
 vim.cmd('autocmd!')
-vim.cmd('colorscheme slate')
+vim.cmd('colorscheme slate') -- winner, nice comment, balanced, lualine bit busy-> fixed that with lualine theme ayu_dark
+-- vim.cmd('colorscheme murphy') -- too much yellow, orange & turquoise
+-- vim.cmd('colorscheme ron') -- too much turquoise & lime, lelijk
+-- vim.cmd('colorscheme torte') -- okay, but much dark blue on black
+-- vim.cmd('colorscheme lunaperche') -- nice colors, but too much bright candy
+vim.cmd('hi Normal guibg=#000000')
+
 local vo = vim.opt
 
-vo.cindent = true   -- default: false
-vo.tabstop = 4      -- default: 8
-vo.expandtab = true -- default: false
+vo.cindent = true    -- default: false
+vo.tabstop = 4       -- default: 8
+vo.expandtab = false -- default: false
 
 vo.expandtab = true
 vo.shiftwidth = 4

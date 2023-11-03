@@ -66,6 +66,7 @@ require('lazy').setup({
 				section_separators = '',
 				path = 1,
 				shorting_target = 70,
+				theme = 'ayu_dark'
 			},
 			sections = {
 				lualine_a = {
