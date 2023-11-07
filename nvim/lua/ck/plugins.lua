@@ -144,7 +144,7 @@ require('ayu').setup({
 require('ayu').colorscheme()
 vim.cmd('colorscheme ayu-dark')
 -- vim.cmd('hi Normal guibg=#000000')
-vim.cmd('hi visual guibg=#2f2f3f')
+vim.cmd('hi visual guibg=#3a3a40')
 
 require('colorizer').setup {
 	filetypes = { 'css', 'html', 'tsx' },
