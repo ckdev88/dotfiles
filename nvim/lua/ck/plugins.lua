@@ -51,13 +51,14 @@ require('lazy').setup({
 		event = "VeryLazy",
 		init = function()
 			vim.o.timeout = true
-			vim.o.timeoutlen = 300
+			vim.o.timeoutlen = 600
 		end,
 		opts = {}
 	},
 
 	{ 'lewis6991/gitsigns.nvim' },
 
+	{ 'Shatur/neovim-ayu' },
 	{
 		'nvim-lualine/lualine.nvim',
 		opts = {
@@ -66,7 +67,7 @@ require('lazy').setup({
 				section_separators = '',
 				path = 1,
 				shorting_target = 70,
-				theme = 'ayu_dark'
+				theme = 'ayu'
 			},
 			sections = {
 				lualine_a = {
@@ -76,7 +77,7 @@ require('lazy').setup({
 		},
 	},
 
-	{ 'numToStr/Comment.nvim',  opts = {}, lazy = false }, -- 'gc' to comment visual regions/lines
+	{ 'numToStr/Comment.nvim',         opts = {}, lazy = false }, -- 'gc' to comment visual regions/lines
 
 	{
 		'nvim-telescope/telescope.nvim',
@@ -102,13 +103,8 @@ require('lazy').setup({
 			build = ':TSUpdate',
 		},
 
-		-- autoformat plugins
-		require 'kickstart.plugins.autoformat',
-		-- /autoformat plugins
-
-		-- debugging plugins
-		require 'kickstart.plugins.debug',
-		-- /debugging plugins
+		require 'ck.plugins.autoformat', -- autoformat plugins
+		require 'ck.plugins.debug', -- debugging plugins
 
 		{ 'nvim-tree/nvim-web-devicons', event = 'VeryLazy' },
 		{
@@ -130,11 +126,25 @@ require('lazy').setup({
 		event = 'VeryLazy'
 	},
 
-	{ 'NvChad/nvim-colorizer.lua',     event = 'VeryLazy' },
+	{ 'NvChad/nvim-colorizer.lua', event = 'VeryLazy' },
 
 	-- { 'mfussenegger/nvim-dap' },
 	-- { 'rcarriga/nvim-dap-ui' }
 })
+
+--
+require('ayu').setup({
+	mirage = false,
+	overrides = {
+		CursorLine = { bg = "#232333" },
+		WhichKeyFloat = { bg = "#2c2c2c" },
+		-- CursorColumn = { fg = "#ff0000", bg = "#00ff00" }
+	}
+})
+require('ayu').colorscheme()
+vim.cmd('colorscheme ayu-dark')
+-- vim.cmd('hi Normal guibg=#000000')
+vim.cmd('hi visual guibg=#2f2f3f')
 
 require('colorizer').setup {
 	filetypes = { 'css', 'html', 'tsx' },
@@ -162,11 +172,15 @@ require('telescope').setup { -- Telescope -- See `:help telescope` and `:help te
 	},
 }
 
+
 pcall(require('telescope').load_extension, 'fzf') -- Enable telescope fzf native, if installed
 -- See `:help telescope.builtin` , see remap file for key bindings
 
 -- See `:help nvim-treesitter`
 require('nvim-treesitter.configs').setup {
+	modules = {},
+	sync_install = false,
+	ignore_install = {},
 	ensure_installed = {
 		'c', 'cpp', 'go', 'lua', 'python', 'rust', 'tsx', 'javascript', 'jsdoc', 'typescript', 'vimdoc', 'vim', 'vue'
 	},

@@ -5,8 +5,7 @@
 return {
 	'neovim/nvim-lspconfig',
 	config = function()
-		-- Switch for controlling whether you want autoformatting.
-		--  Use :ToggleFormat to toggle autoformatting on or off
+		--  :ToggleFormat for formatting on/off
 		local format_is_enabled = true
 		vim.api.nvim_create_user_command('ToggleFormat', function()
 			format_is_enabled = not format_is_enabled
