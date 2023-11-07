@@ -58,26 +58,13 @@ require('lazy').setup({
 
 	{ 'lewis6991/gitsigns.nvim' },
 
+	-- theming neovim
 	{ 'Shatur/neovim-ayu' },
-	{
-		'nvim-lualine/lualine.nvim',
-		opts = {
-			options = {
-				component_separators = '',
-				section_separators = '',
-				path = 1,
-				shorting_target = 70,
-				theme = 'ayu'
-			},
-			sections = {
-				lualine_a = {
-					{ 'mode', fmt = function(res) return res:sub(1, 3) end } -- only use first 3 letters of modes, ex: NORMAL -> NOR, INSERT -> INS, etc.
-				},
-			},
-		},
-	},
+	{ 'nvim-tree/nvim-web-devicons', event = 'VeryLazy' },
+	{ 'nvim-lualine/lualine.nvim' },
 
-	{ 'numToStr/Comment.nvim',         opts = {}, lazy = false }, -- 'gc' to comment visual regions/lines
+	-- quicker editing
+	{ 'numToStr/Comment.nvim',       opts = {},         lazy = false }, -- 'gc' to comment visual regions/lines
 
 	{
 		'nvim-telescope/telescope.nvim',
@@ -106,7 +93,6 @@ require('lazy').setup({
 		require 'ck.plugins.autoformat', -- autoformat plugins
 		require 'ck.plugins.debug', -- debugging plugins
 
-		{ 'nvim-tree/nvim-web-devicons', event = 'VeryLazy' },
 		{
 			'nvim-neo-tree/neo-tree.nvim',
 			branch = 'v3.x',
@@ -118,15 +104,9 @@ require('lazy').setup({
 		},
 	},
 
-	{ 'simrat39/symbols-outline.nvim', opts = {}, },
-
-	{
-		'kylechui/nvim-surround',
-		opts = {},
-		event = 'VeryLazy'
-	},
-
-	{ 'NvChad/nvim-colorizer.lua', event = 'VeryLazy' },
+	{ 'simrat39/symbols-outline.nvim',                                 opts = {}, },
+	{ 'kylechui/nvim-surround', --[[ opts = {}, event = 'VeryLazy'  ]] },
+	{ 'NvChad/nvim-colorizer.lua' --[[ 	,     event = 'VeryLazy'  ]] }, -- colorize the background of a color code like #ff0000
 
 	-- { 'mfussenegger/nvim-dap' },
 	-- { 'rcarriga/nvim-dap-ui' }
@@ -146,8 +126,23 @@ vim.cmd('colorscheme ayu-dark')
 -- vim.cmd('hi Normal guibg=#000000')
 vim.cmd('hi visual guibg=#3a3a40')
 
+require('lualine').setup {
+	options = {
+		component_separators = '',
+		section_separators = '',
+		path = 1,
+		shorting_target = 70,
+		-- theme = 'ayu'
+	},
+	sections = {
+		lualine_a = {
+			{ 'mode', fmt = function(res) return res:sub(1, 3) end } -- only use first 3 letters of modes, ex: NORMAL -> NOR, INSERT -> INS, etc.
+		},
+	},
+}
+
 require('colorizer').setup {
-	filetypes = { 'css', 'html', 'tsx' },
+	filetypes = { 'css', 'html', 'tsx', 'lua' },
 	user_default_options = {
 		css = true,
 		css_fn = true,
