@@ -29,8 +29,8 @@ k.set('n', '<leader>ra', [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><left>]],
 k.set('n', 'U', ':redo<Return>', { desc = '[U]ndo the [u]ndo' })
 
 -- experiment, switch naar vorige, meest recente buffer
-k.set('n', '<A-[>', ':brewind<Return>', { silent = true, desc = 'Switch to previous buffer ([Tab])' }) -- TODO: turn these two into a toggle
-k.set('n', '<A-]>', ':blast<Return>', { silent = true, desc = 'Switch to last buffer ([Tab])' })       -- TODO: turn these two into a toggle
+k.set('n', '<A-[>', ':bprev<CR>', { silent = true, desc = 'Switch to previous buffer' })
+k.set('n', '<A-]>', ':bnext<CR>', { silent = true, desc = 'Switch to next buffer' })
 
 
 -- plugin-related remaps

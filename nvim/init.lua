@@ -1,1 +1,1 @@
-require('ck-kick')
+require('ck')
