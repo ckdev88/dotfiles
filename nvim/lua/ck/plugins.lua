@@ -23,15 +23,11 @@ require('lazy').setup({
 		'neovim/nvim-lspconfig',
 		dependencies = {
 			-- Automatically install LSPs to stdpath for neovim
-			{
-				'williamboman/mason.nvim',
-				config = true,
-				opts = { ensure_installed = { 'html-lsp', 'prettier', 'tsserver', 'vue-language-server', 'css-lsp' } }
-			},
+			{ 'williamboman/mason.nvim', opts = {} },
 			'williamboman/mason-lspconfig.nvim',
 			-- Useful status updates for LSP
 			-- NOTE: `opts = {}` is the same as calling `require('fidget').setup({})`
-			{ 'j-hui/fidget.nvim', tag = 'legacy', opts = {} }, -- not sure if this is actually that helpful, keep it lean..
+			{ 'j-hui/fidget.nvim',       tag = 'legacy', opts = {} },
 			'folke/neodev.nvim',
 		},
 	},
@@ -60,11 +56,28 @@ require('lazy').setup({
 
 	-- theming neovim
 	{ 'Shatur/neovim-ayu' },
-	{ 'nvim-tree/nvim-web-devicons', event = 'VeryLazy' },
-	{ 'nvim-lualine/lualine.nvim' },
+	{ 'nvim-tree/nvim-web-devicons', opts = {}, event = 'VeryLazy' },
+	{
+		'nvim-lualine/lualine.nvim',
+		opts = {
+			options = {
+				component_separators = '',
+				section_separators = '',
+				path = 1,
+				shorting_target = 70,
+				icons_enabled = false
+			},
+			sections = {
+				lualine_a = {
+					{ 'mode', fmt = function(res) return res:sub(1, 3) end } -- only use first 3 letters of modes, ex: NORMAL -> NOR, INSERT -> INS, etc.
+				},
+			},
+		},
+		event = 'VeryLazy'
+	},
 
 	-- quicker editing
-	{ 'numToStr/Comment.nvim',       opts = {},         lazy = false }, -- 'gc' to comment visual regions/lines
+	{ 'numToStr/Comment.nvim',         opts = {}, lazy = false }, -- 'gc' to comment visual regions/lines
 
 	{
 		'nvim-telescope/telescope.nvim',
@@ -104,11 +117,22 @@ require('lazy').setup({
 		},
 	},
 
-	{ 'simrat39/symbols-outline.nvim',                                 opts = {}, },
-	{ 'kylechui/nvim-surround', --[[ opts = {}, event = 'VeryLazy'  ]] },
-	{ 'NvChad/nvim-colorizer.lua' --[[ 	,     event = 'VeryLazy'  ]] }, -- colorize the background of a color code like #ff0000
+	{ 'simrat39/symbols-outline.nvim', opts = {}, },
+	{ 'kylechui/nvim-surround',        opts = {}, event = 'VeryLazy' },
+	{
+		'NvChad/nvim-colorizer.lua',
+		opts = {
+			options = {
+				user_default_options = {
+					css = true,
+					tailwind = true,
+					sass = { enable = true, parsers = { "css" }, },
+				},
+			}
+		},
+	},
 
-	-- { 'mfussenegger/nvim-dap' },
+	-- { 'mfussenegger/nvim-dap' }
 	-- { 'rcarriga/nvim-dap-ui' }
 })
 
@@ -123,33 +147,8 @@ require('ayu').setup({
 })
 require('ayu').colorscheme()
 vim.cmd('colorscheme ayu-dark')
--- vim.cmd('hi Normal guibg=#000000')
+vim.cmd('hi Normal guibg=#000000')
 vim.cmd('hi visual guibg=#3a3a40')
-
-require('lualine').setup {
-	options = {
-		component_separators = '',
-		section_separators = '',
-		path = 1,
-		shorting_target = 70,
-		-- theme = 'ayu'
-	},
-	sections = {
-		lualine_a = {
-			{ 'mode', fmt = function(res) return res:sub(1, 3) end } -- only use first 3 letters of modes, ex: NORMAL -> NOR, INSERT -> INS, etc.
-		},
-	},
-}
-
-require('colorizer').setup {
-	filetypes = { 'css', 'html', 'tsx', 'lua' },
-	user_default_options = {
-		css = true,
-		css_fn = true,
-		tailwind = true,
-		sass = { enable = true, parsers = { "css" }, },
-	},
-}
 
 -- Keymaps for better default experience
 -- See `:help vim.keymap.set()`
@@ -310,16 +309,20 @@ km.set('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Open diagnostics l
 --
 --  override default filetypes your language server will attach to, define property 'filetypes' to the map in question.
 local servers = {
-	-- tsserver = { 'typescript', 'tsx', 'typescriptreact', 'jsdoc' },
-	-- html = { filetypes = { 'html', 'twig', 'hbs', 'php' } },
+	tsserver = { 'typescript', 'tsx', 'typescriptreact', 'jsdoc' },
+	html = {},
 	lua_ls = {
 		Lua = {
-			workspace = { checkThirdParty = false },
-			telemetry = { enable = false },
-		},
+			-- workspace = { checkThirdParty = "Disable" }, -- TODO: doesn't really seem to work anymore, fixed for now with workaround .luarc.json file in rootdir... renamed that to OLD_ and it still works... weird, one time setting maybe? ... and now i commented out this line and it still works well... so weird
+			workspace = {
+				library = vim.api.nvim_get_runtime_file('', true), checkThirdParty = "Disable", -- not too sure if this adds anything usefull... TODO: cleanup after research... "Disable" werkt, beter dan false.
+			},
+			telemetry = { enable = false }
+		}
 	},
-	-- --	eslint = { 'typescript', 'tsx', 'typescriptreact' }, -- TODO: is (mostly?) ignored
+	eslint = {},
 }
+--
 -- Setup neovim lua configuration
 require('neodev').setup({
 	--	library = { plugins = { "nvim-dap-ui" }, types = true },
@@ -403,6 +406,10 @@ wk.register({
 	c = { name = "+ LSP [C]ode" },
 	f = { name = "+ Formatting" },
 	r = { name = "+ Replace / Rename" },
-	t = { name = "+ Telescope" },
+	t = {
+		name = "+ Telescope",
+		g = { name = "+ [G]it" },
+		s = { name = "+ [S]ymbols" }
+	},
 	w = { name = "+ Workspace" }
 }, { prefix = "<leader>" })
