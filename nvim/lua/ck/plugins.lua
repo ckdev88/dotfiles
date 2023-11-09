@@ -71,6 +71,7 @@ require('lazy').setup({
 				lualine_a = {
 					{ 'mode', fmt = function(res) return res:sub(1, 3) end } -- only use first 3 letters of modes, ex: NORMAL -> NOR, INSERT -> INS, etc.
 				},
+				lualine_x = {}
 			},
 		},
 		event = 'VeryLazy'
