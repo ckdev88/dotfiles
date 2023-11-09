@@ -313,10 +313,7 @@ local servers = {
 	html = {},
 	lua_ls = {
 		Lua = {
-			-- workspace = { checkThirdParty = "Disable" }, -- TODO: doesn't really seem to work anymore, fixed for now with workaround .luarc.json file in rootdir... renamed that to OLD_ and it still works... weird, one time setting maybe? ... and now i commented out this line and it still works well... so weird
-			workspace = {
-				library = vim.api.nvim_get_runtime_file('', true), checkThirdParty = "Disable", -- not too sure if this adds anything usefull... TODO: cleanup after research... "Disable" werkt, beter dan false.
-			},
+			workspace = { checkThirdParty = "Disable" },
 			telemetry = { enable = false }
 		}
 	},
