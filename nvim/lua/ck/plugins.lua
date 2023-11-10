@@ -126,7 +126,7 @@ require('lazy').setup({
 			options = {
 				user_default_options = {
 					css = true,
-					tailwind = true,
+					-- tailwind = true,
 					sass = { enable = true, parsers = { "css" }, },
 				},
 			}
