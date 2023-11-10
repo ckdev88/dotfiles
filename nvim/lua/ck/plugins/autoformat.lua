@@ -41,6 +41,11 @@ return {
 					return
 				end
 
+				if client.name == 'html' then
+					-- print('Ignoring autoformatting for html')
+					return
+				end
+
 				-- if client.name == 'tsserver' then
 				--   return
 				-- end
