@@ -177,7 +177,7 @@ require('nvim-treesitter.configs').setup {
 	sync_install = false,
 	ignore_install = {},
 	ensure_installed = {
-		'c', 'cpp', 'go', 'lua', 'python', 'rust', 'tsx', 'javascript', 'jsdoc', 'typescript', 'vimdoc', 'vim', 'vue'
+		'astro', 'c', 'css', 'cpp', 'gitignore', 'go', 'lua', 'python', 'rust', 'tsx', 'javascript', 'jsdoc', 'php', 'scss', 'sql', 'typescript', 'vimdoc', 'vim', 'vue'
 	},
 	auto_install = true, -- default: false, (auto installs languages)
 	highlight = { enable = true },
@@ -311,14 +311,16 @@ km.set('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Open diagnostics l
 --  override default filetypes your language server will attach to, define property 'filetypes' to the map in question.
 local servers = {
 	tsserver = { 'typescript', 'tsx', 'typescriptreact', 'jsdoc' },
-	html = {},
+	-- html = { 'html', 'javascript', 'vue' },
+	-- cssls = { 'html', 'css' },
+	-- volar = { 'html', 'vue' },
 	lua_ls = {
 		Lua = {
 			workspace = { checkThirdParty = "Disable" },
 			telemetry = { enable = false }
 		}
 	},
-	eslint = {},
+	-- eslint = {},
 }
 --
 -- Setup neovim lua configuration

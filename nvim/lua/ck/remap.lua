@@ -27,6 +27,9 @@ k.set('n', '<leader>ra', [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><left>]],
 
 -- quick modifying
 k.set('n', 'U', ':redo<Return>', { desc = '[U]ndo the [u]ndo' })
+-- k.set('n', '<C-s>', ':w<CR>', { desc = '[S]ave file' })
+k.set('n', '<C-s>', ':w<CR>:silent ! prettier --write %<CR>',
+	{ silent = true, desc = '[S]ave file & format with Prettier' })
 
 -- experiment, switch naar vorige, meest recente buffer
 k.set('n', '<A-[>', ':bprev<CR>', { silent = true, desc = 'Switch to previous buffer' })
@@ -46,7 +49,7 @@ k.set({ 'n', 'v' }, '<C-b>', ':Neotree toggle=true position=right source=buffers
 	{ silent = true, desc = 'Explore [b]uffers with Neotree' })
 
 -- Symbols-outline
-k.set('n', '<C-s>', ':SymbolsOutline<Return>', { desc = 'SymbolsOutline toggle' })
+k.set('n', '<C-f>', ':SymbolsOutline<Return>', { desc = 'SymbolsOutline toggle' })
 
 -- for tabs, see :help :tab and/or press <C-w>
 -- See `:help vim.o`
