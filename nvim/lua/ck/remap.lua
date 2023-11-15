@@ -28,8 +28,8 @@ k.set('n', '<leader>ra', [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><left>]],
 -- quick modifying
 k.set('n', 'U', ':redo<Return>', { desc = '[U]ndo the [u]ndo' })
 -- k.set('n', '<C-s>', ':w<CR>', { desc = '[S]ave file' })
-k.set('n', '<C-s>', ':w<CR>:silent ! prettier --write %<CR>',
-	{ silent = true, desc = '[S]ave file & format with Prettier' })
+k.set('n', '<C-s>', ':w<CR>:silent ! prettier --write %<CR>', { silent = true, desc = '[S]ave file & format with Prettier' })
+k.set('i', '<C-s>', '<Esc>:w<CR>:silent ! prettier --write %<CR>i', { silent = true, desc = '[S]ave file & format with Prettier' })
 
 -- experiment, switch naar vorige, meest recente buffer
 k.set('n', '<A-[>', ':bprev<CR>', { silent = true, desc = 'Switch to previous buffer' })
@@ -40,7 +40,7 @@ k.set('n', '<A-]>', ':bnext<CR>', { silent = true, desc = 'Switch to next buffer
 -- prettier , TODO: nagaan of configs in nvim nodig zijn, of een enkele npm install -g prettier voldoende is, die kan overschrijven op projectniveau
 -- ----------------------------------------------
 k.set('n', '<leader>fp', ":w<CR>:silent ! prettier --write %<CR>",
-	{ desc = '[F]ormat with [P]rettier]' })
+	{ desc = '[F]ormat with [P]rettier' })
 
 -- Neotree
 k.set({ 'n', 'v' }, '<C-e>', ':Neotree toggle=true position=right<CR>',
