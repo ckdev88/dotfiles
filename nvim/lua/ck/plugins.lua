@@ -143,7 +143,8 @@ require('ayu').setup({
 	overrides = {
 		CursorLine = { bg = "#232333" },
 		WhichKeyFloat = { bg = "#2c2c2c" },
-		-- CursorColumn = { fg = "#ff0000", bg = "#00ff00" }
+		MatchParen = { fg = "#0faf9f", bg = "lightblue" },
+		CursorColumn = { fg = "#ff0000", bg = "#00ff00" }
 	}
 })
 require('ayu').colorscheme()
