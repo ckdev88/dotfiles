@@ -143,14 +143,13 @@ require('ayu').setup({
 	overrides = {
 		CursorLine = { bg = "#232333" },
 		WhichKeyFloat = { bg = "#2c2c2c" },
-		MatchParen = { fg = "#0faf9f", bg = "lightblue" },
-		CursorColumn = { fg = "#ff0000", bg = "#00ff00" }
+		MatchParen = { fg = "#000000", bg = "lightblue" },
 	}
 })
 require('ayu').colorscheme()
 vim.cmd('colorscheme ayu-dark')
 vim.cmd('hi Normal guibg=#000000')
-vim.cmd('hi visual guibg=#3a3a40')
+vim.cmd('hi Visual guibg=#3a3a40')
 
 -- Keymaps for better default experience
 -- See `:help vim.keymap.set()`

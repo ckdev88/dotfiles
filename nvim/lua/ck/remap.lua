@@ -20,6 +20,7 @@ k.set('n', 'J', 'mzJ`z', { desc = 'keep j in horizontal place' })
 
 -- selection
 k.set('n', '<C-a>', 'ggVG', { desc = '[A]ll select uniform, toggle' })
+k.set('v', '<C-a>', '<Esc>2<C-o>', { desc = '[A]ll select uniform, toggle off' })
 
 -- search-replace
 k.set('n', '<leader>ra', [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><left>]],
@@ -28,8 +29,10 @@ k.set('n', '<leader>ra', [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><left>]],
 -- quick modifying
 k.set('n', 'U', ':redo<Return>', { desc = '[U]ndo the [u]ndo' })
 -- k.set('n', '<C-s>', ':w<CR>', { desc = '[S]ave file' })
-k.set('n', '<C-s>', ':w<CR>:silent ! prettier --write %<CR>', { silent = true, desc = '[S]ave file & format with Prettier' })
-k.set('i', '<C-s>', '<Esc>:w<CR>:silent ! prettier --write %<CR>', { silent = true, desc = '[S]ave file & format with Prettier' })
+k.set('n', '<C-s>', ':w<CR>:silent ! prettier --write %<CR>',
+	{ silent = true, desc = '[S]ave file & format with Prettier' })
+k.set('i', '<C-s>', '<Esc>:w<CR>:silent ! prettier --write %<CR>',
+	{ silent = true, desc = '[S]ave file & format with Prettier' })
 
 -- experiment, switch naar vorige, meest recente buffer
 k.set('n', '<A-[>', ':bprev<CR>', { silent = true, desc = 'Switch to previous buffer' })
