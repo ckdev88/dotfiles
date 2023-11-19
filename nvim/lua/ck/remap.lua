@@ -9,7 +9,9 @@ k.set('n', 'q', '<nop>', { desc = 'disable macro shortcut, TODO: define later on
 
 -- line manipulation
 k.set('n', '<C-j>', 'Vyp', { desc = 'Duplicate active line down' })
+k.set('v', '<C-j>', ":copy'><CR>gv=gv", { desc = 'Duplicate selection below ' })
 k.set('n', '<C-k>', 'VyP', { desc = 'Duplicate active line up' })
+k.set('v', '<C-k>', ':copy-1<CR>gv=gv', { desc = 'Duplicate selection above' })
 
 k.set('n', '<A-j>', ":move+<CR>", { desc = 'move single line down in normal mode -- plus ' })
 k.set('n', '<A-k>', ":move-2<CR>", { desc = 'move single line up in normal mode -- min twee' })
