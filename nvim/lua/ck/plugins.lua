@@ -151,6 +151,19 @@ vim.cmd('colorscheme ayu-dark')
 vim.cmd('hi Normal guibg=#000000')
 vim.cmd('hi Visual guibg=#3a3a40')
 
+
+require("neo-tree").setup({
+	event_handlers = {
+		{
+			event = "file_opened",
+			handler = function()
+				vim.cmd("Neotree close")
+			end
+		},
+
+	}
+})
+
 -- Keymaps for better default experience
 -- See `:help vim.keymap.set()`
 --
