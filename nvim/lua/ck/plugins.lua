@@ -153,6 +153,11 @@ vim.cmd('hi Visual guibg=#3a3a40')
 
 
 require("neo-tree").setup({
+	filesystem = {
+		filtered_items = {
+			hide_dotfiles = false
+		}
+	},
 	event_handlers = {
 		{
 			event = "file_opened",
@@ -324,6 +329,7 @@ km.set('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Open diagnostics l
 --  override default filetypes your language server will attach to, define property 'filetypes' to the map in question.
 local servers = {
 	tsserver = { 'typescript', 'tsx', 'typescriptreact', 'jsdoc' },
+	volar = { 'typescript', 'javascript', 'javascriptreact', 'typescriptreact', 'vue', 'json' }, -- don't know if really necessary
 	-- html = { 'html', 'javascript', 'vue' },
 	-- cssls = { 'html', 'css' },
 	-- volar = { 'html', 'vue' },
