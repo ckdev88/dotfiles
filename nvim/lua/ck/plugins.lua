@@ -175,6 +175,7 @@ require("neo-tree").setup({
 -- [[ Configure nvim-cmp ]] -- See `:help cmp`
 require('telescope').setup { -- Telescope -- See `:help telescope` and `:help telescope.setup()`
 	defaults = {
+		file_ignore_patterns = { "node_modules" },
 		layout_config = { width = .99 },
 		mappings = {
 			i = {
@@ -328,8 +329,8 @@ km.set('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Open diagnostics l
 --
 --  override default filetypes your language server will attach to, define property 'filetypes' to the map in question.
 local servers = {
-	tsserver = { 'typescript', 'tsx', 'typescriptreact', 'jsdoc' },
-	volar = { 'typescript', 'javascript', 'javascriptreact', 'typescriptreact', 'vue', 'json' }, -- don't know if really necessary
+	-- tsserver = { 'typescript', 'tsx', 'typescriptreact', 'jsdoc' },
+	-- volar = { 'typescript', 'javascript', 'javascriptreact', 'typescriptreact', 'vue', 'json' }, -- don't know if really necessary
 	-- html = { 'html', 'javascript', 'vue' },
 	-- cssls = { 'html', 'css' },
 	-- volar = { 'html', 'vue' },
