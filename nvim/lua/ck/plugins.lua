@@ -57,25 +57,6 @@ require('lazy').setup({
 	-- theming neovim
 	{ 'Shatur/neovim-ayu' },
 	{ 'nvim-tree/nvim-web-devicons', opts = {}, event = 'VeryLazy' },
-	{
-		'nvim-lualine/lualine.nvim',
-		opts = {
-			options = {
-				component_separators = '',
-				section_separators = '',
-				path = 1,
-				shorting_target = 70,
-				icons_enabled = false
-			},
-			sections = {
-				lualine_a = {
-					{ 'mode', fmt = function(res) return res:sub(1, 3) end } -- only use first 3 letters of modes, ex: NORMAL -> NOR, INSERT -> INS, etc.
-				},
-				lualine_x = {}
-			},
-		},
-		event = 'VeryLazy'
-	},
 
 	-- quicker editing
 	{ 'numToStr/Comment.nvim',         opts = {}, lazy = false }, -- 'gc' to comment visual regions/lines
