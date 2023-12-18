@@ -6,6 +6,7 @@ local k = vim.keymap
 k.set({ 'n', 'v' }, '<C-z>', '<nop>', { desc = 'Disable CTRL-Z which exits in a super weird way' })
 k.set({ 'n', 'v' }, '<Space>', '<Nop>', { silent = true })
 k.set('n', 'q', '<nop>', { desc = 'disable macro shortcut, TODO: define later on different key' })
+k.set('n','<Esc>',':noh<CR>',{silent=true, noremap=true,desc='add :noh to esc key map'})
 
 -- line manipulation
 k.set('n', '<C-j>', 'Vyp', { desc = 'Duplicate active line down' })
