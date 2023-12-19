@@ -52,6 +52,8 @@ require('lazy').setup({
 		opts = {}
 	},
 
+	{ 'lewis6991/gitsigns.nvim' },
+
 	-- theming neovim
 	{ 'Shatur/neovim-ayu' },
 	{ 'nvim-tree/nvim-web-devicons', opts = {}, event = 'VeryLazy' },
@@ -130,6 +132,15 @@ vim.cmd('colorscheme ayu-dark')
 vim.cmd('hi Normal guibg=#000000')
 vim.cmd('hi Visual guibg=#3a3a40')
 
+require('gitsigns').setup{
+	on_attach = function(bufnr)
+		local function map(mode, l, r, opts)
+		  opts = opts or {}
+		  opts.buffer = bufnr
+		  vim.keymap.set(mode, l, r, opts)
+		end
+	end
+}
 
 require("neo-tree").setup({
 	filesystem = {
