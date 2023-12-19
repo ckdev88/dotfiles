@@ -42,6 +42,8 @@ require('lazy').setup({
 		},
 	},
 
+	{ 'mg979/vim-visual-multi', lazy = false },
+
 	{
 		"folke/which-key.nvim",
 		event = "VeryLazy",
