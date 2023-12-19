@@ -52,8 +52,6 @@ require('lazy').setup({
 		opts = {}
 	},
 
-	{ 'lewis6991/gitsigns.nvim' },
-
 	-- theming neovim
 	{ 'Shatur/neovim-ayu' },
 	{ 'nvim-tree/nvim-web-devicons', opts = {}, event = 'VeryLazy' },
