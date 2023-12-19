@@ -103,24 +103,20 @@ require('lazy').setup({
 
 	{ 'simrat39/symbols-outline.nvim', opts = {}, },
 	{ 'kylechui/nvim-surround',        opts = {}, event = 'VeryLazy' },
-	{
-		'NvChad/nvim-colorizer.lua',
-		opts = {
-			options = {
-				user_default_options = {
-					css = true,
-					-- tailwind = true,
-					sass = { enable = true, parsers = { "css" }, },
-				},
-			}
-		},
-	},
+	{ 'NvChad/nvim-colorizer.lua' },
 
 	-- { 'mfussenegger/nvim-dap' }
 	-- { 'rcarriga/nvim-dap-ui' }
 })
 
 --
+require('colorizer').setup({
+	user_default_options = {
+		css = true, -- Enable all CSS features: rgb_fn, hsl_fn, names, RGB, RRGGBB
+		css_fn = true, -- Enable all CSS *functions*: rgb_fn, hsl_fn
+	},
+})
+
 require('ayu').setup({
 	mirage = false,
 	overrides = {
