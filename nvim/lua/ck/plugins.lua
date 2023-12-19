@@ -362,6 +362,7 @@ local cmp = require 'cmp'
 local luasnip = require 'luasnip'
 luasnip.filetype_extend("typescript", { "javascript" })
 luasnip.filetype_extend("javascript", { "jsdoc" })
+luasnip.filetype_extend("vue", { "jsdoc" })
 luasnip.filetype_extend("html", { "vue" })
 require('luasnip.loaders.from_vscode').lazy_load()
 
