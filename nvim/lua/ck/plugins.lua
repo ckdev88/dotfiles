@@ -358,6 +358,12 @@ mason_lspconfig.setup_handlers {
 	end
 }
 
+require('lspconfig').volar.setup{
+	on_attach=on_attach,
+	capabilities = capabilities,
+	filetypes= {'javascript', 'javascriptreact', 'javascript.jsx', 'typescript', 'typescriptreact', 'typescript.tsx'}
+}
+
 local cmp = require 'cmp'
 local luasnip = require 'luasnip'
 luasnip.filetype_extend("typescript", { "javascript" })
