@@ -32,8 +32,8 @@ k.set('n', '<leader>ra', [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><left>]],
 -- quick modifying
 k.set('n', 'U', ':redo<Return>', { desc = '[U]ndo the [u]ndo' })
 -- k.set('n', '<C-s>', ':w<CR>', { desc = '[S]ave file' })
-k.set('n', '<C-s>', ':w<CR>:silent ! prettier --write %<CR>',
-	{ silent = true, desc = '[S]ave file & format with Prettier' })
+k.set('n', '<C-s>', ':w<CR>:silent ! prettier --write %<CR>:LspRestart<CR>',
+	{ silent = true, desc = '[S]ave file & format with Prettier & restart LSPs' })
 k.set('i', '<C-s>', '<Esc>:w<CR>:silent ! prettier --write %<CR>',
 	{ silent = true, desc = '[S]ave file & format with Prettier' })
 
