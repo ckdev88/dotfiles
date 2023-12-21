@@ -37,10 +37,8 @@ k.set('n', '<C-s>', ':w<CR>:silent ! prettier --write %<CR>:LspRestart<CR>',
 k.set('i', '<C-s>', '<Esc>:w<CR>:silent ! prettier --write %<CR>',
 	{ silent = true, desc = '[S]ave file & format with Prettier' })
 
--- experiment, switch naar vorige, meest recente buffer
-k.set('n', '<A-[>', ':bprev<CR>', { silent = true, desc = 'Switch to previous buffer' })
-k.set('n', '<A-]>', ':bnext<CR>', { silent = true, desc = 'Switch to next buffer' })
-
+-- switch to previous buffer
+k.set('n', '<A-[>', '<C-^><CR>', { silent = true, desc = 'Switch to last previously active buffer / alternate file (same as	:e#, but can also alternate empty file)' })
 
 -- plugin-related remaps
 -- prettier , TODO: nagaan of configs in nvim nodig zijn, of een enkele npm install -g prettier voldoende is, die kan overschrijven op projectniveau
