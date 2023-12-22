@@ -57,7 +57,6 @@ require('lazy').setup({
 	{ 'lewis6991/gitsigns.nvim' },
 
 	-- theming neovim
-	{ 'Shatur/neovim-ayu' },
 	{ 'nvim-tree/nvim-web-devicons', opts = {}, event = 'VeryLazy' },
 
 	-- quicker editing
@@ -117,16 +116,7 @@ require('colorizer').setup({
 	},
 })
 
-require('ayu').setup({
-	mirage = false,
-	overrides = {
-		CursorLine = { bg = "#232333" },
-		WhichKeyFloat = { bg = "#2c2c2c" },
-		MatchParen = { fg = "#000000", bg = "lightblue" },
-	}
-})
-require('ayu').colorscheme()
-vim.cmd('colorscheme ayu-dark')
+vim.cmd('colorscheme slate')
 vim.cmd('hi Normal guibg=#000000')
 vim.cmd('hi Visual guibg=#3a3a40')
 
