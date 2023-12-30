@@ -56,11 +56,10 @@ require('lazy').setup({
 
 	{ 'lewis6991/gitsigns.nvim' },
 
+	{ 'numToStr/Comment.nvim',         opts = {}, lazy = false }, -- 'gc' to comment visual regions/lines
+
 	-- theming neovim
 	{ 'nvim-tree/nvim-web-devicons', opts = {}, event = 'VeryLazy' },
-
-	-- quicker editing
-	{ 'numToStr/Comment.nvim',         opts = {}, lazy = false }, -- 'gc' to comment visual regions/lines
 
 	{
 		'nvim-telescope/telescope.nvim',
@@ -87,7 +86,7 @@ require('lazy').setup({
 		},
 
 		require 'ck.plugins.autoformat', -- autoformat plugins
-		require 'ck.plugins.debug', -- debugging plugins
+		-- require 'ck.plugins.debug', -- debugging plugins -- commented, because so far not really using it
 
 		{
 			'nvim-neo-tree/neo-tree.nvim',
@@ -120,15 +119,7 @@ vim.cmd('colorscheme slate')
 vim.cmd('hi Normal guibg=#000000')
 vim.cmd('hi Visual guibg=#3a3a40')
 
-require('gitsigns').setup{
-	on_attach = function(bufnr)
-		local function map(mode, l, r, opts)
-		  opts = opts or {}
-		  opts.buffer = bufnr
-		  vim.keymap.set(mode, l, r, opts)
-		end
-	end
-}
+require('gitsigns').setup{ }
 
 require("neo-tree").setup({
 	filesystem = {
@@ -184,7 +175,7 @@ require('nvim-treesitter.configs').setup {
 		keymaps = {
 			init_selection = '<c-space>',
 			node_incremental = '<c-space>',
-			scope_incremental = '<c-s>',
+			scope_incremental = '<c-i>',
 			node_decremental = '<M-space>',
 		},
 	},
@@ -273,21 +264,14 @@ end
 
 -- See `:help telescope.builtin`
 local bi = require('telescope.builtin')
-km.set('n', '<leader>/', function()
-	-- You can pass additional configuration to telescope to change theme, layout, etc.
-	require('telescope.builtin').current_buffer_fuzzy_find(require('telescope.themes').get_dropdown {
-		winblend = 10,
-		previewer = false,
-	})
-end, { desc = '[/] Fuzzily search in current buffer' })
 
 km.set('n', '<leader>tr', bi.oldfiles, { desc = '[R]ecently opened' })
 km.set('n', '<leader>tb', bi.buffers, { desc = '[B]uffers' })
 
-km.set('n', '<leader>tf', bi.find_files, { desc = '[F]iles' })
+km.set('n', '<leader>f', bi.find_files, { desc = '[F]ile picker' })
 km.set('n', '<leader>th', bi.help_tags, { desc = '[H]elps' })
 km.set('n', '<leader>tw', bi.grep_string, { desc = 'current [W]ords' })
-km.set('n', '<leader>tgr', bi.live_grep, { desc = '[G]reps' })
+km.set('n', '<leader>/', bi.live_grep, { desc = '[G]reps / Global search' })
 km.set('n', '<leader>td', bi.diagnostics, { desc = '[D]iagnostics' })
 km.set('n', '<leader>tgf', bi.git_files, { desc = '[G]it [F]iles' })
 
@@ -299,27 +283,19 @@ km.set('n', ']d', vim.diagnostic.goto_next, { desc = 'Go to next diagnostic mess
 km.set('n', '<leader>e', vim.diagnostic.open_float, { desc = 'Open floating diagnostic message' })
 km.set('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Open diagnostics list' })
 
--- Enable the following language servers
---  add/remove any LSPs. They will automatically be installed.
---
---  Add any additional override configuration in the following tables. They will be passed to
---  the `settings` field of the server config.
---
---  override default filetypes your language server will attach to, define property 'filetypes' to the map in question.
+require('lspconfig').astro.setup{}
+
+
+-- language servers
 local servers = {
-	-- tsserver = { 'typescript', 'tsx', 'typescriptreact', 'jsdoc' },
-	-- volar = { 'typescript', 'javascript', 'javascriptreact', 'typescriptreact', 'vue', 'json' }, -- don't know if really necessary
-	-- html = { 'html', 'javascript', 'vue' },
-	-- cssls = { 'html', 'css' },
-	-- volar = { 'html', 'vue' },
 	lua_ls = {
 		Lua = {
 			workspace = { checkThirdParty = "Disable" },
 			telemetry = { enable = false }
 		}
 	},
-	-- eslint = {},
 }
+
 --
 -- Setup neovim lua configuration
 require('neodev').setup({
@@ -351,7 +327,7 @@ mason_lspconfig.setup_handlers {
 require('lspconfig').volar.setup{
 	on_attach=on_attach,
 	capabilities = capabilities,
-	filetypes= {'javascript', 'javascriptreact', 'javascript.jsx', 'typescript', 'typescriptreact', 'typescript.tsx'}
+	filetypes= {'vue','javascript', 'javascriptreact', 'javascript.jsx', 'typescript', 'typescriptreact', 'typescript.tsx'}
 }
 
 local cmp = require 'cmp'
@@ -359,7 +335,7 @@ local luasnip = require 'luasnip'
 luasnip.filetype_extend("typescript", { "javascript" })
 luasnip.filetype_extend("javascript", { "jsdoc" })
 luasnip.filetype_extend("vue", { "jsdoc" })
-luasnip.filetype_extend("html", { "vue" })
+luasnip.filetype_extend("html", { "vue","astro" })
 require('luasnip.loaders.from_vscode').lazy_load()
 
 luasnip.config.setup {}
@@ -409,7 +385,7 @@ cmp.setup {
 local wk = require("which-key")
 wk.register({
 	c = { name = "+ LSP [C]ode" },
-	f = { name = "+ Formatting" },
+	-- f = { name = "+ Formatting" },
 	r = { name = "+ Replace / Rename" },
 	t = {
 		name = "+ Telescope",
