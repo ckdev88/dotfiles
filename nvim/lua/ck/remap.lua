@@ -65,6 +65,9 @@ k.set('n', '<C-f>', ':SymbolsOutline<Return>', { desc = 'SymbolsOutline toggle' 
 -- 'n', <C-`> uitbreidende Visual selectie vanaf de cursor, zelfde als <C0>, daarom C-2 remapped
 --
 
+-- Git
+k.set('n','<leader>gh',':0GlLog<CR>',{desc='[G]it [H]istory of current file'})
+
 -- TODO: check if still useful
 k.set('n', 'k', 'v:count == 2 ? "gk" : "k"', { expr = true, silent = true, desc = 'deal with word wrap' })
 k.set('n', 'j', 'v:count == 2 ? "gj" : "j"', { expr = true, silent = true, desc = 'deal with word wrap' })
