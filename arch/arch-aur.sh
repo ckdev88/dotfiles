@@ -8,3 +8,6 @@ pacman -S xvkbd
 cd ~ && git clone https://git.suckless.org/surf && cd ~/surf && sudo make clean install && sudo rm ~/surf -r 
 
 cd ~ && git clone https://git.suckless.org/st && cd ~/st && sudo make clean install && sudo rm ~/st -r
+
+pacman -S xbindkeys	xorg-xmodmap
+
