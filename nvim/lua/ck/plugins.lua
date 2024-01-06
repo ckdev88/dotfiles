@@ -56,10 +56,7 @@ require('lazy').setup({
 
 	{ 'lewis6991/gitsigns.nvim' },
 
-	{ 'numToStr/Comment.nvim',         opts = {}, lazy = false }, -- 'gc' to comment visual regions/lines
-
-	-- theming neovim
-	{ 'nvim-tree/nvim-web-devicons', opts = {}, event = 'VeryLazy' },
+	{ 'numToStr/Comment.nvim',opts = {}, lazy = false }, -- 'gc' to comment visual regions/lines
 
 	{
 		'nvim-telescope/telescope.nvim',
@@ -86,14 +83,11 @@ require('lazy').setup({
 		},
 
 		require 'ck.plugins.autoformat', -- autoformat plugins
-		-- require 'ck.plugins.debug', -- debugging plugins -- commented, because so far not really using it
-
 		{
 			'nvim-neo-tree/neo-tree.nvim',
 			branch = 'v3.x',
 			dependencies = {
 				'nvim-lua/plenary.nvim',
-				-- 'nvim-tree/nvim-web-devicons', -- commented because already lazy loaded via nvim-tree/nvim-web-devicons
 				'MunifTanjim/nui.nvim',
 			}
 		},
@@ -102,9 +96,6 @@ require('lazy').setup({
 	{ 'simrat39/symbols-outline.nvim', opts = {}, },
 	{ 'kylechui/nvim-surround',        opts = {}, event = 'VeryLazy' },
 	{ 'NvChad/nvim-colorizer.lua' },
-
-	-- { 'mfussenegger/nvim-dap' }
-	-- { 'rcarriga/nvim-dap-ui' }
 })
 
 --
@@ -127,10 +118,12 @@ require("neo-tree").setup({
 			hide_dotfiles = false
 		}
 	},
+	default_component_configs={icon={default=""}},
 	event_handlers = {
 		{
 			event = "file_opened",
 			handler = function()
+
 				vim.cmd("Neotree close")
 			end
 		},
@@ -297,10 +290,7 @@ local servers = {
 }
 
 --
--- Setup neovim lua configuration
-require('neodev').setup({
-	--	library = { plugins = { "nvim-dap-ui" }, types = true },
-})
+require('neodev').setup({ })
 
 -- nvim-cmp supports additional completion capabilities, so broadcast that to servers
 local capabilities = vim.lsp.protocol.make_client_capabilities()
