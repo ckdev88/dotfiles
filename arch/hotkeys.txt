@@ -1,8 +1,0 @@
-Tools (Fn + Space) audacious --headless --play-pause --quit-after-play
-Media Next (Fn + >) audacious --fwd
-Media Previous (Fn + <) audacious --rew
-Media Stop (Fn + /) killall audacious
-Volume Mute (Fn + m) pactl set-sink-mute @DEFAULT_SINK@ toggle
-Volume Down (Fn + 9) pactl set-sink-volume @DEFAULT_SINK@ -5%
-Volume Up (Fn + 0) pactl set-sink-volume @DEFAULT_SINK@ +5%
-Meta + T konsole
