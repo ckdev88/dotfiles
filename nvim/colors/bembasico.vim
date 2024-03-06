@@ -4,7 +4,7 @@
 " Maintainer:   CK
 " Website:      CK
 " License:      Same as Vim
-" Last Updated: Fri 01 Mar 2024 09:53:17 CET
+" Last Updated: Fri 05 Mar 2024
 
 set background=dark
 
@@ -51,6 +51,7 @@ hi CursorIM guifg=#1c1c1c guibg=#fbf1c7 gui=NONE cterm=NONE
 hi CursorLine guifg=NONE guibg=#2a2a2a gui=NONE cterm=NONE
 hi Define guifg=#ffd700 guibg=NONE gui=bold cterm=NONE
 hi Delimiter guifg=#6f5f46 guibg=NONE gui=NONE cterm=NONE
+
 
 hi EndOfBuffer guifg=#504945 guibg=NONE gui=NONE cterm=NONE
 hi Error guifg=#df0000 guibg=#e4e4e4 gui=reverse cterm=reverse
@@ -110,8 +111,8 @@ hi @lsp.type.function guifg=#ffdd33 gui=bold cterm=NONE
 hi @lsp.type.property guifg=#efdfc6
 hi @lsp.type.variable guifg=#efdfc6 guibg=NONE gui=NONE cterm=NONE 
 
-hi DapUIModifiedValue guifg=Cyan gui=bold
-hi NvimDapVirtualText guifg=DarkCyan gui=NONE
+hi NvimDapVirtualText guifg=#70b2a1 guibg=#504945 gui=NONE
+hi DapUIModifiedValue guifg=Cyan guibg=#504945 gui=bold
 
 hi DiagnosticWarn guifg=black guibg=DarkOrange 
 hi DiagnosticError guifg=white guibg=#df0000
