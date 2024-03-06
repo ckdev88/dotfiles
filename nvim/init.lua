@@ -96,9 +96,6 @@ k.set('n', '<leader>fp', ":w<CR>:silent ! prettier --write %<CR>",
 	{ desc = 'Format with [P]rettier' })
 k.set('n', '<leader>ff', ':Format<CR>', { silent = true, desc = "Format using VIM native" })
 
--- Symbols-outline
--- k.set('n', '<C-f>', ':SymbolsOutline<Return>', { desc = 'SymbolsOutline toggle' })
-
 -- for tabs, see :help :tab and/or press <C-w>
 -- See `:help vim.o`
 -- See `:help mapleader`
@@ -189,7 +186,6 @@ require('lazy').setup({
 		},
 		build = ':TSUpdate',
 	},
-	-- { 'simrat39/symbols-outline.nvim', opts = {}, },
 	{ 'kylechui/nvim-surround',         opts = {}, event = 'VeryLazy' },
 	{ 'NvChad/nvim-colorizer.lua' },
 	-- debugging...
@@ -228,9 +224,7 @@ require('telescope').setup { -- Telescope -- See `:help telescope` and `:help te
 }
 
 pcall(require('telescope').load_extension, 'fzf') -- Enable telescope fzf native, if installed
--- See `:help telescope.builtin` , see remap file for key bindings
 
--- See `:help nvim-treesitter`
 require('nvim-treesitter.configs').setup {
 	modules = {},
 	sync_install = false,
