@@ -17,8 +17,8 @@ hi! link CursorLineFold CursorLine
 hi! link CursorLineSign CursorLine
 hi! link MessageWindow Pmenu
 hi! link PopupNotification Todo
-hi! link Operator Identifier
 hi! link Constant Identifier
+hi! link @property Identifier
 hi! link Structure Type
 hi! link FoldColumn Folded
 hi! link SpecialKey Type
@@ -31,25 +31,27 @@ hi! link ErrorMsg Exception
 hi! link WarningMsg Exception
 hi! link CursorLineNr CursorLine
 hi! link NvimDapVirtualTextChanged DapUIModifiedValue
+hi! link DiagnosticHint DiagnosticWarn
+" hi! link @lsp.type.class Type
 
-hi Identifier guifg=#ffffff guibg=NONE gui=NONE cterm=NONE
-hi String guifg=#cfbfa6 guibg=NONE gui=NONE cterm=NONE
-hi Function guifg=#ffdd00 guibg=NONE gui=bold cterm=NONE
-hi Keyword guifg=#d9c9a0 guibg=NONE gui=NONE cterm=NONE
+hi Identifier guifg=#e4e4e4 guibg=NONE gui=NONE cterm=NONE
+"#b7ac9b #cfbfa6
+hi Operator guifg=#ffffff 
+hi String guifg=#79bf46 guibg=NONE gui=NONE cterm=NONE
+hi Function guifg=#ffdd00 guibg=NONE gui=NONE cterm=NONE
+hi Keyword guifg=Tan  guibg=NONE gui=NONE cterm=NONE
 hi Character guifg=#e699ae guibg=NONE gui=NONE cterm=NONE
 hi ColorColumn guifg=NONE guibg=#000000 gui=NONE cterm=NONE
-hi Comment guifg=#d16e22 guibg=NONE gui=NONE cterm=NONE
+hi Comment guifg=Gray guibg=NONE gui=NONE cterm=NONE
 hi Conceal guifg=#83a598 guibg=NONE gui=NONE cterm=NONE
+hi Cursor gui=reverse cterm=reverse
 hi Conditional guifg=#83a598 guibg=NONE gui=NONE cterm=NONE
 hi CursorColumn guifg=NONE guibg=#333333 gui=NONE cterm=NONE
 hi CursorIM guifg=#1c1c1c guibg=#fbf1c7 gui=NONE cterm=NONE
 hi CursorLine guifg=NONE guibg=#2a2a2a gui=NONE cterm=NONE
 hi Define guifg=#ffd700 guibg=NONE gui=bold cterm=NONE
-hi Delimiter guifg=#777777 guibg=NONE gui=NONE cterm=NONE
-hi DiffAdd guifg=#e4e4e4 guibg=#00cc00 gui=NONE cterm=NONE
-hi DiffChange guifg=#e4e4e4 guibg=#5f87af gui=NONE cterm=NONE
-hi DiffDelete guifg=#e4e4e4 guibg=#df0000 gui=NONE cterm=NONE
-hi DiffText guifg=#fabd2f guibg=#1c1c1c gui=reverse cterm=reverse
+hi Delimiter guifg=#6f5f46 guibg=NONE gui=NONE cterm=NONE
+
 hi EndOfBuffer guifg=#504945 guibg=NONE gui=NONE cterm=NONE
 hi Error guifg=#df0000 guibg=#e4e4e4 gui=reverse cterm=reverse
 hi Exception guifg=#df0000 guibg=NONE gui=NONE cterm=NONE
@@ -61,7 +63,7 @@ hi MatchParen guifg=#ffdd33 guibg=NONE gui=NONE gui=bold cterm=bold,reverse
 hi ModeMsg guifg=#e4e4e4 guibg=NONE gui=NONE cterm=NONE
 hi MoreMsg guifg=#fabd2f guibg=NONE gui=bold cterm=bold
 hi NonText guifg=#504945 guibg=NONE gui=NONE cterm=NONE
-hi Normal guifg=#ffefc6 guibg=#000000 gui=NONE cterm=NONE
+hi Normal guifg=#cfbfa6 guibg=#000000 gui=NONE cterm=NONE
 hi Pmenu guifg=#fdedc4 guibg=#5a0914 gui=NONE cterm=NONE
 hi PmenuExtra guifg=#a89984 guibg=#3c3836 gui=NONE cterm=NONE
 hi PmenuExtraSel guifg=#303030 guibg=#83a598 gui=NONE cterm=NONE
@@ -82,7 +84,7 @@ hi SpellCap guifg=#83a598 guibg=NONE guisp=#83a598 gui=undercurl cterm=underline
 hi SpellLocal guifg=#8ec07c guibg=NONE guisp=#8ec07c gui=undercurl cterm=underline
 hi SpellRare guifg=#e699ae guibg=NONE guisp=#e699ae gui=undercurl cterm=underline
 hi Statement guifg=#83a598 guibg=NONE gui=NONE cterm=NONE
-hi StatusLine guifg=#caba90 guibg=#202020 gui=NONE cterm=NONE
+hi StatusLine guifg=#918674 guibg=#202020 gui=NONE cterm=NONE
 hi StatusLineNC guifg=#504945 guibg=NONE gui=NONE cterm=NONE
 hi StatusLineTerm guifg=#df0000 guibg=#222222 gui=NONE cterm=bold,reverse
 hi StatusLineTermNC guifg=NONE guibg=#222222 gui=reverse cterm=reverse
@@ -94,28 +96,30 @@ hi Title guifg=#ffdd33 guibg=NONE gui=bold cterm=bold
 hi Todo guifg=#df0000 guibg=#ffdd33 gui=NONE cterm=bold
 hi ToolbarButton guifg=#fbf1c7 guibg=#303030 gui=bold cterm=bold
 hi ToolbarLine guifg=NONE guibg=NONE gui=NONE ctermfg=NONE ctermbg=NONE cterm=NONE
-hi Type guifg=#777777 guibg=NONE gui=NONE cterm=NONE
+hi Type guifg=#aaaaaa guibg=NONE gui=NONE cterm=NONE
 hi Typedef guifg=#fabd2f guibg=NONE gui=NONE cterm=NONE
 hi Underlined guifg=#504945 guibg=NONE gui=underline cterm=underline
 hi VertSplit guifg=#fbf1c7 guibg=black gui=NONE cterm=NONE
-hi Visual guifg=none guibg=#413b38 gui=NONE cterm=reverse
+hi Visual guifg=none guibg=#514b48 gui=NONE cterm=reverse
 hi VisualNOS guifg=#d7d787 guibg=#5f8700 gui=NONE cterm=NONE
 hi WildMenu guifg=#83a598 guibg=#504945 gui=bold cterm=bold
 hi lCursor guifg=#262626 guibg=#ffafaf gui=NONE cterm=NONE
 
-hi @lsp.type.parameter guifg=#ffdd00 guibg=NONE gui=NONE cterm=NONE
-hi @lsp.type.variable guifg=#e4e4e4 guibg=NONE gui=NONE cterm=NONE 
+hi @lsp.type.enum guifg=#70b2a1
+hi @lsp.type.function guifg=#ffdd33 gui=bold cterm=NONE
+hi @lsp.type.property guifg=#efdfc6
+hi @lsp.type.variable guifg=#efdfc6 guibg=NONE gui=NONE cterm=NONE 
 
 hi DapUIModifiedValue guifg=Cyan gui=bold
 hi NvimDapVirtualText guifg=DarkCyan gui=NONE
 
-hi DiagnosticHint guifg=black guibg=DarkOrange 
 hi DiagnosticWarn guifg=black guibg=DarkOrange 
 hi DiagnosticError guifg=white guibg=#df0000
 
-" experimental...
-hi @parameter guifg=lime guibg=NONE gui=NONE cterm=NONE
-hi javaScriptConditional guifg=Magenta guibg=LightMagenta gui=NONE cterm=NONE
-hi javaScriptStatement guifg=Lime guibg=Yellow gui=NONE cterm=NONE
-hi @conditional guifg=Magenta guibg=LightMagenta gui=NONE cterm=NONE
-hi ReturnKeyword guifg=Magenta guibg=LightMagenta gui=NONE cterm=NONE
+hi DiffAdd guifg=Lime guibg=Black gui=NONE
+hi DiffAdded guifg=Lime guibg=Black gui=NONE
+hi DiffDelete guifg=Red guibg=Black gui=NONE
+hi diffRemoved guifg=Red guibg=Black gui=NONE
+hi diffFile guifg=White
+
+hi WhichKeyValue guifg=#d16e22
