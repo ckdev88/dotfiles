@@ -42,7 +42,8 @@ hi Function guifg=#ffdd00 guibg=NONE gui=NONE cterm=NONE
 hi Keyword guifg=Tan  guibg=NONE gui=NONE cterm=NONE
 hi Character guifg=#e699ae guibg=NONE gui=NONE cterm=NONE
 hi ColorColumn guifg=NONE guibg=#000000 gui=NONE cterm=NONE
-hi Comment guifg=Gray guibg=NONE gui=NONE cterm=NONE
+hi Comment guifg=#d16e22 guibg=NONE gui=NONE cterm=NONE
+hi @lsp.type.comment guifg=Gray guibg=NONE gui=NONE cterm=NONE
 hi Conceal guifg=#83a598 guibg=NONE gui=NONE cterm=NONE
 hi Cursor gui=reverse cterm=reverse
 hi Conditional guifg=#83a598 guibg=NONE gui=NONE cterm=NONE
@@ -123,4 +124,21 @@ hi DiffDelete guifg=Red guibg=Black gui=NONE
 hi diffRemoved guifg=Red guibg=Black gui=NONE
 hi diffFile guifg=White
 
-hi WhichKeyValue guifg=#d16e22
+" hi MasonError 	   
+" hi MasonHeader                       
+" hi MasonHeaderSecondary 
+" hi MasonHeading                      
+" hi MasonHighlightBlock               
+" hi MasonHighlightBlockBoldSecondary  
+" hi MasonHighlightBlockSecondary      
+" hi MasonHighlightSecondary           
+" hi MasonMuted 
+" hi WhichKeyValue 
+" hi masonDoc                          
+" hi masonPerlComment 	   
+" hi MasonLink               
+" hi MasonMutedBlock         
+" hi MasonMutedBlockBold     
+" hi MasonNormal             
+" hi MasonWarning            
+" hi masonPod                
