@@ -84,7 +84,8 @@ k.set('n', '<C-b>', ':buffer ', { desc = 'see open [b]uffers' })
 
 -- url navigation
 k.set('n', '<leader>b', '/http<CR>yi(:silent !qutebrowser <C-r>0<CR><CR>',
-	{ silent = true, desc = '[B]rowse first url in lsp:hover' })
+	{ silent = true, desc = '[B]rowse first url from cursor position' })
+
 
 -- switch to previous buffer
 k.set('n', '<A-[>', '<C-^><CR>',
