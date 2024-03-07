@@ -83,7 +83,7 @@ k.set('n', '<C-f>', ':find ', { desc = 'look for [f]iles, replaces scrolling dow
 k.set('n', '<C-b>', ':buffer ', { desc = 'see open [b]uffers' })
 
 -- url navigation
-k.set('n', '<leader>b', '/http<CR>yi(:silent !qutebrowser <C-r>0<CR><CR>',
+k.set('n', '<leader>b', "/http<CR>yi(:new<CR>p:silent! %s/#/\\\\#/g<CR>dd:q!<CR>:silent !qutebrowser <C-r>1<CR>",
 	{ silent = true, desc = '[B]rowse first url from cursor position' })
 
 
@@ -571,4 +571,3 @@ k.set("n", "<Leader>dx", function()
 	dap.terminate()
 	vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes("<C-w>=", false, true, true), "n", false)
 end, { desc = "Clear session, breakpoints & exit debugger" })
-
