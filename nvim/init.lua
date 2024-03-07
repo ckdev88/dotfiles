@@ -1,4 +1,4 @@
--- base ...................................................................................
+-- base
 vim.cmd('autocmd!')
 
 local vo = vim.opt
@@ -15,7 +15,8 @@ vo.backupskip = '/tmp/*,/private/tmp/*'
 vo.termguicolors = true
 vo.wildignore:append { '*/node_modules/*' }
 vo.guicursor = ''
-vo.cursorline = true;               -- default:false
+vo.cursorline = true; -- default:false
+vo.relativenumber = true
 vo.undofile = true
 vo.ignorecase = true                -- case-insensitive searching unless \C or capital in search
 vo.smartcase = true                 -- case-insensitive searching unless \C or capital in search
@@ -33,7 +34,7 @@ vim.g.netrw_banner = 1
 --
 -- See `:help vim.o`
 
--- remap ...................................................................................
+-- remap
 --
 vim.g.mapleader = ' '
 vim.g.maplocalleader = ' '
@@ -80,6 +81,10 @@ end, { silent = true, desc = 'Toggle Netrw file [e]xplorer' })
 
 k.set('n', '<C-f>', ':find ', { desc = 'look for [f]iles, replaces scrolling down a fold size command' })
 k.set('n', '<C-b>', ':buffer ', { desc = 'see open [b]uffers' })
+
+-- url navigation
+k.set('n', '<leader>b', '/http<CR>yi(:silent !qutebrowser <C-r>0<CR><CR>',
+	{ silent = true, desc = '[B]rowse first url in lsp:hover' })
 
 -- switch to previous buffer
 k.set('n', '<A-[>', '<C-^><CR>',
@@ -308,7 +313,7 @@ local on_attach = function(_, bufnr)     -- run when LSP connects to particular 
 	nmap('gI', require('telescope.builtin').lsp_implementations, '[G]oto [I]mplementation')
 	nmap('<leader>D', vim.lsp.buf.type_definition, 'Type [D]efinition')
 
-	nmap('K', vim.lsp.buf.hover, 'Hover Documentation') -- See `:help K` for why this keymap
+	nmap('K', vim.lsp.buf.hover, 'Hover Documentation')
 
 	-- Lesser used LSP functionality
 	nmap('gD', vim.lsp.buf.declaration, '[G]oto [D]eclaration')
@@ -342,6 +347,7 @@ k.set('n', '[d', vim.diagnostic.goto_prev, { desc = 'Go to previous diagnostic m
 k.set('n', ']d', vim.diagnostic.goto_next, { desc = 'Go to next diagnostic message' })
 k.set('n', '<leader>e', vim.diagnostic.open_float, { desc = 'Open floating diagnostic message' })
 k.set('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Open diagnostics list' })
+
 
 require('lspconfig').astro.setup {}
 
@@ -564,3 +570,4 @@ k.set("n", "<Leader>dx", function()
 	dap.terminate()
 	vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes("<C-w>=", false, true, true), "n", false)
 end, { desc = "Clear session, breakpoints & exit debugger" })
+
