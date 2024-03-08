@@ -67,7 +67,7 @@ k.set('n', '<leader>rw', 'viw"0p', { desc = '[R]eplace [w]ord with paste' })
 
 -- quick modifying
 k.set('n', 'U', ':redo<Return>', { desc = 'Undo the undo' })
-k.set({ 'n', 'v', 'i' }, '<leader>s', '<Esc>:Format<CR>:w<CR>',
+k.set('n', '<leader>s', '<Esc>:Format<CR>:w<CR>',
 	{ silent = true, desc = 'Save file & format with VIM native' })
 
 -- file navigation
