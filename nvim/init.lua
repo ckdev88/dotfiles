@@ -14,31 +14,31 @@ vo.shell = 'zsh'
 vo.backupskip = '/tmp/*,/private/tmp/*'
 vo.termguicolors = true
 vo.wildignore:append { '*/node_modules/*' }
-vo.guicursor = ''
-vo.cursorline = true; -- default:false
-vo.relativenumber = true
-vo.undofile = true
-vo.ignorecase = true                -- case-insensitive searching unless \C or capital in search
-vo.smartcase = true                 -- case-insensitive searching unless \C or capital in search
-vo.breakindent = true               -- default:false
-vo.signcolumn = 'yes'               -- keep signcolumn on by default (yes good? no true?)
-vo.completeopt = 'menuone,noselect' -- better completion
-vo.hlsearch = true                  -- highlight on search
-vo.mouse = 'a'                      -- Enable mouse mode
+vo.guicursor          = ''
+vo.cursorline         = true
+vo.relativenumber     = true
+vo.undofile           = true
+vo.ignorecase         = true               -- case-insensitive searching unless \C or capital in search
+vo.smartcase          = true               -- case-insensitive searching unless \C or capital in search
+vo.breakindent        = true               -- default:false
+vo.signcolumn         = 'yes'              -- keep signcolumn on by default (yes good? no true?)
+vo.completeopt        = 'menuone,noselect' -- better completion
+vo.hlsearch           = true               -- highlight on search
+vo.mouse              = 'a'                -- Enable mouse mode
 -- Set completeopt to have a better completion experience
-vo.completeopt = 'menuone,noselect'
+vo.completeopt        = 'menuone,noselect'
 
 vim.g.netrw_liststyle = 0
-vim.g.netrw_banner = 1
+vim.g.netrw_banner    = 1
 
 --
 -- See `:help vim.o`
 
 -- remap
 --
-vim.g.mapleader = ' '
-vim.g.maplocalleader = ' '
-local k = vim.keymap
+vim.g.mapleader       = ' '
+vim.g.maplocalleader  = ' '
+local k               = vim.keymap
 
 
 -- vim.cmd 'syntax sync from ReturnKeyword.vim'
@@ -51,9 +51,9 @@ k.set({ 'n', 'v' }, '<Space>', '<Nop>', { silent = true })
 k.set('n', 'q', '<nop>', { desc = 'disable macro shortcut, TODO: define later on different key' })
 k.set('n', '<Esc>', ':noh<CR>', { silent = true, noremap = true, desc = 'add :noh to esc key map' })
 
--- line manipulation
-k.set('n', '<C-d>', 'Vyp', { desc = 'Duplicate active line' })
-k.set('v', '<C-d>', ":copy'><CR>gv=gv", { desc = 'Duplicate selection' })
+-- -- line manipulation
+k.set('n', '<C-c>', 'Vyp', { desc = 'Duplicate active line' })
+k.set('v', '<C-c>', ":copy'><CR>gv=gv", { desc = 'Duplicate selection' })
 k.set('n', '<C-j>', ":move+<CR>", { desc = 'move line down' })
 k.set('n', '<C-k>', ":move-2<CR>", { desc = 'move single line up' })
 k.set('v', '<C-j>', ":move'>+<CR>gv=gv", { desc = 'move selected a line down' })
@@ -66,9 +66,9 @@ k.set('n', '<leader>ra', [[:%s/\<<C-r><C-w>\>/]], { desc = '[R]eplace [a]ll occu
 k.set('n', '<leader>rw', 'viw"0p', { desc = '[R]eplace [w]ord with paste' })
 
 -- quick modifying
-k.set('n', 'U', ':redo<Return>', { desc = '[U]ndo the [u]ndo' })
-k.set({ 'n', 'v', 'i' }, '<C-s>', '<Esc>:Format<CR>:w<CR>',
-	{ silent = true, desc = '[S]ave file & format with VIM native' })
+k.set('n', 'U', ':redo<Return>', { desc = 'Undo the undo' })
+k.set({ 'n', 'v', 'i' }, '<leader>s', '<Esc>:Format<CR>:w<CR>',
+	{ silent = true, desc = 'Save file & format with VIM native' })
 
 -- file navigation
 k.set('n', '<C-e>', function()
@@ -83,9 +83,8 @@ k.set('n', '<C-f>', ':find ', { desc = 'look for [f]iles, replaces scrolling dow
 k.set('n', '<C-b>', ':buffer ', { desc = 'see open [b]uffers' })
 
 -- url navigation
-k.set('n', '<leader>b', "/http<CR>yi(:new<CR>p:silent! %s/#/\\\\#/g<CR>dd:q!<CR>:silent !qutebrowser <C-r>1<CR>",
-	{ silent = true, desc = '[B]rowse first url from cursor position' })
-
+k.set('n', '<leader>b', "/http<CR>yi(:new<CR>p:silent! %s/#/\\\\#/g<CR>dd:q!<CR>:silent !qutebrowser <C-r>1 &<CR>",
+	{ silent = true, desc = 'Browse to URL, surrounded by ()' })
 
 -- switch to previous buffer
 k.set('n', '<A-[>', '<C-^><CR>',
