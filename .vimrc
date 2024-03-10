@@ -25,11 +25,11 @@ no <C-z> <nop>
 no <SPACE> <nop>
 no <ESC> :noh<CR>
 
-no <C-d> Vpp
+no <C-c> Vpp
 no <C-j> :move+<CR>			" move line down
 vn <C-j> :move'>+<CR>gv=gv 	" move selection down 
 no <C-k> :move-2<CR>
-no <C-s> <esc>:w<CR>
+no <leader>s <esc>:w<CR>
 
 vn <C-a> <Esc>2<C-o>
 
