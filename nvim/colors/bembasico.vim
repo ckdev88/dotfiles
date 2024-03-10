@@ -4,7 +4,7 @@
 " Maintainer:   CK
 " Website:      CK
 " License:      Same as Vim
-" Last Updated: Fri 05 Mar 2024
+" Last Updated: Sat 09 Mar 2024
 
 set background=dark
 
@@ -32,6 +32,7 @@ hi! link WarningMsg Exception
 hi! link CursorLineNr CursorLine
 hi! link NvimDapVirtualTextChanged DapUIModifiedValue
 hi! link DiagnosticHint DiagnosticWarn
+hi! link @lsp.type.comment Comment
 " hi! link @lsp.type.class Type
 
 hi Identifier guifg=#e4e4e4 guibg=NONE gui=NONE cterm=NONE
@@ -42,18 +43,15 @@ hi Function guifg=#ffdd00 guibg=NONE gui=NONE cterm=NONE
 hi Keyword guifg=Tan  guibg=NONE gui=NONE cterm=NONE
 hi Character guifg=#e699ae guibg=NONE gui=NONE cterm=NONE
 hi ColorColumn guifg=NONE guibg=#000000 gui=NONE cterm=NONE
-hi Comment guifg=#d16e22 guibg=NONE gui=NONE cterm=NONE
-hi @lsp.type.comment guifg=Gray guibg=NONE gui=NONE cterm=NONE
+hi Comment guifg=#504945 guibg=NONE gui=NONE cterm=NONE
 hi Conceal guifg=#83a598 guibg=NONE gui=NONE cterm=NONE
 hi Cursor gui=reverse cterm=reverse
 hi Conditional guifg=#83a598 guibg=NONE gui=NONE cterm=NONE
 hi CursorColumn guifg=NONE guibg=#333333 gui=NONE cterm=NONE
 hi CursorIM guifg=#1c1c1c guibg=#fbf1c7 gui=NONE cterm=NONE
-hi CursorLine guifg=NONE guibg=#2a2a2a gui=NONE cterm=NONE
+hi CursorLine guifg=NONE guibg=#241e1d gui=NONE cterm=NONE
 hi Define guifg=#ffd700 guibg=NONE gui=bold cterm=NONE
 hi Delimiter guifg=#6f5f46 guibg=NONE gui=NONE cterm=NONE
-
-
 hi EndOfBuffer guifg=#504945 guibg=NONE gui=NONE cterm=NONE
 hi Error guifg=#df0000 guibg=#e4e4e4 gui=reverse cterm=reverse
 hi Exception guifg=#df0000 guibg=NONE gui=NONE cterm=NONE
@@ -65,7 +63,7 @@ hi MatchParen guifg=#ffdd33 guibg=NONE gui=NONE gui=bold cterm=bold,reverse
 hi ModeMsg guifg=#e4e4e4 guibg=NONE gui=NONE cterm=NONE
 hi MoreMsg guifg=#fabd2f guibg=NONE gui=bold cterm=bold
 hi NonText guifg=#504945 guibg=NONE gui=NONE cterm=NONE
-hi Normal guifg=#cfbfa6 guibg=#000000 gui=NONE cterm=NONE
+hi Normal guifg=#cfbfa6 guibg=NONE gui=NONE cterm=NONE
 hi Pmenu guifg=#fdedc4 guibg=#5a0914 gui=NONE cterm=NONE
 hi PmenuExtra guifg=#a89984 guibg=#3c3836 gui=NONE cterm=NONE
 hi PmenuExtraSel guifg=#303030 guibg=#83a598 gui=NONE cterm=NONE
@@ -102,7 +100,8 @@ hi Type guifg=#aaaaaa guibg=NONE gui=NONE cterm=NONE
 hi Typedef guifg=#fabd2f guibg=NONE gui=NONE cterm=NONE
 hi Underlined guifg=#504945 guibg=NONE gui=underline cterm=underline
 hi VertSplit guifg=#fbf1c7 guibg=black gui=NONE cterm=NONE
-hi Visual guifg=none guibg=#514b48 gui=NONE cterm=reverse
+" hi Visual guifg=none guibg=#514b48 gui=NONE cterm=reverse
+hi Visual guifg=none guibg=#474140 gui=NONE cterm=reverse
 hi VisualNOS guifg=#d7d787 guibg=#5f8700 gui=NONE cterm=NONE
 hi WildMenu guifg=#83a598 guibg=#504945 gui=bold cterm=bold
 hi lCursor guifg=#262626 guibg=#ffafaf gui=NONE cterm=NONE
@@ -124,6 +123,7 @@ hi DiffDelete guifg=Red guibg=Black gui=NONE
 hi diffRemoved guifg=Red guibg=Black gui=NONE
 hi diffFile guifg=White
 
+hi CommentLine guifg=Lime
 " hi MasonError 	   
 " hi MasonHeader                       
 " hi MasonHeaderSecondary 
@@ -133,7 +133,7 @@ hi diffFile guifg=White
 " hi MasonHighlightBlockSecondary      
 " hi MasonHighlightSecondary           
 " hi MasonMuted 
-" hi WhichKeyValue 
+hi WhichKeyValue  guifg=#d16e22
 " hi masonDoc                          
 " hi masonPerlComment 	   
 " hi MasonLink               
