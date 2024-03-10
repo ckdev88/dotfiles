@@ -5,8 +5,8 @@
  *
  * font: see http://freedesktop.org/software/fontconfig/fontconfig-user.html
  */
-static char *font = "Iosevka Nerd Front Mono,Iosevka NFM Medium:style=Medium,Regular:pixelsize=16:antialias=true";
-static int borderpx = 4;
+static char *font = "Iosevka NFM:style=Regular:pixelsize=18:antialias=true";
+static int borderpx = 10;
 
 /*
  * What program is execed by st depends of these precedence rules:
