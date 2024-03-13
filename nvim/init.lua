@@ -67,8 +67,7 @@ k.set('n', '<leader>rw', 'viw"0p', { desc = '[R]eplace [w]ord with paste' })
 
 -- quick modifying
 k.set('n', 'U', ':redo<Return>', { desc = 'Undo the undo' })
-k.set('n', '<leader>s', '<Esc>:Format<CR>:w<CR>',
-	{ silent = true, desc = 'Save file & format with VIM native' })
+k.set('n', '<leader>s', ':w<CR>', { desc = 'Save file' })
 
 -- file navigation
 k.set('n', '<C-e>', function()
@@ -86,17 +85,6 @@ k.set('n', '<C-b>', ':buffer ', { desc = 'see open [b]uffers' })
 k.set('n', '<leader>b', "/http<CR>yi(:new<CR>p:silent! %s/#/\\\\#/g<CR>dd:q!<CR>:silent !qutebrowser <C-r>1 &<CR>",
 	{ silent = true, desc = 'Browse to URL, surrounded by ()' })
 
--- switch to previous buffer
-k.set('n', '<A-[>', '<C-^><CR>',
-	{
-		silent = true,
-		desc =
-		'Switch to last previously active buffer / alternate file (same as	:e#, but can also alternate empty file)'
-	})
-
--- plugin-related remaps
--- prettier , TODO: nagaan of configs in nvim nodig zijn, of een enkele npm install -g prettier voldoende is, die kan overschrijven op projectniveau
--- ----------------------------------------------
 k.set('n', '<leader>fp', ":w<CR>:silent ! prettier --write %<CR>",
 	{ desc = 'Format with [P]rettier' })
 k.set('n', '<leader>ff', ':Format<CR>', { silent = true, desc = "Format using VIM native" })
@@ -118,7 +106,6 @@ k.set('n', 'j', 'v:count == 2 ? "gj" : "j"', { expr = true, silent = true, desc 
 
 -- plugins ...................................................................................
 vim.cmd('colorscheme bembasico')
--- local km = vim.keymap
 local lazypath = vim.fn.stdpath 'data' .. '/lazy/lazy.nvim'
 if not vim.loop.fs_stat(lazypath) then
 	vim.fn.system {
@@ -136,16 +123,12 @@ require('lazy').setup({
 	-- Git related plugins
 	'tpope/vim-fugitive', -- /tpope/vim-fugitive, also see :Git difftool
 	'tpope/vim-rhubarb',
-	-- 'tpope/vim-sleuth', -- Detect tabstop and shiftwidth automatically, idk if this is useful
 	{
 		-- LSP Configuration & Plugins
 		'neovim/nvim-lspconfig',
 		dependencies = {
-			-- Automatically install LSPs to stdpath for neovim
 			{ 'williamboman/mason.nvim', opts = {} },
 			'williamboman/mason-lspconfig.nvim',
-			-- Useful status updates for LSP
-			-- NOTE: `opts = {}` is the same as calling `require('fidget').setup({})`
 			{ 'j-hui/fidget.nvim',       tag = 'legacy', opts = {} },
 			'folke/neodev.nvim',
 		},
@@ -204,8 +187,8 @@ require('lazy').setup({
 --
 require('colorizer').setup({
 	user_default_options = {
-		css = true, -- Enable all CSS features: rgb_fn, hsl_fn, names, RGB, RRGGBB
-		css_fn = true, -- Enable all CSS *functions*: rgb_fn, hsl_fn
+		css = true,
+		css_fn = true,
 	},
 })
 
@@ -306,12 +289,15 @@ local on_attach = function(_, bufnr)     -- run when LSP connects to particular 
 	end
 
 	nmap('<leader>rn', vim.lsp.buf.rename, '[R]e[n]ame')
-	nmap('<leader>ca', vim.lsp.buf.code_action, '[C]ode [A]ction')
+	nmap('<leader>lc', vim.lsp.buf.code_action, '[C]ode [A]ction')
 
 	nmap('gd', vim.lsp.buf.definition, '[G]oto [D]efinition')
 	nmap('gr', require('telescope.builtin').lsp_references, '[G]oto [R]eferences')
 	nmap('gI', require('telescope.builtin').lsp_implementations, '[G]oto [I]mplementation')
-	nmap('<leader>D', vim.lsp.buf.type_definition, 'Type [D]efinition')
+
+
+	nmap('<leader>lD', vim.lsp.buf.type_definition, 'Type [D]efinition')
+	nmap('<leader>lr', ':LspRestart<CR>', 'Restart Lsp servers')
 
 	nmap('K', vim.lsp.buf.hover, 'Hover Documentation')
 
@@ -452,10 +438,10 @@ cmp.setup {
 local wk = require('which-key')
 wk.register({
 	-- c = { name = "LSP [C]ode" },
-	c = "LSP [C]ode",
 	d = { name = "DAP" },
 	f = { name = "Formatting" },
 	g = { name = "Git" },
+	l = "LSP misc",
 	r = "Replace / Rename",
 	t = { name = "Telescope" },
 	w = "Workspace",
@@ -501,11 +487,11 @@ dapui.setup({
 		elements = {
 			{
 				id = "scopes",
-				size = 0.65
+				size = 0.7
 			},
 			{
 				id = "watches",
-				size = 0.35
+				size = 0.3
 			}
 		},
 		position = "right",
