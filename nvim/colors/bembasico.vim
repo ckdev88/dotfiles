@@ -4,7 +4,7 @@
 " Maintainer:   CK
 " Website:      CK
 " License:      Same as Vim
-" Last Updated: Sat 09 Mar 2024
+" Last Updated: Fri Mar 15 07:46:16 PM -03 2024
 
 set background=dark
 
@@ -75,7 +75,7 @@ hi PreProc guifg=#cfbfa6 guibg=NONE gui=NONE cterm=NONE
 hi Question guifg=orange guibg=NONE gui=NONE cterm=none
 hi QuickFixLine guifg=#8ec07c guibg=#1c1c1c gui=reverse cterm=reverse
 hi SignColumn guifg=#928374 guibg=black gui=NONE cterm=NONE
-hi Special guifg=#e4e4e4 guibg=NONE gui=NONE cterm=NONE
+hi Special guifg=#c0c0a0 guibg=NONE gui=NONE cterm=NONE
 hi SpecialChar guifg=#ffff00 guibg=NONE gui=NONE cterm=NONE
 hi SpecialComment guifg=#fb4934 guibg=NONE gui=NONE cterm=NONE
 hi SpellBad guifg=#df0000 guibg=NONE guisp=#df0000 gui=undercurl cterm=underline
