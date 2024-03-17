@@ -4,7 +4,7 @@
 " Maintainer:   CK
 " Website:      CK
 " License:      Same as Vim
-" Last Updated: Fri Mar 15 07:46:16 PM -03 2024
+" Last Updated: Sun Mar 17 11:37:34 AM -03 2024
 
 set background=dark
 
@@ -38,10 +38,10 @@ hi Identifier guifg=#e4e4e4 guibg=NONE gui=NONE cterm=NONE
 hi Operator guifg=#ffffff 
 hi String guifg=#79bf46 guibg=NONE gui=NONE cterm=NONE
 hi Function guifg=#ffdd00 guibg=NONE gui=NONE cterm=NONE
-hi Keyword guifg=Tan  guibg=NONE gui=NONE cterm=NONE
+hi Keyword guifg=#ccccae  guibg=NONE gui=NONE cterm=NONE
 hi Character guifg=#e699ae guibg=NONE gui=NONE cterm=NONE
 hi ColorColumn guifg=NONE guibg=#000000 gui=NONE cterm=NONE
-hi Comment guifg=#504945 guibg=NONE gui=NONE cterm=NONE
+hi Comment guifg=#d16e22 guibg=NONE gui=NONE cterm=NONE
 hi Conceal guifg=#83a598 guibg=NONE gui=NONE cterm=NONE
 hi Cursor gui=reverse cterm=reverse
 hi Conditional guifg=#d16e22 guibg=NONE gui=NONE cterm=NONE
@@ -50,26 +50,26 @@ hi CursorIM guifg=#1c1c1c guibg=#fbf1c7 gui=NONE cterm=NONE
 hi CursorLine guifg=NONE guibg=#241e1d gui=NONE cterm=NONE
 hi CursorLine guifg=NONE guibg=#241e1d gui=NONE cterm=NONE
 hi Define guifg=#ffd700 guibg=NONE gui=bold cterm=NONE
-hi Delimiter guifg=#6f5f46 guibg=NONE gui=NONE cterm=NONE
+hi Delimiter guifg=#6f6f67 guibg=NONE gui=NONE cterm=NONE
 hi EndOfBuffer guifg=#504945 guibg=NONE gui=NONE cterm=NONE
 hi Error guifg=#df0000 guibg=#e4e4e4 gui=reverse cterm=reverse
 hi Exception guifg=#df0000 guibg=NONE gui=NONE cterm=NONE
 hi Folded guifg=#928374 guibg=#121212 gui=NONE cterm=NONE
 hi Ignore guifg=NONE guibg=NONE gui=NONE ctermfg=NONE ctermbg=NONE cterm=NONE
-hi Search guibg=#8db9e2 guifg=Black 
+hi Search guibg=#7aa6cf guifg=Black 
 hi LineNr guifg=#504945 guibg=NONE gui=NONE cterm=NONE
 hi MatchParen guifg=#ffdd33 guibg=NONE gui=NONE gui=bold cterm=bold,reverse
 hi ModeMsg guifg=#e4e4e4 guibg=NONE gui=NONE cterm=NONE
 hi MoreMsg guifg=#fabd2f guibg=NONE gui=bold cterm=bold
 hi NonText guifg=#504945 guibg=NONE gui=NONE cterm=NONE
-hi Normal guifg=#cfbfa6 guibg=NONE gui=NONE cterm=NONE
-hi Pmenu guifg=#fdedc4 guibg=#5a0914 gui=NONE cterm=NONE
+hi Normal guifg=#ffffff guibg=NONE gui=NONE cterm=NONE
+hi Pmenu guifg=#fabd2f guibg=#5a0914 gui=NONE cterm=NONE
 hi PmenuExtra guifg=#a89984 guibg=#3c3836 gui=NONE cterm=NONE
 hi PmenuExtraSel guifg=#303030 guibg=#83a598 gui=NONE cterm=NONE
 hi PmenuKind guifg=#fb4934 guibg=#3c3836 gui=NONE cterm=NONE
 hi PmenuKindSel guifg=#fb4934 guibg=#83a598 gui=NONE cterm=NONE
 hi PmenuSbar guifg=NONE guibg=#262626 gui=NONE cterm=NONE
-hi PmenuSel guifg=#262626 guibg=#d7d787 gui=NONE cterm=NONE
+hi PmenuSel guifg=#ffffff guibg=#5a0914 gui=NONE cterm=NONE
 hi PmenuThumb guifg=NONE guibg=#7c6f64 gui=NONE cterm=NONE
 hi PreProc guifg=#cfbfa6 guibg=NONE gui=NONE cterm=NONE
 hi Question guifg=orange guibg=NONE gui=NONE cterm=none
@@ -95,19 +95,19 @@ hi Title guifg=#ffdd33 guibg=NONE gui=bold cterm=bold
 hi Todo guifg=#df0000 guibg=#ffdd33 gui=NONE cterm=bold
 hi ToolbarButton guifg=#fbf1c7 guibg=#303030 gui=bold cterm=bold
 hi ToolbarLine guifg=NONE guibg=NONE gui=NONE ctermfg=NONE ctermbg=NONE cterm=NONE
-hi Type guifg=#6f5f46 guibg=NONE gui=NONE cterm=NONE
+hi Type guifg=#7f7f76 guibg=NONE gui=NONE cterm=NONE
 hi Typedef guifg=#fabd2f guibg=NONE gui=NONE cterm=NONE
 hi Underlined guifg=#504945 guibg=NONE gui=underline cterm=underline
 hi VertSplit guifg=#fbf1c7 guibg=black gui=NONE cterm=NONE
-hi Visual guifg=#cfbfa6 guibg=#504945 gui=NONE cterm=reverse
+hi Visual guibg=#504945 gui=NONE cterm=reverse
 hi VisualNOS guifg=#d7d787 guibg=#5f8700 gui=NONE cterm=NONE
 hi WildMenu guifg=#83a598 guibg=#504945 gui=bold cterm=bold
 hi lCursor guifg=#262626 guibg=#ffafaf gui=NONE cterm=NONE
 
 hi @lsp.type.enum guifg=#70b2a1
 hi @lsp.type.function guifg=#ffdd33 gui=bold cterm=NONE
-hi @lsp.type.property guifg=#efdfc6
-hi @lsp.type.variable guifg=#efdfc6 guibg=NONE gui=NONE cterm=NONE 
+hi @lsp.type.property guifg=#e4e4e4
+hi @lsp.type.variable guifg=#f4f4f4 guibg=NONE gui=NONE cterm=NONE 
 
 hi NvimDapVirtualText guifg=#70b2a1 guibg=#504945 gui=NONE
 hi DapUIModifiedValue guifg=Cyan guibg=#504945 gui=bold
