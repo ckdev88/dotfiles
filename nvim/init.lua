@@ -40,7 +40,6 @@ vim.g.mapleader       = ' '
 vim.g.maplocalleader  = ' '
 local k               = vim.keymap
 
-
 -- vim.cmd 'syntax sync from ReturnKeyword.vim'
 -- syntax sync from 'ReturnKeyword.vim'
 
@@ -72,6 +71,7 @@ k.set('n', '<leader>s', ':w<CR>', { desc = 'Save file' })
 -- file navigation
 k.set('n', '<C-e>', function()
 	if vim.bo.filetype == 'netrw' then
+
 		vim.cmd 'bwipeout'
 	else
 		vim.cmd 'Explore'
@@ -95,16 +95,15 @@ k.set('n', '<leader>ff', ':Format<CR>', { silent = true, desc = "Format using VI
 
 -- handige standaard bindings om niet te vergeten
 -- 'n', <C-`> uitbreidende Visual selectie vanaf de cursor, zelfde als <C0>, daarom C-2 remapped
---
 
 -- Git
 k.set('n', '<leader>gh', ':0GlLog<CR>', { desc = '[G]it [H]istory of current file' })
 
 -- TODO: check if still useful
-k.set('n', 'k', 'v:count == 2 ? "gk" : "k"', { expr = true, silent = true, desc = 'deal with word wrap' })
-k.set('n', 'j', 'v:count == 2 ? "gj" : "j"', { expr = true, silent = true, desc = 'deal with word wrap' })
+k.set('n', 'k', 'v:count == 2 ? "gk" : "k"', { expr = true, silent = true, desc = 'deal with word wrap up' })
+k.set('n', 'j', 'v:count == 2 ? "gj" : "j"', { expr = true, silent = true, desc = 'deal with word wrap down' })
 
--- plugins ...................................................................................
+-- plugins 
 vim.cmd('colorscheme bembasico')
 local lazypath = vim.fn.stdpath 'data' .. '/lazy/lazy.nvim'
 if not vim.loop.fs_stat(lazypath) then
@@ -158,7 +157,7 @@ require('lazy').setup({
 		}
 	},
 	{ 'lewis6991/gitsigns.nvim' },
-	{ 'numToStr/Comment.nvim',  opts = {},   lazy = false }, -- 'gc' to comment visual regions/lines
+	{ 'numToStr/Comment.nvim',  opts = {}}, -- 'gc' to comment visual regions/lines
 	{
 		'nvim-telescope/telescope.nvim',
 		tag = '0.1.5',
