@@ -1,38 +1,35 @@
 -- base
 vim.cmd('autocmd!')
 
-local vo = vim.opt
-vo.cindent = true
-vo.tabstop = 4
-vo.shiftwidth = 4
-vo.number = true
-vo.scrolloff = 0
-vo.showcmd = true
-vo.cmdheight = 1
-vo.laststatus = 2
-vo.shell = 'zsh'
-vo.backupskip = '/tmp/*,/private/tmp/*'
-vo.termguicolors = true
-vo.wildignore:append { '*/node_modules/*' }
-vo.guicursor          = ''
-vo.cursorline         = true
-vo.relativenumber     = true
-vo.undofile           = true
-vo.ignorecase         = true               -- case-insensitive searching unless \C or capital in search
-vo.smartcase          = true               -- case-insensitive searching unless \C or capital in search
-vo.breakindent        = true               -- default:false
-vo.signcolumn         = 'yes'              -- keep signcolumn on by default (yes good? no true?)
-vo.completeopt        = 'menuone,noselect' -- better completion
-vo.hlsearch           = true               -- highlight on search
-vo.mouse              = 'a'                -- Enable mouse mode
 -- Set completeopt to have a better completion experience
-vo.completeopt        = 'menuone,noselect'
+local vo          = vim.opt
+vo.backupskip     = '/tmp/*,/private/tmp/*'
+vo.breakindent    = true     -- default:false
+vo.cindent        = true
+vo.cmdheight      = 1
+vo.completeopt    = 'menuone,noselect'
+vo.completeopt    = 'menuone,noselect'     -- better completion
+vo.cursorline     = true
+vo.guicursor      = ''
+vo.hlsearch       = true     -- highlight on search
+vo.ignorecase     = true     -- case-insensitive searching unless \C or capital in search
+vo.laststatus     = 2
+vo.mouse          = 'a'      -- Enable mouse mode
+vo.number         = true
+vo.relativenumber = true
+vo.scrolloff      = 0
+vo.shell          = 'zsh'
+vo.shiftwidth     = 4
+vo.showcmd        = true
+vo.signcolumn     = 'yes'     -- keep signcolumn on by default (yes good? no true?)
+vo.smartcase      = true      -- case-insensitive searching unless \C or capital in search
+vo.tabstop        = 4
+vo.termguicolors  = true
+vo.undofile       = true
+vo.wildignore:append { '*/node_modules/*' }
 
 vim.g.netrw_liststyle = 0
 vim.g.netrw_banner    = 1
-
---
--- See `:help vim.o`
 
 -- remap
 --
@@ -44,8 +41,8 @@ local k               = vim.keymap
 -- syntax sync from 'ReturnKeyword.vim'
 
 k.set('n', '<leader>a', ':colorsc bembasico<CR>', { desc = 'refresh theme' })
--- disable defaults for keys
-k.set({ 'n', 'v' }, '<C-z>', '<nop>', { desc = 'Disable CTRL-Z which exits in a super weird way' })
+
+-- k.set({ 'n', 'v' }, '<C-z>', '<nop>', { desc = 'Disable CTRL-Z which exits in a super weird way' })
 k.set({ 'n', 'v' }, '<Space>', '<Nop>', { silent = true })
 k.set('n', 'q', '<nop>', { desc = 'disable macro shortcut, TODO: define later on different key' })
 k.set('n', '<Esc>', ':noh<CR>', { silent = true, noremap = true, desc = 'add :noh to esc key map' })
@@ -57,8 +54,6 @@ k.set('n', '<C-j>', ":move+<CR>", { desc = 'move line down' })
 k.set('n', '<C-k>', ":move-2<CR>", { desc = 'move single line up' })
 k.set('v', '<C-j>', ":move'>+<CR>gv=gv", { desc = 'move selected a line down' })
 k.set('v', '<C-k>', ":move-2<CR>gv=gv", { desc = 'move selected a line up' })
-
-k.set('n', 'J', 'mzJ`z', { desc = 'keep j in horizontal place' })
 
 -- search-replace
 k.set('n', '<leader>ra', [[:%s/\<<C-r><C-w>\>/]], { desc = '[R]eplace [a]ll occurences of word on cursor position' })
@@ -78,30 +73,22 @@ k.set('n', '<C-e>', function()
 	end
 end, { silent = true, desc = 'Toggle Netrw file [e]xplorer' })
 
-k.set('n', '<C-f>', ':find ', { desc = 'look for [f]iles, replaces scrolling down a fold size command' })
-k.set('n', '<C-b>', ':buffer ', { desc = 'see open [b]uffers' })
+k.set('n', '<C-f>', ':find ', { desc = 'Find files, replaces scrolling down a fold size command' })
+k.set('n', '<C-b>', ':buffer ', { desc = 'see open Buffers' })
 
--- url navigation
 k.set('n', '<leader>b', "/http<CR>yi(:new<CR>p:silent! %s/#/\\\\#/g<CR>dd:q!<CR>:silent !qutebrowser <C-r>1 &<CR>",
 	{ silent = true, desc = 'Browse to URL, surrounded by ()' })
 
 k.set('n', '<leader>fp', ":w<CR>:silent ! prettier --write %<CR>",
-	{ desc = 'Format with [P]rettier' })
-k.set('n', '<leader>ff', ':Format<CR>', { silent = true, desc = "Format using LSP native" })
-
--- for tabs, see :help :tab and/or press <C-w>
--- See `:help vim.o`
--- See `:help mapleader`
-
--- handige standaard bindings om niet te vergeten
--- 'n', <C-`> uitbreidende Visual selectie vanaf de cursor, zelfde als <C0>, daarom C-2 remapped
+	{ desc = 'Format using Prettier' })
+k.set('n', '<leader>ff', ':Format<CR>', { silent = true, desc = "Format using LSP" })
 
 -- Git
 k.set('n', '<leader>gh', ':0GlLog<CR>', { desc = 'Git History of current file' })
 
 -- TODO: check if still useful
-k.set('n', 'k', 'v:count == 2 ? "gk" : "k"', { expr = true, silent = true, desc = 'deal with word wrap up' })
-k.set('n', 'j', 'v:count == 2 ? "gj" : "j"', { expr = true, silent = true, desc = 'deal with word wrap down' })
+-- k.set('n', 'k', 'v:count == 2 ? "gk" : "k"', { expr = true, silent = true, desc = 'deal with word wrap up' })
+-- k.set('n', 'j', 'v:count == 2 ? "gj" : "j"', { expr = true, silent = true, desc = 'deal with word wrap down' })
 
 -- plugins
 vim.cmd('colorscheme bembasico')
@@ -112,18 +99,18 @@ if not vim.loop.fs_stat(lazypath) then
 		'clone',
 		'--filter=blob:none',
 		'https://github.com/folke/lazy.nvim.git',
-		'--branch=stable', -- latest stable release
+		'--branch=stable',
 		lazypath,
 	}
 end
 vim.opt.rtp:prepend(lazypath)
 
 require('lazy').setup({
-	-- Git related plugins
+	-- Git related 
 	'tpope/vim-fugitive', -- /tpope/vim-fugitive, also see :Git difftool
 	'tpope/vim-rhubarb',
 	{
-		-- LSP Configuration & Plugins
+		-- LSP Configuration
 		'neovim/nvim-lspconfig',
 		dependencies = {
 			{ 'williamboman/mason.nvim', opts = {} },
