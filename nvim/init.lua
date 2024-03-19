@@ -4,25 +4,25 @@ vim.cmd('autocmd!')
 -- Set completeopt to have a better completion experience
 local vo          = vim.opt
 vo.backupskip     = '/tmp/*,/private/tmp/*'
-vo.breakindent    = true     -- default:false
+vo.breakindent    = true -- default:false
 vo.cindent        = true
 vo.cmdheight      = 1
 vo.completeopt    = 'menuone,noselect'
-vo.completeopt    = 'menuone,noselect'     -- better completion
+vo.completeopt    = 'menuone,noselect' -- better completion
 vo.cursorline     = true
 vo.guicursor      = ''
-vo.hlsearch       = true     -- highlight on search
-vo.ignorecase     = true     -- case-insensitive searching unless \C or capital in search
+vo.hlsearch       = true -- highlight on search
+vo.ignorecase     = true -- case-insensitive searching unless \C or capital in search
 vo.laststatus     = 2
-vo.mouse          = 'a'      -- Enable mouse mode
+vo.mouse          = 'a'  -- Enable mouse mode
 vo.number         = true
 vo.relativenumber = true
 vo.scrolloff      = 0
 vo.shell          = 'zsh'
 vo.shiftwidth     = 4
 vo.showcmd        = true
-vo.signcolumn     = 'yes'     -- keep signcolumn on by default (yes good? no true?)
-vo.smartcase      = true      -- case-insensitive searching unless \C or capital in search
+vo.signcolumn     = 'yes' -- keep signcolumn on by default (yes good? no true?)
+vo.smartcase      = true  -- case-insensitive searching unless \C or capital in search
 vo.tabstop        = 4
 vo.termguicolors  = true
 vo.undofile       = true
@@ -106,7 +106,7 @@ end
 vim.opt.rtp:prepend(lazypath)
 
 require('lazy').setup({
-	-- Git related 
+	-- Git related
 	'tpope/vim-fugitive', -- /tpope/vim-fugitive, also see :Git difftool
 	'tpope/vim-rhubarb',
 	{
@@ -201,7 +201,26 @@ require('nvim-treesitter.configs').setup {
 	modules = {},
 	sync_install = false,
 	ensure_installed = {
-		'astro', 'c', 'css', 'cpp', 'gitignore', 'go', 'lua', 'python', 'rust', 'tsx', 'javascript', 'jsdoc', 'php', 'scss', 'sql', 'typescript', 'vimdoc', 'vim', 'vue'
+		'astro',
+		'c',
+		'cpp',
+		'css',
+		'gitignore',
+		'go',
+		'javascript',
+		'jsdoc',
+		'json',
+		'lua',
+		'php',
+		'python',
+		'rust',
+		'scss',
+		'sql',
+		'tsx',
+		'typescript',
+		'vim',
+		'vimdoc',
+		'vue',
 	},
 	auto_install = true,
 	ignore_install = { 'markdown' }, -- TS markdown is buggy
