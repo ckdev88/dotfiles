@@ -68,6 +68,7 @@ k.set('n', '<leader>rw', 'viw"0p', { desc = '[R]eplace [w]ord with paste' })
 k.set('n', 'U', ':redo<Return>', { desc = 'Undo the undo' })
 k.set('n', '<leader>s', ':w<CR>', { desc = 'Save file' })
 
+
 -- file navigation
 k.set('n', '<C-e>', function()
 	if vim.bo.filetype == 'netrw' then
@@ -177,8 +178,11 @@ require('lazy').setup({
 	-- debugging...
 	{ 'mfussenegger/nvim-dap' },
 	{ 'rcarriga/nvim-dap-ui' },
-	-- { 'jay-babu/mason-nvim-dap.nvim' },
-	{ 'theHamsta/nvim-dap-virtual-text' }
+	-- { 'jay-babu/mason-nvim-dap.nvim' }, -- nodig?
+	{ 'theHamsta/nvim-dap-virtual-text' },
+	{ "nvim-neotest/nvim-nio" }
+
+
 })
 
 --
@@ -191,11 +195,7 @@ require('colorizer').setup({
 
 require('gitsigns').setup {}
 
--- Keymaps for better default experience
--- See `:help vim.keymap.set()`
---
--- [[ Configure nvim-cmp ]] -- See `:help cmp`
-require('telescope').setup { -- Telescope -- See `:help telescope` and `:help telescope.setup()`
+require('telescope').setup {
 	defaults = {
 		file_ignore_patterns = { "node_modules" },
 		layout_config = { width = .99 },
@@ -342,13 +342,16 @@ local servers = {
 	lua_ls = {
 		Lua = {
 			workspace = { checkThirdParty = "Disable" },
-			telemetry = { enable = false }
+			telemetry = { enable = false },
+			diagnostics = { -- Fix Undefined global 'vim'
+				globals = { 'vim' }
+			}
 		}
 	},
 }
 
 require('neodev').setup({
-	library = { plugins = { "nvim-dap-ui" } }
+	library = { plugins = { "nvim-dap-ui" }, types = true },
 })
 
 -- nvim-cmp supports additional completion capabilities, so broadcast that to servers
@@ -434,7 +437,6 @@ cmp.setup {
 -- which-key grouped names
 local wk = require('which-key')
 wk.register({
-	-- c = { name = "LSP [C]ode" },
 	d = { name = "DAP" },
 	f = { name = "Formatting" },
 	g = { name = "Git" },
@@ -446,7 +448,7 @@ wk.register({
 
 -- debugging
 
--- require('mason-nvim-dap').setup {
+-- require('mason-nvim-dap').setup { -- nodig?
 -- 	ensure_installed = { 'node2', 'js', 'chrome' }
 -- }
 
@@ -461,25 +463,6 @@ if not (dap_ok and dap_ui_ok) then
 end
 
 dapui.setup({
-	-- had some custom controls, also very nice... using icons for now, for this to work with Iosevka, the font Iosevka Nerd Font Mono needs to be used.	
-	-- controls = {
-	-- 	enabled = true,
-	-- 	icons = {
-	-- 		play = "▶️ ",
-	-- 		step_into = "⇓ ",
-	-- 		step_over = "⇒ ",
-	-- 		step_out = "⇑ ",
-	-- 		step_back = "⇐ ",
-	-- 		run_last = "↺ ",
-	-- 		terminate = "⏹️ ",
-	-- 		disconnect = "❌",
-	-- 		pause = "⏸️ "
-	-- 	}
-	-- },
-	-- icons = {
-	-- 	expanded = "▾ ",
-	-- 	collapsed = "▸ ",
-	-- },
 	layouts = { {
 		elements = {
 			{
