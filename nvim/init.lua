@@ -97,7 +97,7 @@ k.set('n', '<leader>ff', ':Format<CR>', { silent = true, desc = "Format using LS
 -- 'n', <C-`> uitbreidende Visual selectie vanaf de cursor, zelfde als <C0>, daarom C-2 remapped
 
 -- Git
-k.set('n', '<leader>gh', ':0GlLog<CR>', { desc = '[G]it [H]istory of current file' })
+k.set('n', '<leader>gh', ':0GlLog<CR>', { desc = 'Git History of current file' })
 
 -- TODO: check if still useful
 k.set('n', 'k', 'v:count == 2 ? "gk" : "k"', { expr = true, silent = true, desc = 'deal with word wrap up' })
@@ -276,37 +276,31 @@ require('nvim-treesitter.configs').setup {
 }
 
 -- [[ Configure LSP ]]
-
-
--- Fix Undefined global 'vim'
 local on_attach = function(_, bufnr)
 	-- Function that lets us more easily define mappings specific for LSP related items.
-	local nmap = function(keys, func, desc) -- sets the mode, buffer and description each time.
-		if desc then
-			desc = 'LSP: ' .. desc
-		end
+	local nmap = function(keys, func, desc)
 		k.set('n', keys, func, { buffer = bufnr, desc = desc })
 	end
 
-	nmap('<leader>rn', vim.lsp.buf.rename, '[R]e[n]ame')
-	nmap('<leader>lc', vim.lsp.buf.code_action, '[C]ode [A]ction')
+	nmap('<leader>rn', vim.lsp.buf.rename, 'Rename')
+	nmap('<leader>lc', vim.lsp.buf.code_action, 'Code action')
 
-	nmap('gd', vim.lsp.buf.definition, '[G]oto [D]efinition')
-	nmap('gr', require('telescope.builtin').lsp_references, '[G]oto [R]eferences')
-	nmap('gI', require('telescope.builtin').lsp_implementations, '[G]oto [I]mplementation')
+	nmap('gd', vim.lsp.buf.definition, 'Goto Definition')
+	nmap('gr', require('telescope.builtin').lsp_references, 'Goto References')
+	nmap('gI', require('telescope.builtin').lsp_implementations, 'Goto Implementation')
 
-	nmap('<leader>lD', vim.lsp.buf.type_definition, 'Type [D]efinition')
+	nmap('<leader>lD', vim.lsp.buf.type_definition, 'type Definition')
 	nmap('<leader>lr', ':LspRestart<CR>', 'Restart Lsp servers')
 
 	nmap('K', vim.lsp.buf.hover, 'Hover Documentation')
 
 	-- Lesser used LSP functionality
-	nmap('gD', vim.lsp.buf.declaration, '[G]oto [D]eclaration')
-	nmap('<leader>wa', vim.lsp.buf.add_workspace_folder, '[W]orkspace [A]dd Folder')
-	nmap('<leader>wr', vim.lsp.buf.remove_workspace_folder, '[W]orkspace [R]emove Folder')
+	nmap('gD', vim.lsp.buf.declaration, 'goto Declaration')
+	nmap('<leader>wa', vim.lsp.buf.add_workspace_folder, 'Workspace Add folder')
+	nmap('<leader>wr', vim.lsp.buf.remove_workspace_folder, 'Workspace Remove Folder')
 	nmap('<leader>wl', function()
 		print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
-	end, '[W]orkspace [L]ist Folders')
+	end, 'Workspace List folders')
 
 	-- Create a command `:Format` local to the LSP buffer
 	vim.api.nvim_buf_create_user_command(bufnr, 'Format', function(_)
@@ -317,25 +311,23 @@ end
 
 -- See `:help telescope.builtin`
 local bi = require('telescope.builtin')
-k.set('n', '<leader>tr', bi.oldfiles, { desc = '[R]ecently opened' })
-k.set('n', '<leader>tb', bi.buffers, { desc = '[B]uffers' })
-k.set('n', '<leader>tf', bi.find_files, { desc = '[F]ile picker' })
-k.set('n', '<leader>th', bi.help_tags, { desc = '[H]elps' })
-k.set('n', '<leader>tw', bi.grep_string, { desc = 'current [W]ords' })
-k.set('n', '<leader>t/', bi.live_grep, { desc = '[G]reps / Global search' })
-k.set('n', '<leader>td', bi.diagnostics, { desc = '[D]iagnostics' })
-k.set('n', '<leader>tg', bi.git_files, { desc = '[G]it [F]iles' })
-k.set('n', '<leader>tm', ':Telescope keymaps<Return>', { desc = '[M]aps' })
+k.set('n', '<leader>tr', bi.oldfiles, { desc = 'Recently opened' })
+k.set('n', '<leader>tb', bi.buffers, { desc = 'Buffers' })
+k.set('n', '<leader>tf', bi.find_files, { desc = 'File picker' })
+k.set('n', '<leader>th', bi.help_tags, { desc = 'Helps' })
+k.set('n', '<leader>tw', bi.grep_string, { desc = 'current Words' })
+k.set('n', '<leader>t/', bi.live_grep, { desc = 'Greps / Global search' })
+k.set('n', '<leader>td', bi.diagnostics, { desc = 'Diagnostics' })
+k.set('n', '<leader>tg', bi.git_files, { desc = 'Git files' })
+k.set('n', '<leader>tm', ':Telescope keymaps<Return>', { desc = 'Maps' })
 
 -- Diagnostic keymaps
-k.set('n', '[d', vim.diagnostic.goto_prev, { desc = 'Go to previous diagnostic message' })
-k.set('n', ']d', vim.diagnostic.goto_next, { desc = 'Go to next diagnostic message' })
+-- k.set('n', '[d', vim.diagnostic.goto_prev, { desc = 'Go to previous diagnostic message' }) -- nodig?
+-- k.set('n', ']d', vim.diagnostic.goto_next, { desc = 'Go to next diagnostic message' }) -- nodig?
 k.set('n', '<leader>e', vim.diagnostic.open_float, { desc = 'Open floating diagnostic message' })
 k.set('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Open diagnostics list' })
 
-
-require('lspconfig').astro.setup {}
-
+-- require('lspconfig').astro.setup {} -- nodig?
 
 -- language servers
 local servers = {
