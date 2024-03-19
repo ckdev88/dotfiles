@@ -86,7 +86,7 @@ k.set('n', '<leader>b', "/http<CR>yi(:new<CR>p:silent! %s/#/\\\\#/g<CR>dd:q!<CR>
 
 k.set('n', '<leader>fp', ":w<CR>:silent ! prettier --write %<CR>",
 	{ desc = 'Format with [P]rettier' })
-k.set('n', '<leader>ff', ':Format<CR>', { silent = true, desc = "Format using VIM native" })
+k.set('n', '<leader>ff', ':Format<CR>', { silent = true, desc = "Format using LSP native" })
 
 -- for tabs, see :help :tab and/or press <C-w>
 -- See `:help vim.o`
@@ -179,7 +179,6 @@ require('lazy').setup({
 	{ 'rcarriga/nvim-dap-ui' },
 	-- { 'jay-babu/mason-nvim-dap.nvim' },
 	{ 'theHamsta/nvim-dap-virtual-text' }
-
 })
 
 --
@@ -218,7 +217,7 @@ require('nvim-treesitter.configs').setup {
 	ensure_installed = {
 		'astro', 'c', 'css', 'cpp', 'gitignore', 'go', 'lua', 'python', 'rust', 'tsx', 'javascript', 'jsdoc', 'php', 'scss', 'sql', 'typescript', 'vimdoc', 'vim', 'vue'
 	},
-	auto_install = true, -- default: false, (auto installs languages)
+	auto_install = true,
 	highlight = { enable = true },
 	indent = { enable = true },
 	incremental_selection = {
@@ -277,7 +276,10 @@ require('nvim-treesitter.configs').setup {
 }
 
 -- [[ Configure LSP ]]
-local on_attach = function(_, bufnr)     -- run when LSP connects to particular buffer
+
+
+-- Fix Undefined global 'vim'
+local on_attach = function(_, bufnr)
 	-- Function that lets us more easily define mappings specific for LSP related items.
 	local nmap = function(keys, func, desc) -- sets the mode, buffer and description each time.
 		if desc then
@@ -292,7 +294,6 @@ local on_attach = function(_, bufnr)     -- run when LSP connects to particular 
 	nmap('gd', vim.lsp.buf.definition, '[G]oto [D]efinition')
 	nmap('gr', require('telescope.builtin').lsp_references, '[G]oto [R]eferences')
 	nmap('gI', require('telescope.builtin').lsp_implementations, '[G]oto [I]mplementation')
-
 
 	nmap('<leader>lD', vim.lsp.buf.type_definition, 'Type [D]efinition')
 	nmap('<leader>lr', ':LspRestart<CR>', 'Restart Lsp servers')
@@ -346,9 +347,7 @@ local servers = {
 	},
 }
 
---
 require('neodev').setup({
-	-- library = { plugins = { "nvim-dap-ui" }, types = true }
 	library = { plugins = { "nvim-dap-ui" } }
 })
 
