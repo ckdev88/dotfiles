@@ -213,11 +213,11 @@ pcall(require('telescope').load_extension, 'fzf') -- Enable telescope fzf native
 require('nvim-treesitter.configs').setup {
 	modules = {},
 	sync_install = false,
-	ignore_install = {},
 	ensure_installed = {
 		'astro', 'c', 'css', 'cpp', 'gitignore', 'go', 'lua', 'python', 'rust', 'tsx', 'javascript', 'jsdoc', 'php', 'scss', 'sql', 'typescript', 'vimdoc', 'vim', 'vue'
 	},
-	auto_install = false, -- TS markdown is buggy
+	auto_install = true,
+	ignore_install = { 'markdown' }, -- TS markdown is buggy
 	highlight = { enable = true },
 	indent = { enable = true },
 	incremental_selection = {
