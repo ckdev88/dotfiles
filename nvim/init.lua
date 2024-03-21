@@ -106,11 +106,21 @@ end
 vim.opt.rtp:prepend(lazypath)
 
 require('lazy').setup({
-	-- Git related
+	-- Git
 	'tpope/vim-fugitive', -- /tpope/vim-fugitive, also see :Git difftool
 	'tpope/vim-rhubarb',
 	{
-		-- LSP Configuration
+		-- Autocomplete
+		'hrsh7th/nvim-cmp',        -- Autocompletion
+		dependencies = {
+			'L3MON4D3/LuaSnip',    -- Snippet Engine & its associated nvim-cmp source
+			'saadparwaiz1/cmp_luasnip', -- Snippet Engine & its associated nvim-cmp source
+			'hrsh7th/cmp-nvim-lsp', -- Adds LSP completion capabilities
+			'rafamadriz/friendly-snippets', -- Adds a number of user-friendly snippets
+		},
+	},
+	{
+		-- LSP
 		'neovim/nvim-lspconfig',
 		dependencies = {
 			{ 'williamboman/mason.nvim', opts = {} },
@@ -120,13 +130,9 @@ require('lazy').setup({
 		},
 	},
 	{
-		'hrsh7th/nvim-cmp',        -- Autocompletion
-		dependencies = {
-			'L3MON4D3/LuaSnip',    -- Snippet Engine & its associated nvim-cmp source
-			'saadparwaiz1/cmp_luasnip', -- Snippet Engine & its associated nvim-cmp source
-			'hrsh7th/cmp-nvim-lsp', -- Adds LSP completion capabilities
-			'rafamadriz/friendly-snippets', -- Adds a number of user-friendly snippets
-		},
+		"pmizio/typescript-tools.nvim",
+		dependencies = { "nvim-lua/plenary.nvim", "neovim/nvim-lspconfig" },
+		opts = {},
 	},
 	{ 'mg979/vim-visual-multi', lazy = false },
 	{
@@ -144,15 +150,13 @@ require('lazy').setup({
 		}
 	},
 	{ 'lewis6991/gitsigns.nvim' },
-	{ 'numToStr/Comment.nvim',  opts = {} }, -- 'gc' to comment visual regions/lines
+	{ 'numToStr/Comment.nvim',  opts = {} },
 	{
 		'nvim-telescope/telescope.nvim',
 		tag = '0.1.5',
-		-- or                              , branch = '0.1.x',
 		dependencies = { 'nvim-lua/plenary.nvim' }
 	},
 	{
-		-- Highlight, edit, and navigate code
 		'nvim-treesitter/nvim-treesitter',
 		'nvim-treesitter/nvim-treesitter-context',
 		dependencies = {
@@ -162,13 +166,12 @@ require('lazy').setup({
 	},
 	{ 'kylechui/nvim-surround',         opts = {}, event = 'VeryLazy' },
 	{ 'NvChad/nvim-colorizer.lua' },
-	-- debugging...
+	-- Debugging
 	{ 'mfussenegger/nvim-dap' },
 	{ 'rcarriga/nvim-dap-ui' },
-	-- { 'jay-babu/mason-nvim-dap.nvim' }, -- nodig?
+	-- { 'jay-babu/mason-nvim-dap.nvim' }, -- TODO: clean up?
 	{ 'theHamsta/nvim-dap-virtual-text' },
 	{ "nvim-neotest/nvim-nio" }
-
 
 })
 
@@ -280,7 +283,22 @@ require('nvim-treesitter.configs').setup {
 		},
 	},
 }
+require("typescript-tools").setup {
+	filetypes = {
+		"javascript",
+		"javascriptreact",
+		"typescript",
+		"typescriptreact",
 
+		"vue", -- This needed to be added.
+	},
+	settings = {
+		tsserver_plugins = {
+			-- Seemingly this is enough, no name, location or languages needed.
+			"@vue/typescript-plugin",
+		},
+	},
+}
 -- [[ Configure LSP ]]
 local on_attach = function(_, bufnr)
 	-- Function that lets us more easily define mappings specific for LSP related items.
@@ -346,40 +364,43 @@ local servers = {
 			}
 		}
 	},
+	volar = {
+		filetypes = { 'typescript', 'javascript', 'javascriptreact', 'typescriptreact', 'vue' },
+		init_options = {
+			vue = {
+				hybridMode = false,
+			},
+		},
+	},
 }
 
 require('neodev').setup({
 	library = { plugins = { "nvim-dap-ui" }, types = true },
 })
+require('mason').setup()
 
 -- nvim-cmp supports additional completion capabilities, so broadcast that to servers
 local capabilities = vim.lsp.protocol.make_client_capabilities()
 capabilities = require('cmp_nvim_lsp').default_capabilities(capabilities)
 
--- Ensure the servers above are installed
 local mason_lspconfig = require 'mason-lspconfig'
 
 mason_lspconfig.setup {
-	ensure_installed = vim.tbl_keys(servers),
+	ensure_installed = { 'lua_ls', 'html', 'cssls', 'vimls' }
 }
+local lspconfig = require('lspconfig')
 
-mason_lspconfig.setup_handlers {
+mason_lspconfig.setup_handlers({
 	function(server_name)
-		require('lspconfig')[server_name].setup {
+		local server_config = {
 			capabilities = capabilities,
 			on_attach = on_attach,
 			settings = servers[server_name],
-			filetypes = (servers[server_name] or {}).filetypes,
+			filetypes = (servers[server_name] or {}).filetypes
 		}
+		lspconfig[server_name].setup(server_config)
 	end
-}
-
-require('lspconfig').volar.setup {
-	on_attach = on_attach,
-	capabilities = capabilities,
-	--	filetypes= {'vue','javascript', 'javascriptreact', 'javascript.jsx', 'typescript', 'typescriptreact', 'typescript.tsx'} -- runs as duplicate next to tsserver in vanilla js, need to decide which of the two (volar or tsserver) is dead weight
-	filetypes = { 'vue' }
-}
+})
 
 local cmp = require 'cmp'
 local luasnip = require 'luasnip'
