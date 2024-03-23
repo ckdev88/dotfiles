@@ -37,7 +37,7 @@ hi! link @lsp.type.comment Comment
 hi Identifier guifg=#e4e4e4 guibg=NONE gui=NONE cterm=NONE
 hi Operator guifg=#ffffff 
 hi String guifg=#79bf46 guibg=NONE gui=NONE cterm=NONE
-hi Function guifg=#ffdd00 guibg=NONE gui=NONE cterm=NONE
+hi Function guifg=#ffdd00 guibg=NONE gui=bold cterm=bold
 hi Keyword guifg=#ccccae  guibg=NONE gui=NONE cterm=NONE
 hi Character guifg=#e699ae guibg=NONE gui=NONE cterm=NONE
 hi ColorColumn guifg=NONE guibg=#000000 gui=NONE cterm=NONE
@@ -95,7 +95,7 @@ hi Title guifg=#ffdd33 guibg=NONE gui=bold cterm=bold
 hi Todo guifg=#df0000 guibg=#ffdd33 gui=NONE cterm=bold
 hi ToolbarButton guifg=#fbf1c7 guibg=#303030 gui=bold cterm=bold
 hi ToolbarLine guifg=NONE guibg=NONE gui=NONE ctermfg=NONE ctermbg=NONE cterm=NONE
-hi Type guifg=#7f7f76 guibg=NONE gui=NONE cterm=NONE
+hi Type guifg=#afafd7 guibg=NONE gui=NONE cterm=NONE
 hi Typedef guifg=#fabd2f guibg=NONE gui=NONE cterm=NONE
 hi Underlined guifg=#504945 guibg=NONE gui=underline cterm=underline
 hi VertSplit guifg=#fbf1c7 guibg=black gui=NONE cterm=NONE
@@ -105,7 +105,7 @@ hi WildMenu guifg=#83a598 guibg=#504945 gui=bold cterm=bold
 hi lCursor guifg=#262626 guibg=#ffafaf gui=NONE cterm=NONE
 
 hi @lsp.type.enum guifg=#70b2a1
-hi @lsp.type.function guifg=#ffdd33 gui=bold cterm=NONE
+hi @lsp.type.function guifg=#ffdd33 gui=bold cterm=bold
 hi @lsp.type.property guifg=#e4e4e4
 hi @lsp.type.variable guifg=#f4f4f4 guibg=NONE gui=NONE cterm=NONE 
 
