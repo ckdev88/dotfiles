@@ -15,6 +15,8 @@ set hlsearch
 set undofile
 set completeopt=menuone,noselect,preview
 set wildmenu
+set wildoptions=pum
+
 set backspace=2
 set incsearch
 set scrolloff=15
@@ -90,9 +92,9 @@ no <leader>s <esc>:w<CR>
 " \ 'syntax': 'markdown', 'ext': 'md'}]
 
 
-colorscheme retrobox
-hi Normal ctermbg=black
-hi Normal ctermbg=black " double, because otherwise VIM will ignore it for some reason, only seems to do this when it comes to retrobox though...
+colorscheme bonbasique
+" hi Normal ctermbg=black
+" hi Normal ctermbg=black " double, because otherwise VIM will ignore it for some reason, only seems to do this when it comes to retrobox though...
 
 " CoC config
 source "~/.vim/cocconfig.vim"
