@@ -10,7 +10,6 @@ set shiftwidth=4
 set timeoutlen=400
 set laststatus=2
 set ignorecase
-set smartcase
 set hlsearch
 set undofile
 set completeopt=menuone,noselect,preview
@@ -40,46 +39,12 @@ no <C-j> :move+<CR>			" move line down
 vn <C-j> :move'>+<CR>gv=gv 	" move selection down 
 no <C-k> :move-2<CR>
 no <leader>s <esc>:w<CR>
+no U :redo<CR>
+no <C-e> :Ex<CR>
+no <leader>tf :FZF<CR>
 
-" function! s:open_netrw()
-"   " Grab the current file name
-"   let file_name = expand("%:t")
-"   Explore 
-"   let t:netrw_buffer_number = bufnr("%")
-"   call search(file_name)
-" endfunction
-" 
-" " netrw file navigation
-" function! s:open_netrw()
-"   let file_name = expand("%:t")
-"   " Open 200-column left-side explorer in the directory for the current file
-"   200Lexplore %:h
-"   let t:netrw_buffer_number = bufnr("%")
-"   " find the file in the explorer
-"   call search(file_name)
-" endfunction
-" 
-" function! s:toggle_netrw()
-"   if exists("t:netrw_buffer_number")
-"     let netrw_window_number = bufwinnr(t:netrw_buffer_number)
-"     if netrw_window_number != -1
-"       let current_working_buffer = winnr()
-"       exec netrw_window_number . 'wincmd w'
-"       close
-"       if current_working_buffer != netrw_window_number
-"         exec 'silent! ' . current_working_buffer . 'wincmd w'
-"       endif
-"       unlet t:netrw_buffer_number
-"     else
-"       call s:open_netrw()
-"     endif
-"   else
-"     call s:open_netrw()
-"   endif
-" endfunction
-" command! ToggleNetrwExplorer call s:toggle_netrw()
-" nnoremap <silent> \\ :ToggleNetrwExplorer<CR>
-" no <C-e> :ToggleNetrwExplorer<CR>
+
+vn <C-y> :w !xclip -selection clipboard<CR> " although -selection clipboard is too verbose, keep it
 
 " plugins
 " geinstalleerd via vim's built-in package manager:
@@ -87,15 +52,13 @@ no <leader>s <esc>:w<CR>
 	" tpope/vim-commentary
 	" vimwiki/vimwiki
 	" neoclide/coc.nvim
+	" SirVer/ultisnips.git
+	" honza/vim-snippets.git
 
 " let g:vimwiki_list = [{'path': '~/vimwiki/',
 " \ 'syntax': 'markdown', 'ext': 'md'}]
 
-
 colorscheme bonbasique
-" hi Normal ctermbg=black
-" hi Normal ctermbg=black " double, because otherwise VIM will ignore it for some reason, only seems to do this when it comes to retrobox though...
-
 " CoC config
 source "~/.vim/cocconfig.vim"
 
@@ -107,4 +70,3 @@ function! ShowDocumentation()
   endif
 endfunction
 nnoremap <silent> K :call ShowDocumentation()<CR>
-
