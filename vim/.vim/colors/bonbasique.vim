@@ -136,8 +136,15 @@ hi! link javaScriptNull Type
 hi! link javaScriptMember Type
 " hi! link javaScriptFunction Method
 
-hi! link htmlSpecialTagName Statement
-hi! link htmlH1 Title
-
 hi! link netrwList netrwPlain
 hi! link netrwExe Function
+
+
+hi! link htmlString Normal
+hi! link htmlH1 Title
+hi! link htmlTag Function
+hi! link htmlTagName htmlTag
+hi! link htmlEndTag htmlTag
+hi! link htmlSpecialTagName htmlTag
+
+
