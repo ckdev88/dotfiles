@@ -35,6 +35,9 @@ hi! link Label Special
 hi! link Repeat Statement
 hi! link Conditional Statement
 hi! link Identifier Statement
+hi! link SpecialChar Special
+hi! link SpecialComment Special
+hi! link SpecialKey Special
 
 " hi PmenuExtraSel ctermfg=10 ctermbg=NONE guifg=#00ff00 guibg=NONE gui=NONE cterm=NONE
 " hi PmenuKind ctermfg=10 ctermbg=NONE guifg=#00ff00 guibg=#5f0000 gui=NONE cterm=NONE
@@ -75,29 +78,26 @@ hi Normal 			ctermfg=254 guifg=#e4e4e4 guibg=#121212 gui=NONE ctermbg=233 cterm=
 hi Number 			ctermfg=253 ctermbg=NONE cterm=NONE guibg=NONE guifg=#dadada gui=NONE 
 hi Operator 		ctermfg=148 ctermbg=NONE cterm=NONE guifg=#afd700 guibg=NONE gui=NONE 
 hi Pmenu 			ctermfg=214 ctermbg=52 cterm=NONE guifg=#ffaf00 guibg=#5f0000 gui=NONE
-hi PmenuSel 		ctermfg=255 ctermbg=52 guifg=#ffffff guibg=#5f0000 gui=NONE cterm=NONE 
+hi PmenuSel 		ctermfg=255 ctermbg=0 guifg=#ffffff guibg=#000000 gui=NONE cterm=NONE 
 hi PmenuThumb 		ctermfg=10 ctermbg=NONE guifg=#00ff00 guibg=#ff00ff gui=NONE cterm=NONE 
 hi PreCondit 		ctermfg=148 ctermbg=NONE cterm=NONE guifg=#afd700 guibg=NONE gui=NONE cterm=NONE
 hi Question 		ctermfg=208 ctermbg=NONE cterm=NONE guifg=#ff8700 guibg=NONE gui=NONE
 hi QuickFixLine 	ctermfg=148 ctermbg=NONE cterm=NONE guifg=#afd700 guibg=#1c1c1c gui=reverse cterm=reverse
 hi Search 			ctermfg=254 ctermbg=66 cterm=NONE guifg=#e4e4e4 guibg=#5f8787 gui=NONE
 hi SignColumn 		ctermfg=138 ctermbg=233 cterm=NONE guifg=#af8787 guibg=#1c1c1c gui=NONE
-hi Special 			ctermfg=10 ctermbg=NONE cterm=NONE guifg=#00ff00 guibg=NONE gui=NONE
-hi SpecialChar 		ctermfg=152 ctermbg=NONE cterm=NONE guifg=#afd7d7 guibg=NONE gui=NONE
-hi SpecialComment 	ctermfg=152 ctermbg=NONE cterm=NONE guifg=#afd7d7 guibg=NONE gui=NONE
-hi SpecialKey 		ctermfg=152 ctermbg=NONE cterm=NONE guifg=#afd7d7 guibg=NONE gui=NONE
+hi Special 			ctermfg=152 ctermbg=NONE cterm=NONE guifg=#afd7d7 guibg=NONE gui=NONE
 hi SpellBad 		ctermfg=9 ctermbg=NONE cterm=underline guifg=#ff0000 guibg=NONE guisp=#ff0000 gui=undercurl
 hi SpellCap 		ctermfg=220 ctermbg=NONE cterm=underline guifg=#ffd700 guibg=NONE guisp=#ffd700 gui=undercurl 
 hi SpellLocal 		ctermfg=148 ctermbg=NONE cterm=underline guifg=#afd700 guibg=NONE guisp=#8ec07c gui=undercurl
 hi SpellRare 		ctermfg=213 ctermbg=NONE cterm=underline guifg=#ff87ff guibg=NONE guisp=#ff87ff gui=undercurl 
-hi Statement 	ctermfg=202 ctermbg=NONE cterm=NONE guifg=#ff5f00 guibg=NONE gui=NONE cterm=NONE
+hi Statement 		ctermfg=202 ctermbg=NONE cterm=NONE guifg=#ff5f00 guibg=NONE gui=NONE cterm=NONE
 hi StatusLine 		ctermfg=0 ctermbg=253 cterm=reverse guifg=#8787af guibg=#dadada gui=reverse  " #005f87
 hi StatusLineNC 	ctermfg=240 ctermbg=251 cterm=reverse guifg=#585858 guibg=#c6c6c6 gui=reverse  " #005f87
 hi StorageClass 	ctermfg=208 ctermbg=NONE cterm=NONE guifg=#ff8700 guibg=NONE gui=NONE
-hi String 			ctermfg=76 ctermbg=NONE cterm=NONE guifg=#5fd700 guibg=NONE gui=NONE
-hi TabLine 			ctermfg=11 ctermbg=10 cterm=NONE guifg=#ffff00 guibg=#00ff00 gui=NONE 
-hi TabLineFill 		ctermfg=13 ctermbg=10 cterm=NONE guifg=#ff00ff guibg=#00ff00 gui=NONE 
-hi TabLineSel 		ctermfg=11 ctermbg=10 cterm=bold guifg=#ffff00 guibg=#00ff00 gui=bold
+hi String 			ctermfg=108 ctermbg=NONE cterm=NONE guifg=#87af87 guibg=NONE gui=NONE
+hi TabLine 			ctermfg=238 ctermbg=0 cterm=NONE guifg=#444444 guibg=#000000 gui=NONE 
+hi TabLineFill 		ctermfg=NONE ctermbg=0 cterm=NONE guifg=NONE guibg=#000000 gui=NONE 
+hi TabLineSel 		ctermfg=220 ctermbg=234 cterm=bold guifg=#ffd700 guibg=#1c1c1c gui=bold
 hi Title 			ctermfg=220 ctermbg=234 cterm=bold guifg=#ffd700 guibg=#1c1c1c gui=bold
 hi Todo 			ctermfg=220 ctermbg=238 cterm=bold guifg=#ffd700 guibg=#444444 gui=bold
 hi ToolbarLine 		ctermfg=NONE ctermbg=NONE cterm=NONE guifg=NONE guibg=NONE gui=NONE 
@@ -107,7 +107,7 @@ hi VertSplit 		ctermfg=236 ctermbg=234 cterm=NONE guifg=#303030 guibg=#1c1c1c gu
 hi Visual 			ctermfg=NONE ctermbg=240 cterm=NONE guifg=NONE guibg=#585858 gui=NONE
 hi WarningMsg 		ctermfg=9 ctermbg=NONE cterm=bold guifg=#ff0000 guibg=NONE gui=bold
 
-"Custom & plugins
+" Custom & plugins
 hi Method ctermfg=220 ctermbg=NONE cterm=bold guifg=#ffd700 guibg=NONE gui=bold
 hi! link CocErrorFloat ErrorMsg 
 hi! link CocFloatActive MessageWindow 
@@ -127,7 +127,17 @@ hi! link CocVirtualText CocFloating
 hi! link CocWarningFloat MessageWindow 
 hi! link FgCocHintFloatBgCocFloating MessageWindow 
 
+" pmenusel
+hi! link CocMenuSel PmenuSel
+
+hi! link javaScript Normal
 hi! link javaScriptLabel Statement
 hi! link javaScriptNull Type
 hi! link javaScriptMember Type
+" hi! link javaScriptFunction Method
 
+hi! link htmlSpecialTagName Statement
+hi! link htmlH1 Title
+
+hi! link netrwList netrwPlain
+hi! link netrwExe Function
