@@ -62,7 +62,7 @@ hi MatchParen guifg=#ffdd33 guibg=NONE gui=NONE gui=bold cterm=bold,reverse
 hi ModeMsg guifg=#e4e4e4 guibg=NONE gui=NONE cterm=NONE
 hi MoreMsg guifg=#fabd2f guibg=NONE gui=bold cterm=bold
 hi NonText guifg=#504945 guibg=NONE gui=NONE cterm=NONE
-hi Normal guifg=#ffffff guibg=#080808 gui=NONE cterm=NONE
+hi Normal guifg=#ffffff guibg=NONE gui=NONE cterm=NONE
 hi Pmenu guifg=#fabd2f guibg=#5a0914 gui=NONE cterm=NONE
 hi PmenuExtra guifg=#a89984 guibg=#3c3836 gui=NONE cterm=NONE
 hi PmenuExtraSel guifg=#303030 guibg=#83a598 gui=NONE cterm=NONE
@@ -123,3 +123,7 @@ hi diffFile guifg=White
 
 hi CommentLine guifg=Lime
 hi WhichKeyValue guifg=#d16e22
+
+hi! link htmlString Normal
+hi! link hmtlTab Normal
+hi! link htmlTest diffRemoved
