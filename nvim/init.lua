@@ -129,11 +129,11 @@ require('lazy').setup({
 			'folke/neodev.nvim',
 		},
 	},
-	{
-		"pmizio/typescript-tools.nvim",
-		dependencies = { "nvim-lua/plenary.nvim", "neovim/nvim-lspconfig" },
-		opts = {},
-	},
+	-- { -- temporarily off, needs improved configuration
+	-- 	"pmizio/typescript-tools.nvim",
+	-- 	dependencies = { "nvim-lua/plenary.nvim", "neovim/nvim-lspconfig" },
+	-- 	opts = {},
+	-- },
 	{ 'mg979/vim-visual-multi', lazy = false },
 	{
 		"folke/which-key.nvim",
@@ -283,13 +283,13 @@ require('nvim-treesitter.configs').setup {
 		},
 	},
 }
-require("typescript-tools").setup {
+
+--[[ require("typescript-tools").setup {
 	filetypes = {
 		"javascript",
 		"javascriptreact",
 		"typescript",
 		"typescriptreact",
-
 		"vue", -- This needed to be added.
 	},
 	settings = {
@@ -298,7 +298,8 @@ require("typescript-tools").setup {
 			"@vue/typescript-plugin",
 		},
 	},
-}
+} ]] -- temporarily off, needs improved configuration
+
 -- [[ Configure LSP ]]
 local on_attach = function(_, bufnr)
 	-- Function that lets us more easily define mappings specific for LSP related items.
