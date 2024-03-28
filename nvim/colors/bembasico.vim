@@ -40,7 +40,7 @@ hi String guifg=#79bf46 guibg=NONE gui=NONE cterm=NONE
 hi Function guifg=#ffdd00 guibg=NONE gui=bold cterm=bold
 hi Keyword guifg=#ccccae  guibg=NONE gui=NONE cterm=NONE
 hi Character guifg=#e699ae guibg=NONE gui=NONE cterm=NONE
-hi ColorColumn guifg=NONE guibg=#000000 gui=NONE cterm=NONE
+hi ColorColumn guifg=NONE guibg=#080808 gui=NONE cterm=NONE
 hi Comment guifg=#d16e22 guibg=NONE gui=NONE cterm=NONE
 hi Conceal guifg=#83a598 guibg=NONE gui=NONE cterm=NONE
 hi Cursor gui=reverse cterm=reverse
@@ -62,7 +62,7 @@ hi MatchParen guifg=#ffdd33 guibg=NONE gui=NONE gui=bold cterm=bold,reverse
 hi ModeMsg guifg=#e4e4e4 guibg=NONE gui=NONE cterm=NONE
 hi MoreMsg guifg=#fabd2f guibg=NONE gui=bold cterm=bold
 hi NonText guifg=#504945 guibg=NONE gui=NONE cterm=NONE
-hi Normal guifg=#ffffff guibg=NONE gui=NONE cterm=NONE
+hi Normal guifg=#fafafa guibg=#080808 gui=NONE cterm=NONE
 hi Pmenu guifg=#fabd2f guibg=#5a0914 gui=NONE cterm=NONE
 hi PmenuExtra guifg=#a89984 guibg=#3c3836 gui=NONE cterm=NONE
 hi PmenuExtraSel guifg=#303030 guibg=#83a598 gui=NONE cterm=NONE
@@ -74,7 +74,7 @@ hi PmenuThumb guifg=NONE guibg=#7c6f64 gui=NONE cterm=NONE
 hi PreProc guifg=#cfbfa6 guibg=NONE gui=NONE cterm=NONE
 hi Question guifg=orange guibg=NONE gui=NONE cterm=none
 hi QuickFixLine guifg=#8ec07c guibg=#1c1c1c gui=reverse cterm=reverse
-hi SignColumn guifg=#928374 guibg=black gui=NONE cterm=NONE
+hi SignColumn guifg=#928374 guibg=#080808 gui=NONE cterm=NONE
 hi Special guifg=#c0c0a0 guibg=NONE gui=NONE cterm=NONE
 hi SpecialChar guifg=#ffff00 guibg=NONE gui=NONE cterm=NONE
 hi SpecialComment guifg=#fb4934 guibg=NONE gui=NONE cterm=NONE
@@ -88,8 +88,8 @@ hi StatusLineNC guifg=#504945 guibg=NONE gui=NONE cterm=NONE
 hi StatusLineTerm guifg=#df0000 guibg=#222222 gui=NONE cterm=bold,reverse
 hi StatusLineTermNC guifg=NONE guibg=#222222 gui=reverse cterm=reverse
 hi StorageClass guifg=#ffb049 guibg=NONE gui=NONE cterm=NONE
-hi TabLine guifg=#666666 guibg=#000000 gui=NONE cterm=NONE
-hi TabLineFill guifg=#ff8787 guibg=#000000 gui=NONE cterm=NONE
+hi TabLine guifg=#666666 guibg=#080808 gui=NONE cterm=NONE
+hi TabLineFill guifg=#ff8787 guibg=#080808 gui=NONE cterm=NONE
 hi TabLineSel guifg=#000000 guibg=#afaf87 gui=NONE cterm=NONE
 hi Title guifg=#ffdd33 guibg=NONE gui=bold cterm=bold
 hi Todo guifg=#df0000 guibg=#ffdd33 gui=NONE cterm=bold
@@ -127,3 +127,4 @@ hi WhichKeyValue guifg=#d16e22
 hi! link htmlString Normal
 hi! link hmtlTab Normal
 hi! link htmlTest diffRemoved
+

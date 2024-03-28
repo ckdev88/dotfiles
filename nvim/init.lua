@@ -73,8 +73,8 @@ k.set('n', '<C-e>', function()
 	end
 end, { silent = true, desc = 'Toggle Netrw file [e]xplorer' })
 
-k.set('n', '<C-f>', ':find ', { desc = 'Find files, replaces scrolling down a fold size command' })
-k.set('n', '<C-b>', ':buffer ', { desc = 'see open Buffers' })
+-- k.set('n', '<C-f>', ':find ', { desc = 'Find files, replaces scrolling down a fold size command' })
+-- k.set('n', '<C-b>', ':buffer ', { desc = 'see open Buffers' })
 
 k.set('n', '<leader>b', "/http<CR>yi(:new<CR>p:silent! %s/#/\\\\#/g<CR>dd:q!<CR>:silent !qutebrowser <C-r>1 &<CR>",
 	{ silent = true, desc = 'Browse to URL, surrounded by ()' })
@@ -298,7 +298,8 @@ require('nvim-treesitter.configs').setup {
 			"@vue/typescript-plugin",
 		},
 	},
-} ]] -- temporarily off, needs improved configuration
+} ]]
+     -- temporarily off, needs improved configuration
 
 -- [[ Configure LSP ]]
 local on_attach = function(_, bufnr)
@@ -338,10 +339,13 @@ end
 local bi = require('telescope.builtin')
 k.set('n', '<leader>tr', bi.oldfiles, { desc = 'Recently opened' })
 k.set('n', '<leader>tb', bi.buffers, { desc = 'Buffers' })
+k.set('n', '<C-b>', bi.buffers, { desc = 'Buffers' })
 k.set('n', '<leader>tf', bi.find_files, { desc = 'File picker' })
+k.set('n', '<C-f>', bi.find_files, { desc = 'File picker, replaces native scroll down a fold size' })
 k.set('n', '<leader>th', bi.help_tags, { desc = 'Helps' })
 k.set('n', '<leader>tw', bi.grep_string, { desc = 'current Words' })
 k.set('n', '<leader>t/', bi.live_grep, { desc = 'Greps / Global search' })
+k.set('n', '<C-_>', bi.live_grep, { desc = 'Greps / Global search ... actually bound to C-/' })
 k.set('n', '<leader>td', bi.diagnostics, { desc = 'Diagnostics' })
 k.set('n', '<leader>tg', bi.git_files, { desc = 'Git files' })
 k.set('n', '<leader>tm', ':Telescope keymaps<Return>', { desc = 'Maps' })
@@ -351,6 +355,7 @@ k.set('n', '<leader>tm', ':Telescope keymaps<Return>', { desc = 'Maps' })
 -- k.set('n', ']d', vim.diagnostic.goto_next, { desc = 'Go to next diagnostic message' }) -- nodig?
 k.set('n', '<leader>e', vim.diagnostic.open_float, { desc = 'Open floating diagnostic message' })
 k.set('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Open diagnostics list' })
+
 
 -- require('lspconfig').astro.setup {} -- nodig?
 
