@@ -54,6 +54,7 @@ k.set('n', '<C-j>', ":move+<CR>", { desc = 'move line down' })
 k.set('n', '<C-k>', ":move-2<CR>", { desc = 'move single line up' })
 k.set('v', '<C-j>', ":move'>+<CR>gv=gv", { desc = 'move selected a line down' })
 k.set('v', '<C-k>', ":move-2<CR>gv=gv", { desc = 'move selected a line up' })
+k.set('v', '<C-y>', ":w !xclip -selection clipboard<CR> ", { desc = 'yank to system clipboard' })
 
 -- search-replace
 k.set('n', '<leader>ra', [[:%s/\<<C-r><C-w>\>/]], { desc = '[R]eplace [a]ll occurences of word on cursor position' })
@@ -299,7 +300,7 @@ require('nvim-treesitter.configs').setup {
 		},
 	},
 } ]]
-     -- temporarily off, needs improved configuration
+-- temporarily off, needs improved configuration
 
 -- [[ Configure LSP ]]
 local on_attach = function(_, bufnr)
