@@ -41,8 +41,7 @@ no <C-k> :move-2<CR>
 no <leader>s <esc>:w<CR>
 no U :redo<CR>
 no <C-e> :Ex<CR>
-no <leader>tf :FZF<CR>
-
+no <C-f> :FZF<CR>
 
 vn <C-y> :w !xclip -selection clipboard<CR> " although -selection clipboard is too verbose, keep it
 

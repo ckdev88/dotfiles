@@ -16,7 +16,6 @@ hi! link CursorColumn CursorLine
 hi! link Directory Method
 hi! link Include Function
 hi! link Keyword Statement
-hi! link ModeMsg MessageWindow
 hi! link MoreMsg MessageWindow
 hi! link NonText EndOfBuffer
 hi! link PmenuExtra Pmenu
@@ -74,6 +73,7 @@ hi IncSearch 		ctermfg=220 ctermbg=0 cterm=reverse guifg=#ffd700 guibg=#000000 g
 hi Macro 			ctermfg=107 ctermbg=NONE cterm=NONE guifg=#afd700 guibg=NONE gui=NONE cterm=NONE
 hi MatchParen 		ctermfg=220 ctermbg=NONE cterm=bold guifg=#ffd700 guibg=NONE gui=bold
 hi MessageWindow 	ctermfg=254 ctermbg=52 cterm=NONE guifg=#e4e4e4 guibg=#5f0000 gui=NONE
+hi ModeMsg			ctermfg=255 ctermbg=NONE cterm=NONE guifg=#ffffff guibg=NONE gui=NONE
 hi Normal 			ctermfg=254 guifg=#e4e4e4 guibg=#121212 gui=NONE ctermbg=233 cterm=NONE
 hi Number 			ctermfg=253 ctermbg=NONE cterm=NONE guibg=NONE guifg=#dadada gui=NONE 
 hi Operator 		ctermfg=148 ctermbg=NONE cterm=NONE guifg=#afd700 guibg=NONE gui=NONE 
@@ -107,6 +107,7 @@ hi VertSplit 		ctermfg=236 ctermbg=234 cterm=NONE guifg=#303030 guibg=#1c1c1c gu
 hi Visual 			ctermfg=NONE ctermbg=240 cterm=NONE guifg=NONE guibg=#585858 gui=NONE
 hi WarningMsg 		ctermfg=9 ctermbg=NONE cterm=bold guifg=#ff0000 guibg=NONE gui=bold
 
+
 " Custom & plugins
 hi Method ctermfg=220 ctermbg=NONE cterm=bold guifg=#ffd700 guibg=NONE gui=bold
 hi! link CocErrorFloat ErrorMsg 
@@ -126,6 +127,7 @@ hi! link CocSearch MessageWindow
 hi! link CocVirtualText CocFloating
 hi! link CocWarningFloat MessageWindow 
 hi! link FgCocHintFloatBgCocFloating MessageWindow 
+hi CocVirtualText ctermfg=240 ctermbg=NONE cterm=NONE guifg=NONE guibg=#585858 gui=NONE
 
 " pmenusel
 hi! link CocMenuSel PmenuSel
