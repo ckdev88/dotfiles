@@ -43,7 +43,8 @@ no U :redo<CR>
 no <C-e> :Ex<CR>
 no <C-f> :FZF<CR>
 
-vn <C-y> :w !xclip -selection clipboard<CR> " although -selection clipboard is too verbose, keep it
+" yank to clipboard, although -selection clipboard is too verbose, keep it
+vn <C-y> :w !xclip -selection clipboard<CR> 
 
 " plugins
 " geinstalleerd via vim's built-in package manager:
