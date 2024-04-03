@@ -17,7 +17,7 @@ vo.laststatus     = 2
 vo.mouse          = 'a'  -- Enable mouse mode
 vo.number         = true
 vo.relativenumber = true
-vo.scrolloff      = 0
+vo.scrolloff      = 15
 vo.shell          = 'zsh'
 vo.shiftwidth     = 4
 vo.showcmd        = true
@@ -533,6 +533,7 @@ dap.adapters.node2 = {
 	command = 'node',
 	args = { vim.fn.stdpath("data") .. '/mason/packages/node-debug2-adapter/out/src/nodeDebug.js' },
 }
+
 k.set('n', '<leader>do', function() dapui.toggle() end, { desc = 'Open/close toggle' })
 k.set('n', '<leader>dt', ':DapTerminate<CR>', { desc = 'Terminate session' })
 k.set('n', '<F5>', function() dap.continue() end, { desc = 'Continue' })
