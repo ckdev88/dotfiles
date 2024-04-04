@@ -5,7 +5,7 @@ static const unsigned int borderpx  = 1;        /* border pixel of windows */
 static const unsigned int snap      = 32;       /* snap pixel */
 static const int showbar            = 1;        /* 0 means no bar */
 static const int topbar             = 1;        /* 0 means bottom bar */
-static const char *fonts[]          = { "Iosevka NF ExtraBold:style=ExtraBold:size=10:antialias=true" };
+static const char *fonts[]          = { "Iosevka NF SemiBold:style=SemiBold:size=10:antialias=true" };
 static const char dmenufont[]       = "Iosevka NF SemiBold:style=SemiBold:size=11:antialias=true"; 
 static const char col_gray1[]       = "#111111";
 static const char col_gray2[]       = "#2a2a2a";
@@ -61,7 +61,7 @@ static const Layout layouts[] = {
 
 /* commands */
 static char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn() */
-static const char *dmenucmd[] = { "dmenu_run", "-m", dmenumon, "-fn", dmenufont, "-nb", col_gray2, "-nf", col_tan, "-sb", col_black, "-sf", col_tan, NULL };
+static const char *dmenucmd[] = { "dmenu_run", "-m", dmenumon, "-fn", dmenufont, "-nb", col_gray2, "-nf", col_lime, "-sb", col_black, "-sf", col_lime, NULL };
 static const char *termcmd[]  = { "st", NULL };
 
 static const Key keys[] = {
