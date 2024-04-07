@@ -76,7 +76,7 @@ hi PreProc guifg=#cfbfa6 guibg=NONE gui=NONE cterm=NONE
 hi Question guifg=orange guibg=NONE gui=NONE cterm=none
 hi QuickFixLine guifg=#8ec07c guibg=#1c1c1c gui=reverse cterm=reverse
 hi SignColumn guifg=#928374 guibg=#0c0c0c gui=NONE cterm=NONE
-hi Special guifg=#c0c0a0 guibg=NONE gui=NONE cterm=NONE
+hi Special guifg=#ffd700 guibg=NONE gui=NONE cterm=NONE
 hi SpecialChar guifg=#ffff00 guibg=NONE gui=NONE cterm=NONE
 hi SpecialComment guifg=#fb4934 guibg=NONE gui=NONE cterm=NONE
 hi SpellBad guifg=#df0000 guibg=NONE guisp=#df0000 gui=undercurl cterm=underline
