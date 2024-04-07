@@ -5,7 +5,7 @@
  *
  * font: see http://freedesktop.org/software/fontconfig/fontconfig-user.html
  */
-static char *font = "Iosevka NFM:style=Regular:pixelsize=20:antialias=true";
+static char *font = "Iosevka Custom Md SmCn:style=Medium Semi-Condensed, Regular:pixelsize=20:antialias=true";
 static int borderpx = 6;
 
 /*
