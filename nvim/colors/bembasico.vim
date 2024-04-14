@@ -116,10 +116,11 @@ hi DapUIModifiedValue guifg=Cyan guibg=#504945 gui=bold
 hi DiagnosticWarn guifg=black guibg=DarkOrange 
 hi DiagnosticError guifg=white guibg=#df0000
 
-hi DiffAdd guifg=Lime guibg=Black gui=NONE
-hi DiffAdded guifg=Lime guibg=Black gui=NONE
-hi DiffDelete guifg=Red guibg=Black gui=NONE
-hi diffRemoved guifg=Red guibg=Black gui=NONE
+hi DiffAdd guibg=#008000 gui=none
+hi DiffAdded guibg=#008000 gui=none
+hi DiffDelete guibg=#af0000 gui=none
+hi diffRemoved guibg=#af0000 gui=none
+hi DiffChange guifg=#70b2a1 guibg=Black gui=reverse cterm=reverse
 hi diffFile guifg=White
 
 hi CommentLine guifg=Lime

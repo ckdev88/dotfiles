@@ -26,7 +26,7 @@ vo.smartcase      = true  -- case-insensitive searching unless \C or capital in 
 vo.tabstop        = 4
 vo.termguicolors  = true
 vo.undofile       = true
-vo.wildignore:append { '*/node_modules/*' }
+vo.wildignore:append { '*/node_modules/*', '*/dist/*' }
 
 vim.g.netrw_liststyle = 0
 vim.g.netrw_banner    = 1
@@ -36,6 +36,10 @@ vim.g.netrw_banner    = 1
 vim.g.mapleader       = ' '
 vim.g.maplocalleader  = ' '
 local k               = vim.keymap
+
+-- simple navigation
+k.set({'n','v'},'j','gj',{desc='move down ignoring the line wrap'})
+k.set({'n','v'},'k','gk',{desc='move up ignoring the line wrap'})
 
 -- vim.cmd 'syntax sync from ReturnKeyword.vim'
 -- syntax sync from 'ReturnKeyword.vim'
@@ -86,6 +90,7 @@ k.set('n', '<leader>ff', ':Format<CR>', { silent = true, desc = "Format using LS
 
 -- Git
 k.set('n', '<leader>gh', ':0GlLog<CR>', { desc = 'Git History of current file' })
+k.set('n', '<leader>gv', ':Gvdiffsplit<CR>', { desc = 'Git vertically split diff' })
 
 -- TODO: check if still useful
 -- k.set('n', 'k', 'v:count == 2 ? "gk" : "k"', { expr = true, silent = true, desc = 'deal with word wrap up' })
@@ -188,7 +193,7 @@ require('gitsigns').setup {}
 
 require('telescope').setup {
 	defaults = {
-		file_ignore_patterns = { "node_modules" },
+		file_ignore_patterns = { 'node_modules', 'dist' },
 		layout_config = { width = .99 },
 		mappings = {
 			i = {
