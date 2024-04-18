@@ -38,8 +38,8 @@ vim.g.maplocalleader  = ' '
 local k               = vim.keymap
 
 -- simple navigation
-k.set({'n','v'},'j','gj',{desc='move down ignoring the line wrap'})
-k.set({'n','v'},'k','gk',{desc='move up ignoring the line wrap'})
+k.set({ 'n', 'v' }, 'j', 'gj', { desc = 'move down ignoring the line wrap' })
+k.set({ 'n', 'v' }, 'k', 'gk', { desc = 'move up ignoring the line wrap' })
 
 -- vim.cmd 'syntax sync from ReturnKeyword.vim'
 -- syntax sync from 'ReturnKeyword.vim'
@@ -88,9 +88,11 @@ k.set('n', '<leader>fp', ":w<CR>:silent ! prettier --write %<CR>",
 	{ desc = 'Format using Prettier' })
 k.set('n', '<leader>ff', ':Format<CR>', { silent = true, desc = "Format using LSP" })
 
--- Git
-k.set('n', '<leader>gh', ':0GlLog<CR>', { desc = 'Git History of current file' })
-k.set('n', '<leader>gv', ':Gvdiffsplit<CR>', { desc = 'Git vertically split diff' })
+-- Git & Gitsigns
+k.set('n', '<leader>glf', ':0GlLog<CR>', { desc = 'Git History of current file' })
+k.set('n', '<leader>gwv', ':Gvdiffsplit<CR>', { desc = 'Git vertically split diff' })
+k.set('n', '<leader>ghp', ':Gitsigns preview_hunk', { desc = 'Gitsigns preview hunk' })
+k.set('n', '<leader>ghr', ':Gitsigns reset_hunk', { desc = 'Gitsigns reset hunk' })
 
 -- TODO: check if still useful
 -- k.set('n', 'k', 'v:count == 2 ? "gk" : "k"', { expr = true, silent = true, desc = 'deal with word wrap up' })
