@@ -1,3 +1,4 @@
+
 nnoremap <SPACE> <Nop>
 let mapleader=" "
 
@@ -33,6 +34,7 @@ syntax on
 no <C-z> <nop>
 no <SPACE> <nop>
 no <ESC> :noh<CR>
+no q <nop>
 
 no <C-c> Vpp
 no <C-j> :move+<CR>			" move line down
@@ -48,14 +50,14 @@ vn <C-y> :w !xclip -selection clipboard<CR>
 
 " plugins
 " geinstalleerd via vim's built-in package manager:
-	" tpope/vim-surround
-	" tpope/vim-commentary
-	" vimwiki/vimwiki
-	" neoclide/coc.nvim
 	" SirVer/ultisnips.git
 	" honza/vim-snippets.git
-	" tpope/vim-fugitive
 	" machakann/vim-highlightedyank
+	" neoclide/coc.nvim
+	" tpope/vim-commentary
+	" tpope/vim-fugitive
+	" tpope/vim-surround
+	" vimwiki/vimwiki
 
 " let g:vimwiki_list = [{'path': '~/vimwiki/',
 " \ 'syntax': 'markdown', 'ext': 'md'}]
@@ -74,3 +76,9 @@ function! ShowDocumentation()
   endif
 endfunction
 nnoremap <silent> K :call ShowDocumentation()<CR>
+
+function! SynGroup()
+    let l:s = synID(line('.'), col('.'), 1)
+    echo synIDattr(l:s, 'name') . ' -> ' . synIDattr(synIDtrans(l:s), 'name')
+endfunction
+nnoremap <leader>ws :call SynGroup()<CR>
