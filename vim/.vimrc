@@ -55,6 +55,7 @@ vn <C-y> :w !xclip -selection clipboard<CR>
 	" SirVer/ultisnips.git
 	" honza/vim-snippets.git
 	" tpope/vim-fugitive
+	" machakann/vim-highlightedyank
 
 " let g:vimwiki_list = [{'path': '~/vimwiki/',
 " \ 'syntax': 'markdown', 'ext': 'md'}]
@@ -62,6 +63,8 @@ vn <C-y> :w !xclip -selection clipboard<CR>
 colorscheme bonbasique
 " CoC config
 source "~/.vim/cocconfig.vim"
+" highlightedyank
+let g:highlightedyank_highlight_duration = 100
 
 function! ShowDocumentation()
   if CocAction('hasProvider', 'hover')
