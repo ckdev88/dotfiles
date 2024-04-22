@@ -54,6 +54,7 @@ vn <C-y> :w !xclip -selection clipboard<CR>
 	" neoclide/coc.nvim
 	" SirVer/ultisnips.git
 	" honza/vim-snippets.git
+	" tpope/vim-fugitive
 
 " let g:vimwiki_list = [{'path': '~/vimwiki/',
 " \ 'syntax': 'markdown', 'ext': 'md'}]
