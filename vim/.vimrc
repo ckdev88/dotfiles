@@ -1,32 +1,29 @@
-
 nnoremap <SPACE> <Nop>
 let mapleader=" "
 
 set nocompatible
 
-set number
-set cursorline
-set tabstop=4
-set shiftwidth=4
-set timeoutlen=400
-set laststatus=2
-set ignorecase
-set hlsearch
-set undofile
-set completeopt=menuone,noselect,preview
-set wildmenu
-set wildoptions=pum
-
 set backspace=2
-set incsearch
-set scrolloff=15
-set relativenumber	
-
+set completeopt=menuone,noselect,preview
+set cursorline
 set encoding=utf-8
+set hlsearch
+set ignorecase
+set incsearch
+set laststatus=2
 set nobackup
 set nowritebackup
-set updatetime=300
+set number
+set relativenumber	
+set scrolloff=15
+set shiftwidth=4
 set signcolumn=yes
+set tabstop=4
+set timeoutlen=400
+set undofile
+set updatetime=300
+set wildmenu
+set wildoptions=pum
 
 filetype plugin indent on
 syntax on
@@ -48,8 +45,7 @@ no <C-f> :FZF<CR>
 " yank to clipboard, although -selection clipboard is too verbose, keep it
 vn <C-y> :w !xclip -selection clipboard<CR> 
 
-" plugins
-" geinstalleerd via vim's built-in package manager:
+" plugins installed via native vim package manager:
 	" SirVer/ultisnips.git
 	" honza/vim-snippets.git
 	" machakann/vim-highlightedyank
@@ -63,10 +59,16 @@ vn <C-y> :w !xclip -selection clipboard<CR>
 " \ 'syntax': 'markdown', 'ext': 'md'}]
 
 colorscheme bonbasique
-" CoC config
-source "~/.vim/cocconfig.vim"
-" highlightedyank
+
 let g:highlightedyank_highlight_duration = 100
+
+function! SynGroup()
+    let l:s = synID(line('.'), col('.'), 1)
+    echo synIDattr(l:s, 'name') . ' -> ' . synIDattr(synIDtrans(l:s), 'name')
+endfunction
+nnoremap <leader>ws :call SynGroup()<CR>
+
+" COC CONFIG
 
 function! ShowDocumentation()
   if CocAction('hasProvider', 'hover')
@@ -77,8 +79,29 @@ function! ShowDocumentation()
 endfunction
 nnoremap <silent> K :call ShowDocumentation()<CR>
 
-function! SynGroup()
-    let l:s = synID(line('.'), col('.'), 1)
-    echo synIDattr(l:s, 'name') . ' -> ' . synIDattr(synIDtrans(l:s), 'name')
+inoremap <silent><expr> <TAB>
+      \ coc#pum#visible() ? coc#pum#next(1) :
+      \ CheckBackspace() ? "\<Tab>" :
+      \ coc#refresh()
+inoremap <expr><S-TAB> coc#pum#visible() ? coc#pum#prev(1) : "\<C-h>"
+
+" Make <CR> to accept selected completion item or notify coc.nvim to format
+" <C-g>u breaks current undo, please make your own choice
+inoremap <silent><expr> <CR> coc#pum#visible() ? coc#pum#confirm()
+                              \: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
+
+function! CheckBackspace() abort
+  let col = col('.') - 1
+  return !col || getline('.')[col - 1]  =~# '\s'
 endfunction
-nnoremap <leader>ws :call SynGroup()<CR>
+
+" Formatting selected code
+xmap <leader>ff  <Plug>(coc-format-selected)
+nmap <leader>ff  <Plug>(coc-format-selected)
+
+" Add `:Format` command to format current buffer
+command! -nargs=0 Format :call CocActionAsync('format')
+
+" /COC CONFIG
+
+
