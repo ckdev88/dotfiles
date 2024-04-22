@@ -10,7 +10,6 @@ hi clear
 let g:colors_name = 'bonbasique'
 
 hi! link Conceal Comment
-hi! link LineNr Comment
 hi! link CurSearch Search
 hi! link CursorColumn CursorLine
 hi! link Directory Method
@@ -45,7 +44,8 @@ hi! link SpecialKey Special
 hi Boolean 			ctermfg=253 ctermbg=NONE cterm=NONE guifg=#dadada guibg=NONE gui=NONE
 hi Character 		ctermfg=253 ctermbg=NONE cterm=NONE guifg=#dadada guibg=NONE gui=NONE
 hi ColorColumn 		ctermfg=NONE ctermbg=0 cterm=NONE guifg=NONE guibg=#000000 gui=NONE
-hi Comment 			ctermfg=242 ctermbg=NONE cterm=NONE guifg=#6c6c6c guibg=NONE gui=NONE
+hi LineNr 			ctermfg=242 ctermbg=NONE cterm=NONE guifg=#6c6c6c guibg=NONE gui=NONE
+hi Comment 			ctermfg=246 ctermbg=237 cterm=NONE guifg=#949494 guibg=#3a3a3a gui=NONE
 hi Constant 		ctermfg=253 ctermbg=NONE cterm=NONE guifg=#dadada guibg=NONE gui=NONE
 hi Cursor 			ctermfg=220 ctermbg=NONE cterm=NONE guifg=#ffd700 guibg=#000000 gui=NONE
 hi CursorIM 		ctermfg=220 ctermbg=0 cterm=NONE guifg=#ffd700 guibg=#000000 gui=NONE
