@@ -126,5 +126,3 @@ hi WildMenu guifg=#83a598 guibg=#504945 gui=bold cterm=bold
 hi diffFile guifg=White
 hi diffRemoved guibg=#df0000 guifg=#fafafa gui=NONE
 hi lCursor guifg=#262626 guibg=#ffafaf gui=NONE cterm=NONE
-
-
