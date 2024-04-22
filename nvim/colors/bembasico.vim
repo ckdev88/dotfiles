@@ -59,10 +59,10 @@ hi Define guifg=#ffd700 guibg=NONE gui=bold cterm=NONE
 hi Delimiter guifg=#6f6f67 guibg=NONE gui=NONE cterm=NONE
 hi DiagnosticError guifg=white guibg=#df0000
 hi DiagnosticWarn guifg=black guibg=DarkOrange 
-hi DiffAdd guibg=#008000 guifg=#fafafa gui=none
-hi DiffAdded guibg=#008000 guifg=#fafafa gui=none
-hi DiffChange guibg=#70b2a1 guifg=#fafafa gui=none
-hi DiffDelete guibg=#df0000 guifg=#fafafa gui=none
+hi DiffAdd guibg=#008000 guifg=#fafafa gui=NONE
+hi DiffAdded guibg=#008000 guifg=#fafafa gui=NONE
+hi DiffChange guibg=#70b2a1 guifg=#fafafa gui=NONE
+hi DiffDelete guibg=#df0000 guifg=#fafafa gui=NONE
 hi EndOfBuffer guifg=#504945 guibg=NONE gui=NONE cterm=NONE
 hi Error guifg=#df0000 guibg=#e4e4e4 gui=reverse cterm=reverse
 hi Exception guifg=#df0000 guibg=NONE gui=NONE cterm=NONE
@@ -90,7 +90,7 @@ hi PmenuSbar guifg=NONE guibg=#262626 gui=NONE cterm=NONE
 hi PmenuSel guifg=#ffffff guibg=#5a0914 gui=NONE cterm=NONE
 hi PmenuThumb guifg=NONE guibg=#7c6f64 gui=NONE cterm=NONE
 hi PreProc guifg=#cfbfa6 guibg=NONE gui=NONE cterm=NONE
-hi Question guifg=orange guibg=NONE gui=NONE cterm=none
+hi Question guifg=orange guibg=NONE gui=NONE cterm=NONE
 hi QuickFixLine guifg=#8ec07c guibg=#1c1c1c gui=reverse cterm=reverse
 hi Search guifg=#5f8787 guibg=#e4e4e4 gui=reverse
 hi SignColumn guifg=#928374 guibg=#0c0c0c gui=NONE cterm=NONE
@@ -124,7 +124,7 @@ hi VisualNOS guifg=#d7d787 guibg=#5f8700 gui=NONE cterm=NONE
 hi WhichKeyValue guifg=#d16e22
 hi WildMenu guifg=#83a598 guibg=#504945 gui=bold cterm=bold
 hi diffFile guifg=White
-hi diffRemoved guibg=#df0000 guifg=#fafafa gui=none
+hi diffRemoved guibg=#df0000 guifg=#fafafa gui=NONE
 hi lCursor guifg=#262626 guibg=#ffafaf gui=NONE cterm=NONE
 
 
