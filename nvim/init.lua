@@ -467,6 +467,15 @@ cmp.setup {
 	},
 }
 
+-- autocommands
+
+-- highlight text when yanking, use to improve use of yap and stuff
+vim.api.nvim_create_autocmd('TextYankPost', {
+	group = vim.api.nvim_create_augroup('ck-highlight-yank', { clear = true }),
+	callback = function()
+		vim.highlight.on_yank()
+	end,
+})
 -- which-key grouped names
 local wk = require('which-key')
 wk.register({
