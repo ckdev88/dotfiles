@@ -1,5 +1,5 @@
 " Name:         bembasico
-" Description:  CK theme, inspired by: slate, gruvbox and tsoding's emacs theme
+" Description:  CK theme, inspired by: Slate, Gruvbox & Gruber Darker
 " Author:       CK 
 " Maintainer:   CK
 " Website:      CK
@@ -11,59 +11,76 @@ set background=dark
 hi clear
 let g:colors_name = 'bembasico'
 
-hi! link Terminal Normal
+hi! link @lsp.type.comment Comment
+hi! link @property Identifier
+hi! link @tag.attribute.tsx Type
+hi! link @tag.tsx Method
+hi! link Boolean String
+hi! link Constant Identifier
 hi! link CurSearch Search
 hi! link CursorLineFold CursorLine
-hi! link CursorLineSign CursorLine
-hi! link MessageWindow Pmenu
-hi! link PopupNotification Todo
-hi! link Constant Identifier
-hi! link @property Identifier
-hi! link Structure Type
-hi! link FoldColumn Folded
-hi! link SpecialKey Type
-hi! link Boolean String
-hi! link Directory Function
-hi! link Float Exception
-hi! link Debug Exception
-hi! link Label Exception
-hi! link ErrorMsg Exception
-hi! link WarningMsg Exception
 hi! link CursorLineNr CursorLine
-hi! link NvimDapVirtualTextChanged DapUIModifiedValue
+hi! link CursorLineSign CursorLine
+hi! link Debug Exception
 hi! link DiagnosticHint DiagnosticWarn
-hi! link @lsp.type.comment Comment
+hi! link Directory Function
+hi! link ErrorMsg Exception
+hi! link Float Exception
+hi! link FoldColumn Folded
+hi! link Label Exception
+hi! link MessageWindow Pmenu
+hi! link NvimDapVirtualTextChanged DapUIModifiedValue
+hi! link PopupNotification Todo
+hi! link SpecialKey Type
+hi! link Structure Type
 hi! link Tag Identifier
+hi! link Terminal Normal
+hi! link WarningMsg Exception
+hi! link hmtlTab Normal
+hi! link htmlString Normal
+hi! link htmlTest diffRemoved
 
-hi Identifier guifg=#e4e4e4 guibg=NONE gui=NONE cterm=NONE
-hi Operator guifg=#ffffff 
-hi String guifg=#79bf46 guibg=NONE gui=NONE cterm=NONE
-hi Function guifg=#ffdd00 guibg=NONE gui=bold cterm=bold
-hi Keyword guifg=#ff5f00 guibg=NONE gui=NONE cterm=NONE
-hi Character guifg=#e699ae guibg=NONE gui=NONE cterm=NONE
+hi @lsp.type.enum guifg=#70b2a1
+hi @lsp.type.function guifg=#ffdd33 gui=bold cterm=bold
+hi @lsp.type.property guifg=#e4e4e4
+hi @lsp.type.variable guifg=#f4f4f4 guibg=NONE gui=NONE cterm=NONE 
+hi Character guifg=#df0000 guibg=NONE gui=NONE cterm=NONE
 hi ColorColumn guifg=NONE guibg=#0c0c0c gui=NONE cterm=NONE
 hi Comment guifg=#999999 guibg=#333333 gui=NONE cterm=NONE
+hi CommentLine guifg=Lime
 hi Conceal guifg=#83a598 guibg=NONE gui=NONE cterm=NONE
-hi Cursor gui=reverse cterm=reverse
 hi Conditional guifg=#d16e22 guibg=NONE gui=NONE cterm=NONE
+hi Cursor gui=reverse cterm=reverse
 hi CursorColumn guifg=NONE guibg=#333333 gui=NONE cterm=NONE
 hi CursorIM guifg=#1c1c1c guibg=#fbf1c7 gui=NONE cterm=NONE
 hi CursorLine guifg=NONE guibg=#241e1d gui=NONE cterm=NONE
+hi DapUIModifiedValue guifg=Cyan guibg=#504945 gui=bold
 hi Define guifg=#ffd700 guibg=NONE gui=bold cterm=NONE
 hi Delimiter guifg=#6f6f67 guibg=NONE gui=NONE cterm=NONE
+hi DiagnosticError guifg=white guibg=#df0000
+hi DiagnosticWarn guifg=black guibg=DarkOrange 
+hi DiffAdd guibg=#008000 guifg=#fafafa gui=none
+hi DiffAdded guibg=#008000 guifg=#fafafa gui=none
+hi DiffChange guibg=#70b2a1 guifg=#fafafa gui=none
+hi DiffDelete guibg=#df0000 guifg=#fafafa gui=none
 hi EndOfBuffer guifg=#504945 guibg=NONE gui=NONE cterm=NONE
 hi Error guifg=#df0000 guibg=#e4e4e4 gui=reverse cterm=reverse
 hi Exception guifg=#df0000 guibg=NONE gui=NONE cterm=NONE
 hi Folded guifg=#928374 guibg=#121212 gui=NONE cterm=NONE
+hi Function guifg=#ffdd00 guibg=NONE gui=bold cterm=bold
+hi Identifier guifg=#e4e4e4 guibg=NONE gui=NONE cterm=NONE
 hi Ignore guifg=NONE guibg=NONE gui=NONE ctermfg=NONE ctermbg=NONE cterm=NONE
 hi IncSearch guifg=#ffd700 guibg=#000000 gui=reverse
-hi Search guibg=#fafafa guifg=#fb4934 gui=reverse
+hi Keyword guifg=#ff5f00 guibg=NONE gui=NONE cterm=NONE
 hi LineNr guifg=#504945 guibg=NONE gui=NONE cterm=NONE
 hi MatchParen guifg=#ffdd33 guibg=NONE gui=NONE gui=bold cterm=bold,reverse
+hi Method guifg=#ffdd00 guibg=NONE gui=bold cterm=bold
 hi ModeMsg guifg=#e4e4e4 guibg=NONE gui=NONE cterm=NONE
 hi MoreMsg guifg=#fabd2f guibg=NONE gui=bold cterm=bold
 hi NonText guifg=#504945 guibg=NONE gui=NONE cterm=NONE
 hi Normal guifg=#fafafa guibg=#0c0c0c gui=NONE cterm=NONE
+hi NvimDapVirtualText guifg=#70b2a1 guibg=#504945 gui=NONE
+hi Operator guifg=#ffffff 
 hi Pmenu guifg=#fabd2f guibg=#5a0914 gui=NONE cterm=NONE
 hi PmenuExtra guifg=#a89984 guibg=#3c3836 gui=NONE cterm=NONE
 hi PmenuExtraSel guifg=#303030 guibg=#83a598 gui=NONE cterm=NONE
@@ -75,6 +92,7 @@ hi PmenuThumb guifg=NONE guibg=#7c6f64 gui=NONE cterm=NONE
 hi PreProc guifg=#cfbfa6 guibg=NONE gui=NONE cterm=NONE
 hi Question guifg=orange guibg=NONE gui=NONE cterm=none
 hi QuickFixLine guifg=#8ec07c guibg=#1c1c1c gui=reverse cterm=reverse
+hi Search guifg=#5f8787 guibg=#e4e4e4 gui=reverse
 hi SignColumn guifg=#928374 guibg=#0c0c0c gui=NONE cterm=NONE
 hi Special guifg=#ffd700 guibg=NONE gui=NONE cterm=NONE
 hi SpecialChar guifg=#ffff00 guibg=NONE gui=NONE cterm=NONE
@@ -89,6 +107,7 @@ hi StatusLineNC guifg=#504945 guibg=NONE gui=NONE cterm=NONE
 hi StatusLineTerm guifg=#df0000 guibg=#222222 gui=NONE cterm=bold,reverse
 hi StatusLineTermNC guifg=NONE guibg=#222222 gui=reverse cterm=reverse
 hi StorageClass guifg=#ffb049 guibg=NONE gui=NONE cterm=NONE
+hi String guifg=#79bf46 guibg=NONE gui=NONE cterm=NONE
 hi TabLine guifg=#666666 guibg=#0c0c0c gui=NONE cterm=NONE
 hi TabLineFill guifg=#ff8787 guibg=#0c0c0c gui=NONE cterm=NONE
 hi TabLineSel guifg=#000000 guibg=#afaf87 gui=NONE cterm=NONE
@@ -102,31 +121,10 @@ hi Underlined guifg=#504945 guibg=NONE gui=underline cterm=underline
 hi VertSplit guifg=#fbf1c7 guibg=black gui=NONE cterm=NONE
 hi Visual guibg=#504945 gui=NONE cterm=reverse
 hi VisualNOS guifg=#d7d787 guibg=#5f8700 gui=NONE cterm=NONE
+hi WhichKeyValue guifg=#d16e22
 hi WildMenu guifg=#83a598 guibg=#504945 gui=bold cterm=bold
+hi diffFile guifg=White
+hi diffRemoved guibg=#df0000 guifg=#fafafa gui=none
 hi lCursor guifg=#262626 guibg=#ffafaf gui=NONE cterm=NONE
 
-hi @lsp.type.enum guifg=#70b2a1
-hi @lsp.type.function guifg=#ffdd33 gui=bold cterm=bold
-hi @lsp.type.property guifg=#e4e4e4
-hi @lsp.type.variable guifg=#f4f4f4 guibg=NONE gui=NONE cterm=NONE 
-
-hi NvimDapVirtualText guifg=#70b2a1 guibg=#504945 gui=NONE
-hi DapUIModifiedValue guifg=Cyan guibg=#504945 gui=bold
-
-hi DiagnosticWarn guifg=black guibg=DarkOrange 
-hi DiagnosticError guifg=white guibg=#df0000
-
-hi DiffAdd guibg=#008000 gui=none
-hi DiffAdded guibg=#008000 gui=none
-hi DiffDelete guibg=#af0000 gui=none
-hi diffRemoved guibg=#af0000 gui=none
-hi DiffChange guifg=#70b2a1 guibg=Black gui=reverse cterm=reverse
-hi diffFile guifg=White
-
-hi CommentLine guifg=Lime
-hi WhichKeyValue guifg=#d16e22
-
-hi! link htmlString Normal
-hi! link hmtlTab Normal
-hi! link htmlTest diffRemoved
 
