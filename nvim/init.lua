@@ -476,12 +476,16 @@ vim.api.nvim_create_autocmd('TextYankPost', {
 		vim.highlight.on_yank()
 	end,
 })
+
 -- which-key grouped names
 local wk = require('which-key')
 wk.register({
 	d = { name = "DAP" },
 	f = { name = "Formatting" },
 	g = { name = "Git" },
+	gh = { name = "Git Hunk actions" },
+	gl = { name = "Git Log actions" },
+	gw = { name = "Git Window actions" },
 	l = "LSP misc",
 	r = "Replace / Rename",
 	t = { name = "Telescope" },
