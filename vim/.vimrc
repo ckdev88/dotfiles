@@ -41,10 +41,16 @@ no <leader>s <esc>:w<CR>
 no U :redo<CR>
 no <C-e> :Ex<CR>
 no <C-f> :FZF<CR>
+no <C-_> :Rg<CR>
+no <C-b> :Buffers<CR>
+no <leader>tsh :History/<CR>
+no <leader>tsn :Snippets<CR>
+no <leader>tgc :Commits<CR>
 
 " yank to clipboard, although -selection clipboard is too verbose, keep it
 vn <C-y> :w !xclip -selection clipboard<CR> 
 
+" junegunn/fzf.vim
 " plugins installed via native vim package manager:
 	" SirVer/ultisnips.git
 	" honza/vim-snippets.git
@@ -105,3 +111,4 @@ command! -nargs=0 Format :call CocActionAsync('format')
 " /COC CONFIG
 
 
+let g:fzf_layout = { 'window': { 'width': 0.98, 'height': 0.8, 'relative': v:true } }
