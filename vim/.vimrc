@@ -108,11 +108,7 @@ autocmd CursorHold * silent call CocActionAsync('highlight')
 nmap <leader>rn <Plug>(coc-rename)
 
 " Formatting selected code
-xmap <leader>ff  <Plug>(coc-format-selected)
-nmap <leader>ff  <Plug>(coc-format-selected)
-
 no <leader>ff :Format<CR>
-
 
 " Symbol renaming
 nmap <leader>rn <Plug>(coc-rename)
@@ -121,6 +117,4 @@ nmap <leader>rn <Plug>(coc-rename)
 command! -nargs=0 Format :call CocActionAsync('format')
 
 " /COC CONFIG
-
-
 let g:fzf_layout = { 'window': { 'width': 0.98, 'height': 0.8, 'relative': v:true } }
