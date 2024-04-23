@@ -33,7 +33,7 @@ no <SPACE> <nop>
 no <ESC> :noh<CR>
 no q <nop>
 
-no <C-c> Vpp
+no <C-c> Vyp
 no <C-j> :move+<CR>			" move line down
 vn <C-j> :move'>+<CR>gv=gv 	" move selection down 
 no <C-k> :move-2<CR>
