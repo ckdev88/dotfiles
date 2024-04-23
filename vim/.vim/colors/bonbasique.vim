@@ -4,7 +4,7 @@
 " Maintainer: CK
 " Website: https://ckdev88.github.io
 " License: Vim License (see `:help license`)
-" Last Updated: Mon 23 Apr 2024 05:36:55 AM -03
+" Last Updated: Tue 23 Apr 2024 10:08:55 AM -03
 
 hi clear
 let g:colors_name = 'bonbasique'
@@ -59,10 +59,12 @@ hi! link javaScriptLabel Constant
 hi! link javaScriptMember Type
 hi! link javaScriptNull Type
 hi! link lCursor Cursor
+hi! link matchParen Search
 hi! link netrwExe Function
 hi! link netrwList netrwPlain
 hi! link tsxCloseString Tag
 hi! link tsxCloseTag Tag
+hi! link tsxEscapeJs Method
 hi! link tsxIntrinsicTagName Tag
 hi! link tsxRegion Constant
 hi! link tsxTag Tag
@@ -125,7 +127,6 @@ hi IncSearch 		ctermfg=220 ctermbg=0 cterm=reverse guifg=#ffd700 guibg=#000000 g
 hi Keyword  		ctermfg=202 ctermbg=NONE cterm=NONE guifg=#ff5f00 guibg=NONE gui=NONE cterm=NONE
 hi LineNr 			ctermfg=242 ctermbg=NONE cterm=NONE guifg=#6c6c6c guibg=NONE gui=NONE
 hi Macro 			ctermfg=107 ctermbg=NONE cterm=NONE guifg=#afd700 guibg=NONE gui=NONE cterm=NONE
-hi MatchParen 		ctermfg=220 ctermbg=NONE cterm=bold guifg=#ffd700 guibg=NONE gui=bold
 hi MessageWindow 	ctermfg=254 ctermbg=52 cterm=NONE guifg=#e4e4e4 guibg=#5f0000 gui=NONE
 hi Method 			ctermfg=220 ctermbg=NONE cterm=bold guifg=#ffd700 guibg=NONE gui=bold
 hi ModeMsg			ctermfg=255 ctermbg=NONE cterm=NONE guifg=#ffffff guibg=NONE gui=NONE
