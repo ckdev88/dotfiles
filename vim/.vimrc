@@ -50,16 +50,16 @@ no <leader>tgc :Commits<CR>
 " yank to clipboard, although -selection clipboard is too verbose, keep it
 vn <C-y> :w !xclip -selection clipboard<CR> 
 
+" SirVer/ultisnips.git
+" honza/vim-snippets.git
 " junegunn/fzf.vim
+" machakann/vim-highlightedyank
+" neoclide/coc.nvim
 " plugins installed via native vim package manager:
-	" SirVer/ultisnips.git
-	" honza/vim-snippets.git
-	" machakann/vim-highlightedyank
-	" neoclide/coc.nvim
-	" tpope/vim-commentary
-	" tpope/vim-fugitive
-	" tpope/vim-surround
-	" vimwiki/vimwiki
+" tpope/vim-commentary
+" tpope/vim-fugitive
+" tpope/vim-surround
+" vimwiki/vimwiki
 
 " let g:vimwiki_list = [{'path': '~/vimwiki/',
 " \ 'syntax': 'markdown', 'ext': 'md'}]
@@ -69,41 +69,53 @@ colorscheme bonbasique
 let g:highlightedyank_highlight_duration = 100
 
 function! SynGroup()
-    let l:s = synID(line('.'), col('.'), 1)
-    echo synIDattr(l:s, 'name') . ' -> ' . synIDattr(synIDtrans(l:s), 'name')
+	let l:s = synID(line('.'), col('.'), 1)
+	echo synIDattr(l:s, 'name') . ' -> ' . synIDattr(synIDtrans(l:s), 'name')
 endfunction
 nnoremap <leader>ws :call SynGroup()<CR>
 
 " COC CONFIG
 
 function! ShowDocumentation()
-  if CocAction('hasProvider', 'hover')
-    call CocActionAsync('doHover')
-  else
-    call feedkeys('K', 'in')
-  endif
+	if CocAction('hasProvider', 'hover')
+		call CocActionAsync('doHover')
+	else
+		call feedkeys('K', 'in')
+	endif
 endfunction
 nnoremap <silent> K :call ShowDocumentation()<CR>
 
 inoremap <silent><expr> <TAB>
-      \ coc#pum#visible() ? coc#pum#next(1) :
-      \ CheckBackspace() ? "\<Tab>" :
-      \ coc#refresh()
+			\ coc#pum#visible() ? coc#pum#next(1) :
+			\ CheckBackspace() ? "\<Tab>" :
+			\ coc#refresh()
 inoremap <expr><S-TAB> coc#pum#visible() ? coc#pum#prev(1) : "\<C-h>"
 
 " Make <CR> to accept selected completion item or notify coc.nvim to format
 " <C-g>u breaks current undo, please make your own choice
 inoremap <silent><expr> <CR> coc#pum#visible() ? coc#pum#confirm()
-                              \: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
+			\: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
 
 function! CheckBackspace() abort
-  let col = col('.') - 1
-  return !col || getline('.')[col - 1]  =~# '\s'
+	let col = col('.') - 1
+	return !col || getline('.')[col - 1]  =~# '\s'
 endfunction
+
+" Highlight the symbol and its references when holding the cursor
+autocmd CursorHold * silent call CocActionAsync('highlight')
+
+" Symbol renaming
+nmap <leader>rn <Plug>(coc-rename)
 
 " Formatting selected code
 xmap <leader>ff  <Plug>(coc-format-selected)
 nmap <leader>ff  <Plug>(coc-format-selected)
+
+no <leader>ff :Format<CR>
+
+
+" Symbol renaming
+nmap <leader>rn <Plug>(coc-rename)
 
 " Add `:Format` command to format current buffer
 command! -nargs=0 Format :call CocActionAsync('format')
