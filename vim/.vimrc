@@ -46,6 +46,8 @@ no <C-b> :Buffers<CR>
 no <leader>tsh :History/<CR>
 no <leader>tsn :Snippets<CR>
 no <leader>tgc :Commits<CR>
+no <leader>gc :G commit -m ''<LEFT>
+no <leader>gp :G push<CR>
 
 " yank to clipboard, although -selection clipboard is too verbose, keep it
 vn <C-y> :w !xclip -selection clipboard<CR> 
@@ -107,7 +109,6 @@ autocmd CursorHold * silent call CocActionAsync('highlight')
 " Symbol renaming
 nmap <leader>rn <Plug>(coc-rename)
 
-" Formatting selected code
 no <leader>ff :Format<CR>
 
 " Symbol renaming
@@ -117,4 +118,4 @@ nmap <leader>rn <Plug>(coc-rename)
 command! -nargs=0 Format :call CocActionAsync('format')
 
 " /COC CONFIG
-let g:fzf_layout = { 'window': { 'width': 0.98, 'height': 0.8, 'relative': v:true } }
+let g:fzf_layout = { 'window': { 'width': 0.98, 'height': 0.8 } }
