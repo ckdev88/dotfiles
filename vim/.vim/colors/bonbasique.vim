@@ -50,6 +50,7 @@ hi! link ToolbarButton TabLineSel
 hi! link Typedef Type 
 hi! link VisualNOS Visual
 hi! link WildMenu Pmenu
+hi! link cssFunctionName Method
 hi! link htmlEndTag Tag
 hi! link htmlH1 Title
 hi! link htmlSpecialTagName Tag
@@ -58,6 +59,7 @@ hi! link htmlTagName Tag
 hi! link javaScriptLabel Constant
 hi! link javaScriptMember Type
 hi! link javaScriptNull Type
+hi! link cssTagName Type
 hi! link lCursor Cursor
 hi! link matchParen Search
 hi! link netrwExe Function
@@ -81,6 +83,7 @@ hi! link typescriptEndColons typescriptDotNotation
 hi! link typescriptExport Keyword
 hi! link typescriptFuncName Method
 hi! link typescriptGlobal Constant
+hi! link typescriptGlobalMethod Method
 hi! link typescriptImport Conditional
 hi! link typescriptJSONStaticMethod Method
 hi! link typescriptJSONStaticMethod Method
@@ -95,12 +98,17 @@ hi! link vimFuncName Method
 hi! link vimHiBang LineNr
 hi! link vimHighlight Keyword
 hi! link vimUserFunc Method
+hi! link DiffAdd Added
+hi! link DiffChange Changed
+hi! link DiffDelete Removed
+
+hi Normal			ctermfg=254 ctermbg=234	 cterm=NONE guifg=#e4e4e4 guifg=#121212 gui=NONE
 
 hi Character 		ctermfg=253 ctermbg=NONE cterm=NONE guifg=#dadada guibg=NONE gui=NONE
 hi CocVirtualText 	ctermfg=240 ctermbg=NONE cterm=NONE guifg=NONE guibg=#585858 gui=NONE
 hi ColorColumn 		ctermfg=NONE ctermbg=0 cterm=NONE guifg=NONE guibg=#000000 gui=NONE
 hi Comment 			ctermfg=246 ctermbg=237 cterm=NONE guifg=#949494 guibg=#303030 gui=NONE
-hi Conditional  	ctermfg=202 ctermbg=NONE cterm=NONE guifg=#ff5f00 " guibg=NONE gui=NONE cterm=NONE
+hi Conditional  	ctermfg=202 ctermbg=NONE cterm=NONE guifg=#ff5f00 guibg=NONE gui=NONE cterm=NONE
 hi Constant 		ctermfg=253 ctermbg=NONE cterm=NONE guifg=#dadada guibg=NONE gui=NONE
 hi Cursor 			ctermfg=220 ctermbg=NONE cterm=NONE guifg=#ffd700 guibg=#000000 gui=NONE
 hi CursorIM 		ctermfg=220 ctermbg=0 cterm=NONE guifg=#ffd700 guibg=#000000 gui=NONE
@@ -110,10 +118,10 @@ hi CursorLineNr 	ctermfg=NONE ctermbg=235 cterm=bold guifg=NONE guibg=#262626 gu
 hi CursorLineSign 	ctermfg=39 ctermbg=235 cterm=bold guifg=#00afff guibg=#262626 gui=bold
 hi Debug 			ctermfg=88 ctermbg=NONE cterm=NONE guifg=#870000 guibg=NONE gui=NONE
 hi Define 			ctermfg=187 ctermbg=NONE cterm=NONE guifg=#ffafff guibg=NONE gui=NONE
-hi DiffAdd 			ctermfg=2 ctermbg=234 cterm=reverse guifg=#008000 guibg=#1c1c1c gui=reverse
-hi DiffChange 		ctermfg=4 ctermbg=234 cterm=reverse guifg=#000080 guibg=#1c1c1c gui=reverse
-hi DiffDelete 		ctermfg=1 ctermbg=234 cterm=reverse guifg=#800000 guibg=#1c1c1c gui=reverse
-hi DiffText 		ctermfg=208 ctermbg=234 cterm=reverse guifg=#ff8700 guibg=#1c1c1c gui=reverse
+hi Added 			ctermfg=fg ctermbg=22 cterm=NONE guifg=#005f00 guibg=fg gui=reverse
+hi Changed			ctermfg=fg ctermbg=4 cterm=NONE guifg=#000080 guibg=fg gui=reverse
+hi Removed			ctermfg=88  ctermbg=fg cterm=reverse guifg=#870000 guibg=fg gui=reverse
+hi DiffText 		ctermfg=fg ctermbg=208 cterm=NONE guifg=#1c1c1c guibg=#ff8700 gui=NONE
 hi EndOfBuffer 		ctermfg=59 ctermbg=NONE cterm=NONE guifg=#504945 guibg=NONE gui=NONE
 hi Error 			ctermfg=124 ctermbg=234 cterm=NONE guifg=#af0000 guibg=#1c1c1c gui=NONE
 hi ErrorMsg 		ctermfg=255 ctermbg=124 cterm=NONE guifg=#ffffff guibg=#af0000 gui=NONE
@@ -131,7 +139,6 @@ hi MessageWindow 	ctermfg=254 ctermbg=52 cterm=NONE guifg=#e4e4e4 guibg=#5f0000 
 hi Method 			ctermfg=220 ctermbg=NONE cterm=bold guifg=#ffd700 guibg=NONE gui=bold
 hi ModeMsg			ctermfg=255 ctermbg=NONE cterm=NONE guifg=#ffffff guibg=NONE gui=NONE
 hi Number 			ctermfg=253 ctermbg=NONE cterm=NONE guibg=NONE guifg=#dadada gui=NONE 
-hi Normal			ctermfg=254 ctermbg=234	 cterm=NONE guifg=#e4e4e4 guifg=#121212 gui=NONE
 hi Operator 		ctermfg=fg ctermbg=NONE cterm=NONE guifg=#afd700 guibg=NONE gui=NONE 
 hi Pmenu 			ctermfg=214 ctermbg=52 cterm=NONE   guifg=#ffaf00 guibg=#5f0000 gui=NONE
 hi PmenuSel 		ctermfg=255 ctermbg=0 guifg=#ffffff guibg=#000000 gui=NONE cterm=NONE 
@@ -158,10 +165,10 @@ hi Tag				ctermfg=254 ctermbg=NONE cterm=NONE guifg=#e4e4e4 guibg=NONE gui=NONE
 hi Title 			ctermfg=220 ctermbg=234 cterm=bold guifg=#ffd700 guibg=#1c1c1c gui=bold
 hi Todo 			ctermfg=220 ctermbg=238 cterm=bold guifg=#ffd700 guibg=#444444 gui=bold
 hi ToolbarLine 		ctermfg=NONE ctermbg=NONE cterm=NONE guifg=NONE guibg=NONE gui=NONE 
-hi tsxAttrib		ctermfg=fg
 hi Type 			ctermfg=146 ctermbg=NONE cterm=NONE guifg=#afafd7 guibg=NONE gui=NONE
 hi Underlined 		guifg=#83a598 guibg=NONE gui=underline ctermbg=NONE cterm=underline
 hi VertSplit 		ctermfg=236 ctermbg=234 cterm=NONE guifg=#303030 guibg=#1c1c1c gui=NONE
 hi Visual 			ctermfg=NONE ctermbg=240 cterm=NONE guifg=NONE guibg=#585858 gui=NONE
 hi WarningMsg 		ctermfg=9 ctermbg=NONE cterm=bold guifg=#ff0000 guibg=NONE gui=bold
+hi tsxAttrib		ctermfg=fg
 
