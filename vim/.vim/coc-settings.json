@@ -1,8 +1,6 @@
-
 {
-"suggest.noselect": false,
-	"diagnostic.checkCurrentLine":true,
-	"diagnostic.virtualText": false,
-	"suggest.virtualText": true
+  "suggest.noselect": false,
+  "diagnostic.checkCurrentLine": true,
+  "diagnostic.virtualText": false,
+  "suggest.virtualText": true
 }
-
