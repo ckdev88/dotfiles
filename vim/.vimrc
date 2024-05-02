@@ -66,6 +66,7 @@ vn <C-y> :w !xclip -selection clipboard<CR>
 " tpope/vim-fugitive
 " tpope/vim-surround
 " vimwiki/vimwiki
+" mg979/vim-visual-multi
 
 " let g:vimwiki_list = [{'path': '~/vimwiki/',
 " \ 'syntax': 'markdown', 'ext': 'md'}]
