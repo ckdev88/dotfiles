@@ -34,9 +34,11 @@ no <ESC> :noh<CR>
 no q <nop>
 
 no <C-c> Vyp
-no <C-j> :move+<CR>			" move line down
-vn <C-j> :move'>+<CR>gv=gv 	" move selection down 
+vn <C-c> :copy'><CR>gv=gv
+no <C-j> :move+<CR>			
+vn <C-j> :move'>+<CR>gv=gv
 no <C-k> :move-2<CR>
+vn <C-k> :move-2<CR>gv=gv 
 no <leader>s <esc>:w<CR>
 no U :redo<CR>
 no <C-e> :Ex<CR>
@@ -48,6 +50,8 @@ no <leader>tsn :Snippets<CR>
 no <leader>tgc :Commits<CR>
 no <leader>gc :G commit -m ''<LEFT>
 no <leader>gp :G push<CR>
+no <leader>gs :G<CR>
+no <leader>rw viw"0p
 
 " yank to clipboard, although -selection clipboard is too verbose, keep it
 vn <C-y> :w !xclip -selection clipboard<CR> 
