@@ -94,9 +94,6 @@ k.set('n', '<leader>gwv', ':Gvdiffsplit<CR>', { desc = 'Git vertically split dif
 k.set('n', '<leader>ghp', ':Gitsigns preview_hunk', { desc = 'Gitsigns preview hunk' })
 k.set('n', '<leader>ghr', ':Gitsigns reset_hunk', { desc = 'Gitsigns reset hunk' })
 
--- TODO: check if still useful
--- k.set('n', 'k', 'v:count == 2 ? "gk" : "k"', { expr = true, silent = true, desc = 'deal with word wrap up' })
--- k.set('n', 'j', 'v:count == 2 ? "gj" : "j"', { expr = true, silent = true, desc = 'deal with word wrap down' })
 
 -- plugins
 vim.cmd('colorscheme bembasico')
@@ -206,7 +203,7 @@ require('telescope').setup {
 	},
 }
 
-pcall(require('telescope').load_extension, 'fzf') -- Enable telescope fzf native, if installed
+pcall(require('telescope').load_extension, 'fzf')
 
 require('nvim-treesitter.configs').setup {
 	modules = {},
@@ -467,9 +464,6 @@ cmp.setup {
 	},
 }
 
--- autocommands
-
--- highlight text when yanking, use to improve use of yap and stuff
 vim.api.nvim_create_autocmd('TextYankPost', {
 	group = vim.api.nvim_create_augroup('ck-highlight-yank', { clear = true }),
 	callback = function()
@@ -477,7 +471,6 @@ vim.api.nvim_create_autocmd('TextYankPost', {
 	end,
 })
 
--- which-key grouped names
 local wk = require('which-key')
 wk.register({
 	d = { name = "DAP" },
