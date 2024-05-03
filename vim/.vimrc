@@ -52,6 +52,7 @@ no <leader>gc :G commit -m ''<LEFT>
 no <leader>gp :G push<CR>
 no <leader>gs :G<CR>
 no <leader>rw viw"0p
+no <leader>te :terminal<CR>
 
 " yank to clipboard, although -selection clipboard is too verbose, keep it
 vn <C-y> :w !xclip -selection clipboard<CR> 
@@ -158,3 +159,7 @@ endif
 	
 " /COC CONFIG
 let g:fzf_layout = { 'window': { 'width': 0.98, 'height': 0.8 } }
+
+" TODO: werkt nog niet lekker, is voor situaties waar sluitende bracket als
+" 'typescriptBlock' wordt gezien
+" autocmd BufRead,BufNewFile * syn match brack /[\[\]]/ | hi brack ctermfg=red
