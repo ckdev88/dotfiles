@@ -1,5 +1,9 @@
 [[ -f ~/.Xmodmap ]] && xmodmap ~/.Xmodmap
-xbindkeys
+xbindkeys & 
 unclutter --timeout 5 &
-xset r rate 250 50
-exec dwm
+xset r off &
+/usr/bin/pipewire &
+/usr/bin/pipewire-pulse &
+/usr/bin/wireplumber &
+exec openbox-session &
+exec dwm  
