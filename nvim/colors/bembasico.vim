@@ -9,12 +9,18 @@
 set background=dark
 
 hi clear
+
 let g:colors_name = 'bembasico'
 
+" hi! link @property Identifier
+hi! link @function.css Method
 hi! link @lsp.type.comment Comment
-hi! link @property Identifier
+hi! link @property.css Statement
+hi! link @string.css Identifier
 hi! link @tag.attribute.tsx Type
+hi! link @tag.css Type
 hi! link @tag.tsx Method
+hi! link @type.css Function
 hi! link Boolean String
 hi! link Constant Identifier
 hi! link CurSearch Search
@@ -23,11 +29,12 @@ hi! link CursorLineNr CursorLine
 hi! link CursorLineSign CursorLine
 hi! link Debug Exception
 hi! link DiagnosticHint DiagnosticWarn
-hi! link Directory Function
+hi! link Directory Method
 hi! link ErrorMsg Exception
 hi! link Float Exception
 hi! link FoldColumn Folded
 hi! link Label Exception
+hi! link MatchParen Search
 hi! link MessageWindow Pmenu
 hi! link NvimDapVirtualTextChanged DapUIModifiedValue
 hi! link PopupNotification Todo
@@ -59,21 +66,20 @@ hi Define guifg=#ffd700 guibg=NONE gui=bold cterm=NONE
 hi Delimiter guifg=#6f6f67 guibg=NONE gui=NONE cterm=NONE
 hi DiagnosticError guifg=white guibg=#df0000
 hi DiagnosticWarn guifg=black guibg=DarkOrange 
-hi DiffAdd guibg=#008000 guifg=#fafafa gui=NONE
-hi DiffAdded guibg=#008000 guifg=#fafafa gui=NONE
-hi DiffChange guibg=#70b2a1 guifg=#fafafa gui=NONE
-hi DiffDelete guibg=#df0000 guifg=#fafafa gui=NONE
+hi DiffAdd guibg=#008000 guifg=#fafafa gui=none
+hi DiffAdded guibg=#008000 guifg=#fafafa gui=none
+hi DiffChange guibg=#70b2a1 guifg=#fafafa gui=none
+hi DiffDelete guibg=#df0000 guifg=#fafafa gui=none
 hi EndOfBuffer guifg=#504945 guibg=NONE gui=NONE cterm=NONE
 hi Error guifg=#df0000 guibg=#e4e4e4 gui=reverse cterm=reverse
 hi Exception guifg=#df0000 guibg=NONE gui=NONE cterm=NONE
 hi Folded guifg=#928374 guibg=#121212 gui=NONE cterm=NONE
-hi Function guifg=#ffdd00 guibg=NONE gui=bold cterm=bold
+hi Function 		ctermfg=187 ctermbg=NONE cterm=NONE guifg=#d7d7ad guibg=NONE gui=NONE
 hi Identifier guifg=#e4e4e4 guibg=NONE gui=NONE cterm=NONE
 hi Ignore guifg=NONE guibg=NONE gui=NONE ctermfg=NONE ctermbg=NONE cterm=NONE
 hi IncSearch guifg=#ffd700 guibg=#000000 gui=reverse
 hi Keyword guifg=#ff5f00 guibg=NONE gui=NONE cterm=NONE
 hi LineNr guifg=#504945 guibg=NONE gui=NONE cterm=NONE
-hi MatchParen guifg=#ffdd33 guibg=NONE gui=NONE gui=bold cterm=bold,reverse
 hi Method guifg=#ffdd00 guibg=NONE gui=bold cterm=bold
 hi ModeMsg guifg=#e4e4e4 guibg=NONE gui=NONE cterm=NONE
 hi MoreMsg guifg=#fabd2f guibg=NONE gui=bold cterm=bold
@@ -90,7 +96,7 @@ hi PmenuSbar guifg=NONE guibg=#262626 gui=NONE cterm=NONE
 hi PmenuSel guifg=#ffffff guibg=#5a0914 gui=NONE cterm=NONE
 hi PmenuThumb guifg=NONE guibg=#7c6f64 gui=NONE cterm=NONE
 hi PreProc guifg=#cfbfa6 guibg=NONE gui=NONE cterm=NONE
-hi Question guifg=orange guibg=NONE gui=NONE cterm=NONE
+hi Question guifg=orange guibg=NONE gui=NONE cterm=none
 hi QuickFixLine guifg=#8ec07c guibg=#1c1c1c gui=reverse cterm=reverse
 hi Search guifg=#5f8787 guibg=#e4e4e4 gui=reverse
 hi SignColumn guifg=#928374 guibg=#0c0c0c gui=NONE cterm=NONE
@@ -124,5 +130,7 @@ hi VisualNOS guifg=#d7d787 guibg=#5f8700 gui=NONE cterm=NONE
 hi WhichKeyValue guifg=#d16e22
 hi WildMenu guifg=#83a598 guibg=#504945 gui=bold cterm=bold
 hi diffFile guifg=White
-hi diffRemoved guibg=#df0000 guifg=#fafafa gui=NONE
+hi diffRemoved guibg=#df0000 guifg=#fafafa gui=none
 hi lCursor guifg=#262626 guibg=#ffafaf gui=NONE cterm=NONE
+
+

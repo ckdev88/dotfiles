@@ -37,6 +37,9 @@ vim.g.mapleader       = ' '
 vim.g.maplocalleader  = ' '
 local k               = vim.keymap
 
+-- interface
+k.set('n', '<leader>te', ':terminal<CR>', { desc = 'open terminal' })
+
 -- simple navigation
 k.set({ 'n', 'v' }, 'j', 'gj', { desc = 'move down ignoring the line wrap' })
 k.set({ 'n', 'v' }, 'k', 'gk', { desc = 'move up ignoring the line wrap' })
