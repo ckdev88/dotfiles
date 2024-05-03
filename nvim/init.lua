@@ -89,11 +89,14 @@ k.set('n', '<leader>fp', ":w<CR>:silent ! prettier --write %<CR>",
 k.set('n', '<leader>ff', ':Format<CR>', { silent = true, desc = "Format using LSP" })
 
 -- Git & Gitsigns
+k.set('n', '<leader>gs', ':G<CR>', { desc = 'Git status' })
+k.set('n', '<leader>gc', ':G commit -m \'\'<LEFT>', { desc = 'Git commit -m' })
+k.set('n', '<leader>gp', ':G push<CR>', { desc = 'Git push' })
 k.set('n', '<leader>glf', ':0GlLog<CR>', { desc = 'Git History of current file' })
 k.set('n', '<leader>gwv', ':Gvdiffsplit<CR>', { desc = 'Git vertically split diff' })
-k.set('n', '<leader>ghp', ':Gitsigns preview_hunk', { desc = 'Gitsigns preview hunk' })
-k.set('n', '<leader>ghr', ':Gitsigns reset_hunk', { desc = 'Gitsigns reset hunk' })
-
+k.set('n', '<leader>ghp', ':Gitsigns preview_hunk<CR>', { desc = 'Gitsigns preview hunk' })
+k.set('n', '<leader>ghn', ':Gitsigns next_hunk<CR>', { desc = 'Gitsigns next hunk' })
+k.set('n', '<leader>ghr', ':Gitsigns reset_hunk<CR>', { desc = 'Gitsigns reset hunk' })
 
 -- plugins
 vim.cmd('colorscheme bembasico')
