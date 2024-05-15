@@ -38,6 +38,7 @@ hi! link MatchParen Search
 hi! link MessageWindow Pmenu
 hi! link NvimDapVirtualTextChanged DapUIModifiedValue
 hi! link PopupNotification Todo
+hi! link PreProc Function
 hi! link SpecialKey Type
 hi! link Structure Type
 hi! link Tag Identifier
@@ -60,7 +61,7 @@ hi Conditional guifg=#d16e22 guibg=NONE gui=NONE cterm=NONE
 hi Cursor gui=reverse cterm=reverse
 hi CursorColumn guifg=NONE guibg=#333333 gui=NONE cterm=NONE
 hi CursorIM guifg=#1c1c1c guibg=#fbf1c7 gui=NONE cterm=NONE
-hi CursorLine guifg=NONE guibg=#241e1d gui=NONE cterm=NONE
+hi CursorLine guifg=NONE guibg=#262626 gui=NONE cterm=NONE
 hi DapUIModifiedValue guifg=Cyan guibg=#504945 gui=bold
 hi Define guifg=#ffd700 guibg=NONE gui=bold cterm=NONE
 hi Delimiter guifg=#6f6f67 guibg=NONE gui=NONE cterm=NONE
@@ -74,7 +75,7 @@ hi EndOfBuffer guifg=#504945 guibg=NONE gui=NONE cterm=NONE
 hi Error guifg=#df0000 guibg=#e4e4e4 gui=reverse cterm=reverse
 hi Exception guifg=#df0000 guibg=NONE gui=NONE cterm=NONE
 hi Folded guifg=#928374 guibg=#121212 gui=NONE cterm=NONE
-hi Function 		ctermfg=187 ctermbg=NONE cterm=NONE guifg=#d7d7ad guibg=NONE gui=NONE
+hi Function	ctermfg=187 ctermbg=NONE cterm=NONE guifg=#d7d7af guibg=NONE gui=NONE
 hi Identifier guifg=#e4e4e4 guibg=NONE gui=NONE cterm=NONE
 hi Ignore guifg=NONE guibg=NONE gui=NONE ctermfg=NONE ctermbg=NONE cterm=NONE
 hi IncSearch guifg=#ffd700 guibg=#000000 gui=reverse
@@ -84,7 +85,7 @@ hi Method guifg=#ffdd00 guibg=NONE gui=bold cterm=bold
 hi ModeMsg guifg=#e4e4e4 guibg=NONE gui=NONE cterm=NONE
 hi MoreMsg guifg=#fabd2f guibg=NONE gui=bold cterm=bold
 hi NonText guifg=#504945 guibg=NONE gui=NONE cterm=NONE
-hi Normal guifg=#fafafa guibg=#0c0c0c gui=NONE cterm=NONE
+hi Normal guifg=#fafafa guibg=#121212 gui=NONE cterm=NONE
 hi NvimDapVirtualText guifg=#70b2a1 guibg=#504945 gui=NONE
 hi Operator guifg=#ffffff 
 hi Pmenu guifg=#fabd2f guibg=#5a0914 gui=NONE cterm=NONE
@@ -95,7 +96,6 @@ hi PmenuKindSel guifg=#fb4934 guibg=#83a598 gui=NONE cterm=NONE
 hi PmenuSbar guifg=NONE guibg=#262626 gui=NONE cterm=NONE
 hi PmenuSel guifg=#ffffff guibg=#5a0914 gui=NONE cterm=NONE
 hi PmenuThumb guifg=NONE guibg=#7c6f64 gui=NONE cterm=NONE
-hi PreProc guifg=#cfbfa6 guibg=NONE gui=NONE cterm=NONE
 hi Question guifg=orange guibg=NONE gui=NONE cterm=none
 hi QuickFixLine guifg=#8ec07c guibg=#1c1c1c gui=reverse cterm=reverse
 hi Search guifg=#5f8787 guibg=#e4e4e4 gui=reverse
