@@ -52,22 +52,23 @@ no <leader>gc :G commit -m ''<LEFT>
 no <leader>gp :G push<CR>
 no <leader>gs :G<CR>
 no <leader>rw viw"0p
-no <leader>te :terminal<CR>
+no <leader>te :tab term<CR>
 
 " yank to clipboard, although -selection clipboard is too verbose, keep it
 vn <C-y> :w !xclip -selection clipboard<CR> 
+
+" plugins installed via native vim package manager:
 
 " SirVer/ultisnips.git
 " honza/vim-snippets.git
 " junegunn/fzf.vim
 " machakann/vim-highlightedyank
+" mg979/vim-visual-multi
 " neoclide/coc.nvim
-" plugins installed via native vim package manager:
 " tpope/vim-commentary
 " tpope/vim-fugitive
 " tpope/vim-surround
 " vimwiki/vimwiki
-" mg979/vim-visual-multi
 
 " let g:vimwiki_list = [{'path': '~/vimwiki/',
 " \ 'syntax': 'markdown', 'ext': 'md'}]
