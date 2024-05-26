@@ -53,6 +53,9 @@ no <leader>gp :G push<CR>
 no <leader>gs :G<CR>
 no <leader>rw viw"0p
 no <leader>te :tab term<CR>
+no <leader>bb :term<CR>bun run build<CR>
+no <leader>bl :term<CR>bun run lint<CR>
+no <leader>br :term<CR>./release.sh<CR>
 
 " yank to clipboard, although -selection clipboard is too verbose, keep it
 vn <C-y> :w !xclip -selection clipboard<CR> 
