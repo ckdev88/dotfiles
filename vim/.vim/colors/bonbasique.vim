@@ -31,6 +31,9 @@ hi! link Conceal Comment
 hi! link CurSearch Search
 hi! link CursorColumn CursorLine
 hi! link Delimiter LineNr
+hi! link DiffAdd Added
+hi! link DiffChange Changed
+hi! link DiffDelete Removed
 hi! link Directory Method
 hi! link FgCocHintFloatBgCocFloating MessageWindow 
 hi! link Identifier Conditional
@@ -40,7 +43,7 @@ hi! link MoreMsg MessageWindow
 hi! link NonText EndOfBuffer
 hi! link PmenuExtra Pmenu
 hi! link PopupNotification MessageWindow
-hi! link PreProc Constant
+hi! link PreProc Function
 hi! link Repeat Statement
 hi! link Special Statement
 hi! link StatusLineTerm StatusLine
@@ -51,6 +54,7 @@ hi! link Typedef Type
 hi! link VisualNOS Visual
 hi! link WildMenu Pmenu
 hi! link cssFunctionName Method
+hi! link cssTagName Type
 hi! link htmlEndTag Tag
 hi! link htmlH1 Title
 hi! link htmlSpecialTagName Tag
@@ -59,14 +63,14 @@ hi! link htmlTagName Tag
 hi! link javaScriptLabel Constant
 hi! link javaScriptMember Type
 hi! link javaScriptNull Type
-hi! link cssTagName Type
 hi! link lCursor Cursor
 hi! link matchParen Search
 hi! link netrwExe Function
 hi! link netrwList netrwPlain
 hi! link tsxCloseString Tag
 hi! link tsxCloseTag Tag
-hi! link tsxEscapeJs Method
+hi! link tsxEscJs tsxEscapeJs
+hi! link tsxEscapeJs Function
 hi! link tsxIntrinsicTagName Tag
 hi! link tsxRegion Constant
 hi! link tsxTag Tag
@@ -75,14 +79,19 @@ hi! link typescriptArrowFunc typescriptAssign
 hi! link typescriptBlock Method
 hi! link typescriptBoolean Boolean
 hi! link typescriptBraces LineNr
+hi! link typescriptCall Normal
 hi! link typescriptCastKeyword Keyword
 hi! link typescriptConditional Conditional
+hi! link typescriptDOMFormProp Normal
 hi! link typescriptDOMStorageMethod Method
+hi! link typescriptDestructureComma Delimiter
+hi! link typescriptDestructureVariable Normal
 hi! link typescriptDotNotation LineNr
 hi! link typescriptEndColons typescriptDotNotation
 hi! link typescriptExport Keyword
 hi! link typescriptFuncName Method
-hi! link typescriptGlobal Constant
+" hi! link typescriptFuncCallArg Method
+" hi! link typescriptGlobal Constant
 hi! link typescriptGlobalMethod Method
 hi! link typescriptImport Conditional
 hi! link typescriptJSONStaticMethod Method
@@ -90,6 +99,7 @@ hi! link typescriptJSONStaticMethod Method
 hi! link typescriptObjectLabel Label
 hi! link typescriptParens LineNr
 hi! link typescriptStatementKeyword Keyword
+hi! link typescriptTypeAnnotation Delimiter
 hi! link typescriptTypeReference Type
 hi! link vimCommand Keyword
 hi! link vimFuncBang LineNr
@@ -98,12 +108,9 @@ hi! link vimFuncName Method
 hi! link vimHiBang LineNr
 hi! link vimHighlight Keyword
 hi! link vimUserFunc Method
-hi! link DiffAdd Added
-hi! link DiffChange Changed
-hi! link DiffDelete Removed
 
-hi Normal			ctermfg=254 ctermbg=234	 cterm=NONE guifg=#e4e4e4 guifg=#121212 gui=NONE
-
+hi Normal			ctermfg=254 ctermbg=233	 cterm=NONE guifg=#e4e4e4 guifg=#121212 gui=NONE
+hi typescriptGlobal ctermfg=146 ctermbg=NONE cterm=NONE guifg=#afafd7 guifg=NONE gui=NONE
 hi Character 		ctermfg=253 ctermbg=NONE cterm=NONE guifg=#dadada guibg=NONE gui=NONE
 hi CocVirtualText 	ctermfg=240 ctermbg=NONE cterm=NONE guifg=NONE guibg=#585858 gui=NONE
 hi ColorColumn 		ctermfg=NONE ctermbg=0 cterm=NONE guifg=NONE guibg=#000000 gui=NONE
@@ -112,9 +119,9 @@ hi Conditional  	ctermfg=202 ctermbg=NONE cterm=NONE guifg=#ff5f00 guibg=NONE gu
 hi Constant 		ctermfg=253 ctermbg=NONE cterm=NONE guifg=#dadada guibg=NONE gui=NONE
 hi Cursor 			ctermfg=220 ctermbg=NONE cterm=NONE guifg=#ffd700 guibg=#000000 gui=NONE
 hi CursorIM 		ctermfg=220 ctermbg=0 cterm=NONE guifg=#ffd700 guibg=#000000 gui=NONE
-hi CursorLine 		ctermfg=NONE ctermbg=235 cterm=NONE guifg=NONE guibg=#262626 gui=NONE
+hi CursorLine 		ctermfg=NONE ctermbg=234 cterm=NONE guifg=NONE guibg=#1c1c1c gui=NONE
 hi CursorLineFold 	ctermfg=40 ctermbg=235 cterm=bold guifg=#00d700 guibg=#262626 gui=bold
-hi CursorLineNr 	ctermfg=NONE ctermbg=235 cterm=bold guifg=NONE guibg=#262626 gui=bold
+hi CursorLineNr 	ctermfg=NONE ctermbg=233 cterm=bold guifg=NONE guibg=#1c1c1c gui=bold
 hi CursorLineSign 	ctermfg=39 ctermbg=235 cterm=bold guifg=#00afff guibg=#262626 gui=bold
 hi Debug 			ctermfg=88 ctermbg=NONE cterm=NONE guifg=#870000 guibg=NONE gui=NONE
 hi Define 			ctermfg=187 ctermbg=NONE cterm=NONE guifg=#ffafff guibg=NONE gui=NONE
@@ -141,9 +148,10 @@ hi ModeMsg			ctermfg=255 ctermbg=NONE cterm=NONE guifg=#ffffff guibg=NONE gui=NO
 hi Number 			ctermfg=253 ctermbg=NONE cterm=NONE guibg=NONE guifg=#dadada gui=NONE 
 hi Operator 		ctermfg=fg ctermbg=NONE cterm=NONE guifg=#afd700 guibg=NONE gui=NONE 
 hi Pmenu 			ctermfg=214 ctermbg=52 cterm=NONE   guifg=#ffaf00 guibg=#5f0000 gui=NONE
-hi PmenuSel 		ctermfg=255 ctermbg=0 guifg=#ffffff guibg=#000000 gui=NONE cterm=NONE 
+hi PmenuSel 		ctermfg=254 ctermbg=66 guifg=#ffffff guibg=#5f8787 gui=NONE cterm=NONE 
 hi PmenuThumb 		ctermfg=10  ctermbg=NONE guifg=#00ff00 guibg=#ff00ff gui=NONE cterm=NONE 
 hi PreCondit 		ctermfg=148 ctermbg=NONE cterm=NONE guifg=#afd700 guibg=NONE gui=NONE cterm=NONE
+" hi PreProc 			ctermfg=152 ctermbg=NONE cterm=NONE guifg=#cfbfa6 guibg=NONE gui=NONE cterm=NONE
 hi Question 		ctermfg=208 ctermbg=NONE cterm=NONE guifg=#ff8700 guibg=NONE gui=NONE
 hi QuickFixLine 	ctermfg=148 ctermbg=NONE cterm=NONE guifg=#afd700 guibg=#1c1c1c gui=reverse cterm=reverse
 hi Search 			ctermfg=254 ctermbg=66 cterm=NONE guifg=#e4e4e4 guibg=#5f8787 gui=NONE
@@ -157,18 +165,19 @@ hi Statement 		ctermfg=220 ctermbg=NONE cterm=bold guifg=#ffd700 guibg=NONE gui=
 hi StatusLine 		ctermfg=0   ctermbg=253 cterm=reverse guifg=#8787af guibg=#dadada gui=reverse
 hi StatusLineNC 	ctermfg=240 ctermbg=251 cterm=reverse guifg=#585858 guibg=#c6c6c6 gui=reverse
 hi StorageClass 	ctermfg=208 ctermbg=NONE cterm=NONE guifg=#ff8700 guibg=NONE gui=NONE
-hi String 			ctermfg=108 ctermbg=NONE cterm=NONE guifg=#87af87 guibg=NONE gui=NONE
+hi String 			ctermfg=76 ctermbg=NONE cterm=NONE guifg=#5fd700 guibg=NONE gui=NONE
 hi TabLine 			ctermfg=238 ctermbg=0 cterm=NONE guifg=#444444 guibg=#000000 gui=NONE 
 hi TabLineFill 		ctermfg=NONE ctermbg=0 cterm=NONE guifg=NONE guibg=#000000 gui=NONE 
 hi TabLineSel 		ctermfg=220 ctermbg=234 cterm=bold guifg=#ffd700 guibg=#1c1c1c gui=bold
-hi Tag				ctermfg=254 ctermbg=NONE cterm=NONE guifg=#e4e4e4 guibg=NONE gui=NONE
+hi Tag				ctermfg=102 ctermbg=NONE cterm=NONE guifg=#878787 guibg=NONE gui=NONE
 hi Title 			ctermfg=220 ctermbg=234 cterm=bold guifg=#ffd700 guibg=#1c1c1c gui=bold
 hi Todo 			ctermfg=220 ctermbg=238 cterm=bold guifg=#ffd700 guibg=#444444 gui=bold
 hi ToolbarLine 		ctermfg=NONE ctermbg=NONE cterm=NONE guifg=NONE guibg=NONE gui=NONE 
-hi Type 			ctermfg=146 ctermbg=NONE cterm=NONE guifg=#afafd7 guibg=NONE gui=NONE
+hi Type 			ctermfg=60 ctermbg=NONE cterm=NONE guifg=#5f5f87 guibg=NONE gui=NONE
 hi Underlined 		guifg=#83a598 guibg=NONE gui=underline ctermbg=NONE cterm=underline
 hi VertSplit 		ctermfg=236 ctermbg=234 cterm=NONE guifg=#303030 guibg=#1c1c1c gui=NONE
-hi Visual 			ctermfg=NONE ctermbg=240 cterm=NONE guifg=NONE guibg=#585858 gui=NONE
+hi Visual 			ctermfg=NONE ctermbg=236 cterm=NONE guifg=NONE guibg=#303030 gui=NONE
 hi WarningMsg 		ctermfg=9 ctermbg=NONE cterm=bold guifg=#ff0000 guibg=NONE gui=bold
 hi tsxAttrib		ctermfg=fg
 
+hi! link tsxAttrib Type
