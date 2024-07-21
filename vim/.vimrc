@@ -31,7 +31,6 @@ syntax on
 no <C-z> <nop>
 no <SPACE> <nop>
 no <ESC> :noh<CR>
-no q <nop>
 
 no <C-c> Vyp
 vn <C-c> :copy'><CR>gv=gv
