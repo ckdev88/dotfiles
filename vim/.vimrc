@@ -4,7 +4,7 @@ let mapleader=" "
 set nocompatible
 
 set backspace=2
-set completeopt=menuone,noselect,preview
+set completeopt=menuone,preview
 set cursorline
 set encoding=utf-8
 set hlsearch
@@ -15,7 +15,7 @@ set nobackup
 set nowritebackup
 set number
 set relativenumber	
-set scrolloff=15
+set scrolloff=25
 set shiftwidth=4
 set signcolumn=yes
 set tabstop=4
@@ -24,6 +24,7 @@ set undofile
 set updatetime=300
 set wildmenu
 set wildoptions=pum
+set re=0 "for yats
 
 filetype plugin indent on
 syntax on
@@ -31,6 +32,7 @@ syntax on
 no <C-z> <nop>
 no <SPACE> <nop>
 no <ESC> :noh<CR>
+" no q <nop>
 
 no <C-c> Vyp
 vn <C-c> :copy'><CR>gv=gv
@@ -38,28 +40,39 @@ no <C-j> :move+<CR>
 vn <C-j> :move'>+<CR>gv=gv
 no <C-k> :move-2<CR>
 vn <C-k> :move-2<CR>gv=gv 
-no <leader>s <esc>:w<CR>
+no <C-s> :w<CR>
+vn <C-s> <ESC>:w<CR>
+ino <C-s> <ESC>:w<CR>
 no U :redo<CR>
 no <C-e> :Ex<CR>
-no <C-f> :FZF<CR>
-no <C-_> :Rg<CR>
-no <C-b> :Buffers<CR>
-no <leader>tsh :History/<CR>
-no <leader>tsn :Snippets<CR>
-no <leader>tgc :Commits<CR>
+no <C-f> :FZF!<CR>
+no <C-_> :Rg!<CR>
+no <C-b> :Buffers!<CR>
+no <leader>tsh :History/!<CR>
+no <leader>tsn :Snippets!<CR>
+no <leader>tgc :Commits!<CR>
 no <leader>gc :G commit -m ''<LEFT>
 no <leader>gp :G push<CR>
 no <leader>gs :G<CR>
 no <leader>rw viw"0p
 no <leader>te :tab term<CR>
+no <leader>bt :term<CR>bun test<CR>
 no <leader>bb :term<CR>bun run build<CR>
 no <leader>bl :term<CR>bun run lint<CR>
 no <leader>br :term<CR>./release.sh<CR>
+no <leader>ff :Format<CR>
+
+" "Aliases" for commonly used commands+lazy shift finger:
+command! -bar -nargs=* -complete=file -range=% -bang W         <line1>,<line2>write<bang> <args>
+command! -bar -nargs=* -complete=file -range=% -bang Wq        <line1>,<line2>wq<bang> <args>
+command! -bar                                  -bang Wqa     wqa<bang>
 
 " yank to clipboard, although -selection clipboard is too verbose, keep it
 vn <C-y> :w !xclip -selection clipboard<CR> 
 
 " plugins installed via native vim package manager:
+packadd! editorconfig
+packadd comment
 
 " SirVer/ultisnips.git
 " honza/vim-snippets.git
@@ -67,16 +80,33 @@ vn <C-y> :w !xclip -selection clipboard<CR>
 " machakann/vim-highlightedyank
 " mg979/vim-visual-multi
 " neoclide/coc.nvim
-" tpope/vim-commentary
 " tpope/vim-fugitive
 " tpope/vim-surround
 " vimwiki/vimwiki
+" wellle/context.vim
 
 " let g:vimwiki_list = [{'path': '~/vimwiki/',
 " \ 'syntax': 'markdown', 'ext': 'md'}]
 
-colorscheme bonbasique
+" misc support
+" :CocInstall @yaegassy/coc-astro
+" :CocInstall @yaegassy/coc-intelephense
 
+
+" Clear cmd line message
+function! s:empty_message(timer)
+  if mode() ==# 'n'
+    echon ''
+  endif
+endfunction
+
+augroup cmd_msg_cls
+    autocmd!
+    autocmd CmdlineLeave :  call timer_start(2000, funcref('s:empty_message'))
+augroup END
+" /Clear cmd line message
+
+colorscheme bonbasique
 let g:highlightedyank_highlight_duration = 100
 
 function! SynGroup()
@@ -86,8 +116,6 @@ endfunction
 nnoremap <leader>ws :call SynGroup()<CR>
 
 " COC CONFIG
-
-
 function! ShowDocumentation()
 	if CocAction('hasProvider', 'hover')
 		call CocActionAsync('doHover')
@@ -115,11 +143,6 @@ endfunction
 
 " Highlight the symbol and its references when holding the cursor
 autocmd CursorHold * silent call CocActionAsync('highlight')
-
-" Symbol renaming
-nmap <leader>rn <Plug>(coc-rename)
-
-no <leader>ff :Format<CR>
 
 " Symbol renaming
 nmap <leader>rn <Plug>(coc-rename)
@@ -160,9 +183,59 @@ if has('nvim-0.4.0') || has('patch-8.2.0750')
   vnoremap <silent><nowait><expr> <C-u> coc#float#has_scroll() ? coc#float#scroll(0) : "\<C-b>"
 endif
 	
+" GoTo code navigation, pointing directly to deepest source
+nmap gD <Plug>(coc-definition)
+nmap gY <Plug>(coc-type-definition)
+nmap gI <Plug>(coc-implementation)
+nmap gR <Plug>(coc-references)
+
 " /COC CONFIG
 let g:fzf_layout = { 'window': { 'width': 0.98, 'height': 0.8 } }
 
-" TODO: werkt nog niet lekker, is voor situaties waar sluitende bracket als
-" 'typescriptBlock' wordt gezien
-" autocmd BufRead,BufNewFile * syn match brack /[\[\]]/ | hi brack ctermfg=red
+let g:context_enabled = 0  " load context plugin, but disable it by default
+
+" Abbreviations
+
+:iabbrev Comunicacao Comunicação
+:iabbrev Nao Não
+:iabbrev Portugues Português
+:iabbrev Situacao Situação
+:iabbrev acoes ações
+:iabbrev analise análise
+:iabbrev botoes botões
+:iabbrev comencou començou
+:iabbrev compativel compatível
+:iabbrev comunicacao comunicação
+:iabbrev comunicacoes comunicações
+:iabbrev conexao conexão
+:iabbrev confusao confusão
+:iabbrev estatisticas estatísticas
+:iabbrev experiencia experiência
+:iabbrev experiencia experiência
+:iabbrev inorganico inorgânico
+:iabbrev integracao integração
+:iabbrev manutencao manutenção
+:iabbrev modificacao modificação
+:iabbrev nao não
+:iabbrev navegacao navegação
+:iabbrev orcamento orçamento
+:iabbrev organico orgânico
+:iabbrev otimizacao otimização 
+:iabbrev portugues português
+:iabbrev promocoes promoções
+:iabbrev saida saída
+:iabbrev sao são
+:iabbrev servicos serviços
+:iabbrev situacao situação
+:iabbrev subsidiarios subsidiários
+:iabbrev tambem também
+:iabbrev teh the
+:iabbrev usuario usuário
+:iabbrev voce você
+:iabbrev waht what
+" á
+" ç
+" ã
+" ê
+" õ
+" ot

@@ -9,7 +9,6 @@
 hi clear
 let g:colors_name = 'bonbasique'
 
-hi! link Boolean String
 hi! link CocErrorFloat ErrorMsg 
 hi! link CocFloatActive MessageWindow 
 hi! link CocFloating MessageWindow
@@ -37,7 +36,7 @@ hi! link DiffDelete Removed
 hi! link Directory Method
 hi! link FgCocHintFloatBgCocFloating MessageWindow 
 hi! link Identifier Conditional
-hi! link Include Function
+" hi! link Include Function
 hi! link Label Constant
 hi! link MoreMsg MessageWindow
 hi! link NonText EndOfBuffer
@@ -65,11 +64,13 @@ hi! link javaScriptMember Type
 hi! link javaScriptNull Type
 hi! link lCursor Cursor
 hi! link matchParen Search
-hi! link netrwExe Function
-hi! link netrwList netrwPlain
+hi! link netrwClassify Method
+hi! link netrwExe Normal
+hi! link netrwList Normal
+hi! link netrwComma LineNr
 hi! link tsxCloseString Tag
 hi! link tsxCloseTag Tag
-hi! link tsxEscJs tsxEscapeJs
+hi! link tsxEscJs Method
 hi! link tsxEscapeJs Function
 hi! link tsxIntrinsicTagName Tag
 hi! link tsxRegion Constant
@@ -77,12 +78,18 @@ hi! link tsxTag Tag
 hi! link tsxTagName Method
 hi! link typescriptArrowFunc typescriptAssign
 hi! link typescriptBlock Method
-hi! link typescriptBoolean Boolean
+hi! link Boolean String
+hi! link typescriptBoolean String
+hi! link typescriptNull String
 hi! link typescriptBraces LineNr
 hi! link typescriptCall Normal
 hi! link typescriptCastKeyword Keyword
 hi! link typescriptConditional Conditional
+
+hi! link typescriptBOMWindowProp Normal
 hi! link typescriptDOMFormProp Normal
+hi! link typescriptDOMDocProp Normal
+hi! link typescriptURLUtilsProp Normal
 hi! link typescriptDOMStorageMethod Method
 hi! link typescriptDestructureComma Delimiter
 hi! link typescriptDestructureVariable Normal
@@ -90,12 +97,14 @@ hi! link typescriptDotNotation LineNr
 hi! link typescriptEndColons typescriptDotNotation
 hi! link typescriptExport Keyword
 hi! link typescriptFuncName Method
-" hi! link typescriptFuncCallArg Method
+hi! link typescriptFuncCallArg Normal
 " hi! link typescriptGlobal Constant
+
+hi! link typescriptAsyncFuncKeyword Conditional
+hi! link typescriptConsoleMethod Function
 hi! link typescriptGlobalMethod Method
 hi! link typescriptImport Conditional
-hi! link typescriptJSONStaticMethod Method
-hi! link typescriptJSONStaticMethod Method
+hi! link typescriptJSONStaticMethod Function
 hi! link typescriptObjectLabel Label
 hi! link typescriptParens LineNr
 hi! link typescriptStatementKeyword Keyword
@@ -109,8 +118,19 @@ hi! link vimHiBang LineNr
 hi! link vimHighlight Keyword
 hi! link vimUserFunc Method
 
+hi! link phpComparison LineNr
+hi! link phpVarSelector Function
+hi! link phpIdentifier Normal
+hi! link phpRegion Method
+hi! link phpDefine Keyword
+hi! link phpInclude TypescriptImport " triggers Conditional
+hi! link phpStatement TypescriptStatementKeyword "triggers Keyword
+
+hi! link vimFgBgAttrib Normal
+hi! link vimHiAttrib Normal
+
 hi Normal			ctermfg=254 ctermbg=233	 cterm=NONE guifg=#e4e4e4 guifg=#121212 gui=NONE
-hi typescriptGlobal ctermfg=146 ctermbg=NONE cterm=NONE guifg=#afafd7 guifg=NONE gui=NONE
+hi typescriptGlobal ctermfg=254 ctermbg=NONE cterm=NONE guifg=#afafd7 guifg=NONE gui=NONE
 hi Character 		ctermfg=253 ctermbg=NONE cterm=NONE guifg=#dadada guibg=NONE gui=NONE
 hi CocVirtualText 	ctermfg=240 ctermbg=NONE cterm=NONE guifg=NONE guibg=#585858 gui=NONE
 hi ColorColumn 		ctermfg=NONE ctermbg=0 cterm=NONE guifg=NONE guibg=#000000 gui=NONE
@@ -136,7 +156,7 @@ hi Exception 		ctermfg=NONE ctermbg=124 cterm=NONE guifg=#af0000 guibg=NONE gui=
 hi Float 			ctermfg=253 ctermbg=NONE cterm=NONE guifg=#dadada guibg=NONE gui=NONE
 hi FoldColumn 		ctermfg=40 ctermbg=234 cterm=NONE guifg=#00d700 guibg=#1c1c1c gui=NONE
 hi Folded 			ctermfg=40 ctermbg=235 cterm=NONE guifg=#00d700 guibg=#262626 gui=NONE
-hi Function 		ctermfg=187 ctermbg=NONE cterm=NONE guifg=#d7d7ad guibg=NONE gui=NONE
+hi Function 		ctermfg=220 ctermbg=NONE cterm=NONE guifg=#d7d7ad guibg=NONE gui=NONE
 hi Ignore 			ctermfg=NONE ctermbg=NONE cterm=NONE guifg=fg guibg=NONE gui=NONE
 hi IncSearch 		ctermfg=220 ctermbg=0 cterm=reverse guifg=#ffd700 guibg=#000000 gui=reverse
 hi Keyword  		ctermfg=202 ctermbg=NONE cterm=NONE guifg=#ff5f00 guibg=NONE gui=NONE cterm=NONE
@@ -162,22 +182,25 @@ hi SpellCap 		ctermfg=220 ctermbg=NONE cterm=underline guifg=#ffd700 guibg=NONE 
 hi SpellLocal 		ctermfg=148 ctermbg=NONE cterm=underline guifg=#afd700 guibg=NONE guisp=#8ec07c gui=undercurl
 hi SpellRare 		ctermfg=213 ctermbg=NONE cterm=underline guifg=#ff87ff guibg=NONE guisp=#ff87ff gui=undercurl 
 hi Statement 		ctermfg=220 ctermbg=NONE cterm=bold guifg=#ffd700 guibg=NONE gui=NONE cterm=NONE
-hi StatusLine 		ctermfg=0   ctermbg=253 cterm=reverse guifg=#8787af guibg=#dadada gui=reverse
-hi StatusLineNC 	ctermfg=240 ctermbg=251 cterm=reverse guifg=#585858 guibg=#c6c6c6 gui=reverse
+hi StatusLine 		ctermfg=254 ctermbg=0 cterm=reverse guifg=#e4e4e4 guibg=#000000 gui=reverse
+hi StatusLineNC 	ctermfg=0 ctermbg=238 cterm=reverse guifg=#000000 guibg=#444444 gui=reverse
 hi StorageClass 	ctermfg=208 ctermbg=NONE cterm=NONE guifg=#ff8700 guibg=NONE gui=NONE
-hi String 			ctermfg=76 ctermbg=NONE cterm=NONE guifg=#5fd700 guibg=NONE gui=NONE
+hi String 			ctermfg=102 ctermbg=NONE cterm=NONE guifg=#5fd700 guibg=NONE gui=NONE
 hi TabLine 			ctermfg=238 ctermbg=0 cterm=NONE guifg=#444444 guibg=#000000 gui=NONE 
 hi TabLineFill 		ctermfg=NONE ctermbg=0 cterm=NONE guifg=NONE guibg=#000000 gui=NONE 
 hi TabLineSel 		ctermfg=220 ctermbg=234 cterm=bold guifg=#ffd700 guibg=#1c1c1c gui=bold
-hi Tag				ctermfg=102 ctermbg=NONE cterm=NONE guifg=#878787 guibg=NONE gui=NONE
+hi Tag				ctermfg=188 ctermbg=NONE cterm=NONE guifg=#878787 guibg=NONE gui=NONE
 hi Title 			ctermfg=220 ctermbg=234 cterm=bold guifg=#ffd700 guibg=#1c1c1c gui=bold
-hi Todo 			ctermfg=220 ctermbg=238 cterm=bold guifg=#ffd700 guibg=#444444 gui=bold
+hi Todo 			ctermfg=10  ctermbg=238 cterm=bold guifg=#ffd700 guibg=#444444 gui=bold
 hi ToolbarLine 		ctermfg=NONE ctermbg=NONE cterm=NONE guifg=NONE guibg=NONE gui=NONE 
 hi Type 			ctermfg=60 ctermbg=NONE cterm=NONE guifg=#5f5f87 guibg=NONE gui=NONE
 hi Underlined 		guifg=#83a598 guibg=NONE gui=underline ctermbg=NONE cterm=underline
 hi VertSplit 		ctermfg=236 ctermbg=234 cterm=NONE guifg=#303030 guibg=#1c1c1c gui=NONE
 hi Visual 			ctermfg=NONE ctermbg=236 cterm=NONE guifg=NONE guibg=#303030 gui=NONE
 hi WarningMsg 		ctermfg=9 ctermbg=NONE cterm=bold guifg=#ff0000 guibg=NONE gui=bold
-hi tsxAttrib		ctermfg=fg
+hi tsxAttrib		ctermfg=103
 
-hi! link tsxAttrib Type
+" hi! link tsxAttrib Type
+
+" color nominees to add: 190
+" color nominees to remove: 101
