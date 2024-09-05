@@ -21,5 +21,3 @@ nmap <leader>ff  <Plug>(coc-format-selected)
 " Add `:Format` command to format current buffer
 command! -nargs=0 Format :call CocActionAsync('format')
 
-
-

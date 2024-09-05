@@ -4,28 +4,32 @@
 " Maintainer: CK
 " Website: https://ckdev88.github.io
 " License: Vim License (see `:help license`)
-" Last Updated: Tue 23 Apr 2024 10:08:55 AM -03
-
+" Last Updated: 2024-09-04 02:42
+" 
 hi clear
 let g:colors_name = 'bonbasique'
 
-hi! link CocErrorFloat ErrorMsg 
-hi! link CocFloatActive MessageWindow 
+hi! link CocErrorFloat Exception
+hi! link CocFloatActive MessageWindow
 hi! link CocFloating MessageWindow
-hi! link CocHintFloat MessageWindow 
-hi! link CocHintSign MessageWindow 
-hi! link CocHintVirtualText MessageWindow 
-hi! link CocInlayHint MessageWindow 
-hi! link CocInlayHintParameter MessageWindow 
-hi! link CocInlayHintType MessageWindow 
+hi! link CocHintFloat Exception
+hi! link CocHintSign Exception
+hi! link CocHintVirtualText Exception
+hi! link CocInlayHint Exception
+hi! link CocInlayHintParameter Exception
+hi! link CocInlayHintType Exception
 hi! link CocListBgBlue Statement
 hi! link CocListFgBlue CocFloating
-hi! link CocMarkdownLink MessageWindow 
+hi! link CocMarkdownLink MessageWindow
 hi! link CocMenuSel PmenuSel
-hi! link CocNotificationProgress MessageWindow 
-hi! link CocSearch MessageWindow 
+hi! link CocNotificationProgress MessageWindow
+hi! link CocSearch MessageWindow
 hi! link CocVirtualText CocFloating
-hi! link CocWarningFloat MessageWindow 
+hi! link CocWarningFloat Exception
+hi! link FgCocHintFloatBgCocFloating Exception
+
+" hi! link Include Function
+hi! link Boolean String
 hi! link Conceal Comment
 hi! link CurSearch Search
 hi! link CursorColumn CursorLine
@@ -34,9 +38,7 @@ hi! link DiffAdd Added
 hi! link DiffChange Changed
 hi! link DiffDelete Removed
 hi! link Directory Method
-hi! link FgCocHintFloatBgCocFloating MessageWindow 
 hi! link Identifier Conditional
-" hi! link Include Function
 hi! link Label Constant
 hi! link MoreMsg MessageWindow
 hi! link NonText EndOfBuffer
@@ -59,15 +61,13 @@ hi! link htmlH1 Title
 hi! link htmlSpecialTagName Tag
 hi! link htmlTag Tag
 hi! link htmlTagName Tag
-hi! link javaScriptLabel Constant
-hi! link javaScriptMember Type
-hi! link javaScriptNull Type
 hi! link lCursor Cursor
 hi! link matchParen Search
 hi! link netrwClassify Method
+hi! link netrwComma LineNr
 hi! link netrwExe Normal
 hi! link netrwList Normal
-hi! link netrwComma LineNr
+
 hi! link tsxCloseString Tag
 hi! link tsxCloseTag Tag
 hi! link tsxEscJs Method
@@ -76,40 +76,44 @@ hi! link tsxIntrinsicTagName Tag
 hi! link tsxRegion Constant
 hi! link tsxTag Tag
 hi! link tsxTagName Method
+
+" hi! link typescriptGlobal Constant
 hi! link typescriptArrowFunc typescriptAssign
+hi! link typescriptAsyncFuncKeyword Conditional
+hi! link typescriptBOMWindowProp Normal
 hi! link typescriptBlock Method
-hi! link Boolean String
-hi! link typescriptBoolean String
-hi! link typescriptNull String
+" hi! link typescriptBoolean String
+hi! link typescriptBoolean Normal
 hi! link typescriptBraces LineNr
 hi! link typescriptCall Normal
 hi! link typescriptCastKeyword Keyword
 hi! link typescriptConditional Conditional
-
-hi! link typescriptBOMWindowProp Normal
-hi! link typescriptDOMFormProp Normal
+hi! link typescriptConsoleMethod Function
 hi! link typescriptDOMDocProp Normal
-hi! link typescriptURLUtilsProp Normal
+hi! link typescriptDOMFormProp Normal
 hi! link typescriptDOMStorageMethod Method
 hi! link typescriptDestructureComma Delimiter
 hi! link typescriptDestructureVariable Normal
 hi! link typescriptDotNotation LineNr
 hi! link typescriptEndColons typescriptDotNotation
+hi! link typescriptExceptions Exception
 hi! link typescriptExport Keyword
-hi! link typescriptFuncName Method
 hi! link typescriptFuncCallArg Normal
-" hi! link typescriptGlobal Constant
-
-hi! link typescriptAsyncFuncKeyword Conditional
-hi! link typescriptConsoleMethod Function
+hi! link typescriptFuncName Method
 hi! link typescriptGlobalMethod Method
 hi! link typescriptImport Conditional
 hi! link typescriptJSONStaticMethod Function
+hi! link typescriptNull Normal
 hi! link typescriptObjectLabel Label
 hi! link typescriptParens LineNr
+hi! link typescriptTernaryOp LineNr
+hi! link typescriptBinaryOp LineNr
 hi! link typescriptStatementKeyword Keyword
+hi! link typescriptTry Keyword
 hi! link typescriptTypeAnnotation Delimiter
 hi! link typescriptTypeReference Type
+hi! link typescriptURLUtilsProp Normal
+
 hi! link vimCommand Keyword
 hi! link vimFuncBang LineNr
 hi! link vimFuncBody LineNr
@@ -128,6 +132,14 @@ hi! link phpStatement TypescriptStatementKeyword "triggers Keyword
 
 hi! link vimFgBgAttrib Normal
 hi! link vimHiAttrib Normal
+
+" hi! link VimwikiHeaderChar VimwikiDelimiter
+hi! link VimwikiHeader1 Title
+hi VimwikiHeader2 ctermfg=208 cterm=bold
+hi VimwikiHeader3 ctermfg=4 cterm=bold
+hi VimwikiHeader4 ctermfg=107 cterm=bold
+hi VimwikiHeader5 ctermfg=103 cterm=bold
+hi VimwikiSuperScript ctermfg=220 cterm=reverse,italic  " abused for highlight marking style 1
 
 hi Normal			ctermfg=254 ctermbg=233	 cterm=NONE guifg=#e4e4e4 guifg=#121212 gui=NONE
 hi typescriptGlobal ctermfg=254 ctermbg=NONE cterm=NONE guifg=#afafd7 guifg=NONE gui=NONE
@@ -152,7 +164,7 @@ hi DiffText 		ctermfg=fg ctermbg=208 cterm=NONE guifg=#1c1c1c guibg=#ff8700 gui=
 hi EndOfBuffer 		ctermfg=59 ctermbg=NONE cterm=NONE guifg=#504945 guibg=NONE gui=NONE
 hi Error 			ctermfg=124 ctermbg=234 cterm=NONE guifg=#af0000 guibg=#1c1c1c gui=NONE
 hi ErrorMsg 		ctermfg=255 ctermbg=124 cterm=NONE guifg=#ffffff guibg=#af0000 gui=NONE
-hi Exception 		ctermfg=NONE ctermbg=124 cterm=NONE guifg=#af0000 guibg=NONE gui=NONE
+hi Exception 		ctermfg=124 ctermbg=NONE cterm=NONE guifg=#af0000 guibg=NONE gui=NONE
 hi Float 			ctermfg=253 ctermbg=NONE cterm=NONE guifg=#dadada guibg=NONE gui=NONE
 hi FoldColumn 		ctermfg=40 ctermbg=234 cterm=NONE guifg=#00d700 guibg=#1c1c1c gui=NONE
 hi Folded 			ctermfg=40 ctermbg=235 cterm=NONE guifg=#00d700 guibg=#262626 gui=NONE
@@ -162,7 +174,7 @@ hi IncSearch 		ctermfg=220 ctermbg=0 cterm=reverse guifg=#ffd700 guibg=#000000 g
 hi Keyword  		ctermfg=202 ctermbg=NONE cterm=NONE guifg=#ff5f00 guibg=NONE gui=NONE cterm=NONE
 hi LineNr 			ctermfg=242 ctermbg=NONE cterm=NONE guifg=#6c6c6c guibg=NONE gui=NONE
 hi Macro 			ctermfg=107 ctermbg=NONE cterm=NONE guifg=#afd700 guibg=NONE gui=NONE cterm=NONE
-hi MessageWindow 	ctermfg=254 ctermbg=52 cterm=NONE guifg=#e4e4e4 guibg=#5f0000 gui=NONE
+hi MessageWindow 	ctermfg=254 ctermbg=16 cterm=NONE guifg=#e4e4e4 guibg=#5f0000 gui=NONE
 hi Method 			ctermfg=220 ctermbg=NONE cterm=bold guifg=#ffd700 guibg=NONE gui=bold
 hi ModeMsg			ctermfg=255 ctermbg=NONE cterm=NONE guifg=#ffffff guibg=NONE gui=NONE
 hi Number 			ctermfg=253 ctermbg=NONE cterm=NONE guibg=NONE guifg=#dadada gui=NONE 
