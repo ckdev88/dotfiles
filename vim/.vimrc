@@ -3,6 +3,7 @@ let mapleader=" "
 
 set nocompatible
 
+set autoindent
 set backspace=2
 set completeopt=menuone,preview
 set cursorline
@@ -14,6 +15,7 @@ set laststatus=2
 set nobackup
 set nowritebackup
 set number
+set re=0 "for yats
 set relativenumber	
 set scrolloff=25
 set shiftwidth=4
@@ -24,7 +26,7 @@ set undofile
 set updatetime=300
 set wildmenu
 set wildoptions=pum
-set re=0 "for yats
+" set termguicolors
 
 filetype plugin indent on
 syntax on
@@ -83,7 +85,6 @@ packadd comment
 " tpope/vim-fugitive
 " tpope/vim-surround
 " vimwiki/vimwiki
-" wellle/context.vim
 
 " let g:vimwiki_list = [{'path': '~/vimwiki/',
 " \ 'syntax': 'markdown', 'ext': 'md'}]
@@ -173,15 +174,15 @@ nmap <silent> <leader>r  <Plug>(coc-codeaction-refactor-selected)
 " Run the Code Lens action on the current line
 nmap <leader>cl  <Plug>(coc-codelens-action)
 
-" Remap <C-d> and <C-u> to scroll float windows/popups
-if has('nvim-0.4.0') || has('patch-8.2.0750')
-  nnoremap <silent><nowait><expr> <C-d> coc#float#has_scroll() ? coc#float#scroll(1) : "\<C-f>"
-  nnoremap <silent><nowait><expr> <C-u> coc#float#has_scroll() ? coc#float#scroll(0) : "\<C-b>"
-  inoremap <silent><nowait><expr> <C-d> coc#float#has_scroll() ? "\<c-r>=coc#float#scroll(1)\<cr>" : "\<Right>"
-  inoremap <silent><nowait><expr> <C-u> coc#float#has_scroll() ? "\<c-r>=coc#float#scroll(0)\<cr>" : "\<Left>"
-  vnoremap <silent><nowait><expr> <C-d> coc#float#has_scroll() ? coc#float#scroll(1) : "\<C-f>"
-  vnoremap <silent><nowait><expr> <C-u> coc#float#has_scroll() ? coc#float#scroll(0) : "\<C-b>"
-endif
+" " Remap <C-d> and <C-u> to scroll float windows/popups
+" if has('nvim-0.4.0') || has('patch-8.2.0750')
+"   nnoremap <silent><nowait><expr> <C-d> coc#float#has_scroll() ? coc#float#scroll(1) : "\<C-f>"
+"   nnoremap <silent><nowait><expr> <C-u> coc#float#has_scroll() ? coc#float#scroll(0) : "\<C-b>"
+"   inoremap <silent><nowait><expr> <C-d> coc#float#has_scroll() ? "\<c-r>=coc#float#scroll(1)\<cr>" : "\<Right>"
+"   inoremap <silent><nowait><expr> <C-u> coc#float#has_scroll() ? "\<c-r>=coc#float#scroll(0)\<cr>" : "\<Left>"
+"   vnoremap <silent><nowait><expr> <C-d> coc#float#has_scroll() ? coc#float#scroll(1) : "\<C-f>"
+"   vnoremap <silent><nowait><expr> <C-u> coc#float#has_scroll() ? coc#float#scroll(0) : "\<C-b>"
+" endif
 	
 " GoTo code navigation, pointing directly to deepest source
 nmap gD <Plug>(coc-definition)
@@ -194,6 +195,19 @@ let g:fzf_layout = { 'window': { 'width': 0.98, 'height': 0.8 } }
 
 let g:context_enabled = 0  " load context plugin, but disable it by default
 
+let g:vimwiki_key_mappings = {
+            \ 'all_maps': 1,
+            \ 'global': 1,
+            \ 'headers': 1,
+            \ 'text_objs': 1,
+            \ 'table_format': 1,
+            \ 'table_mappings': 0,
+            \ 'lists': 1,
+            \ 'links': 1,
+            \ 'html': 1,
+            \ 'mouse': 0,
+            \ }
+
 " Abbreviations
 
 :iabbrev Comunicacao Comunicação
@@ -202,6 +216,7 @@ let g:context_enabled = 0  " load context plugin, but disable it by default
 :iabbrev Situacao Situação
 :iabbrev acoes ações
 :iabbrev analise análise
+:iabbrev botao botão
 :iabbrev botoes botões
 :iabbrev comencou començou
 :iabbrev compativel compatível
@@ -212,6 +227,7 @@ let g:context_enabled = 0  " load context plugin, but disable it by default
 :iabbrev estatisticas estatísticas
 :iabbrev experiencia experiência
 :iabbrev experiencia experiência
+:iabbrev codigo código
 :iabbrev inorganico inorgânico
 :iabbrev integracao integração
 :iabbrev manutencao manutenção
@@ -223,6 +239,7 @@ let g:context_enabled = 0  " load context plugin, but disable it by default
 :iabbrev otimizacao otimização 
 :iabbrev portugues português
 :iabbrev promocoes promoções
+:iabbrev proxima próxima
 :iabbrev saida saída
 :iabbrev sao são
 :iabbrev servicos serviços
