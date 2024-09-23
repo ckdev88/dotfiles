@@ -4,7 +4,8 @@
 " Maintainer: CK
 " Website: https://ckdev88.github.io
 " License: Vim License (see `:help license`)
-" Last Updated: 2024-09-04 02:42
+" Last Updated: 2024-09-23 01:02
+" 
 " 
 hi clear
 let g:colors_name = 'bonbasique'
@@ -86,6 +87,9 @@ hi! link typescriptExceptions Exception
 hi Exception 		ctermfg=15 ctermbg=NONE cterm=NONE guifg=#ffffff guibg=NONE gui=NONE
 
 hi Float 			ctermfg=253 ctermbg=NONE cterm=NONE guifg=#dadada guibg=NONE gui=NONE
+hi CocFloatingDiagnostic guibg=#870000
+hi CocFloatingDiagnosticBorder guifg=#ffff00 guibg=#ffffff
+hi CocErrorVirtualText ctermfg=9 ctermbg=235 guifg=#ff0000 guibg=#262626
 hi FoldColumn 		ctermfg=40 ctermbg=234 cterm=NONE guifg=#00d700 guibg=#1c1c1c gui=NONE
 hi Folded 			ctermfg=40 ctermbg=235 cterm=NONE guifg=#00d700 guibg=#262626 gui=NONE
 

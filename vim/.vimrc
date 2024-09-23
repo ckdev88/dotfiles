@@ -156,8 +156,8 @@ nmap <silent> ]g <Plug>(coc-diagnostic-next)
 		
 " Applying code actions to the selected code block
 " Example: `<leader>aap` for current paragraph
-xmap <leader>a  <Plug>(coc-codeaction-selected)
-nmap <leader>a  <Plug>(coc-codeaction-selected)
+xmap <leader>ca  <Plug>(coc-codeaction-selected)
+nmap <leader>ca  <Plug>(coc-codeaction-selected)
 
 " Remap keys for applying code actions at the cursor position
 nmap <leader>ac  <Plug>(coc-codeaction-cursor)
@@ -170,6 +170,10 @@ nmap <leader>qf  <Plug>(coc-fix-current)
 nmap <silent> <leader>re <Plug>(coc-codeaction-refactor)
 xmap <silent> <leader>r  <Plug>(coc-codeaction-refactor-selected)
 nmap <silent> <leader>r  <Plug>(coc-codeaction-refactor-selected)
+
+" Enable/disable floating window for diagnostics
+nmap <leader>cde :call coc#config('diagnostic.messageTarget', 'echo')<CR>
+nmap <leader>cdf :call coc#config('diagnostic.messageTarget', 'float')<CR>
 
 " Run the Code Lens action on the current line
 nmap <leader>cl  <Plug>(coc-codelens-action)
@@ -192,6 +196,7 @@ nmap gR <Plug>(coc-references)
 
 " /COC CONFIG
 let g:fzf_layout = { 'window': { 'width': 0.98, 'height': 0.8 } }
+let g:coc_diagnostic_enable_float = 0
 
 let g:context_enabled = 0  " load context plugin, but disable it by default
 
