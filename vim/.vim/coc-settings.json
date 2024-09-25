@@ -7,4 +7,5 @@
 	"diagnostic.virtualTextAlign": "right",
 	"diagnostic.messageTarget": null,
 	"suggest.virtualText": true,
+	"coc.preferences.formatOnSaveFiletypes": ["*"]
 }
