@@ -4,7 +4,7 @@
 " Maintainer: CK
 " Website: https://ckdev88.github.io
 " License: Vim License (see `:help license`)
-" Last Updated: 2024-09-23 07:01
+" Last Updated: 2024-10-02 13:37
 " 
 " 
 hi clear
@@ -29,14 +29,13 @@ hi! link vimFgBgAttrib Normal
 hi! link vimHiAttrib Normal
 hi! link vimHiGroup Normal
 hi! link vimGroup Normal
-hi Normal			ctermfg=15 ctermbg=232 cterm=NONE guifg=#ffffff guibg=#161616 gui=NONE
+hi Normal			ctermfg=15 ctermbg=232 cterm=NONE guifg=#ffffff guibg=#121212 gui=NONE
 " hi PreProc 			ctermfg=152 ctermbg=NONE cterm=NONE guifg=#cfbfa6 guibg=NONE gui=NONE cterm=NONE
 " hi WarningMsg 		ctermfg=9 ctermbg=NONE cterm=bold guifg=#ff0000 guibg=NONE gui=bold
 " hi! link DiffAdd Added
 hi! link DiffAdd DiffAdded
 hi DiffAdded		ctermfg=15	ctermbg=2 cterm=NONE guifg=#ffffff guibg=#008000 gui=NONE
 hi Added 			ctermfg=fg ctermbg=22 cterm=NONE guifg=#005f00 guibg=fg gui=reverse
-hi! link DiffChange Changed
 hi Changed			ctermfg=fg ctermbg=4 cterm=NONE guifg=#000080 guibg=fg gui=reverse
 hi Character 		ctermfg=253 ctermbg=NONE cterm=NONE guifg=#dadada guibg=NONE gui=NONE
 hi CocVirtualText 	ctermfg=240 ctermbg=NONE cterm=NONE guifg=#585858 guibg=NONE gui=NONE
@@ -58,8 +57,9 @@ hi! link CursorIM Cursor
 hi Cursor 			ctermfg=220 ctermbg=NONE cterm=NONE guifg=#ffd700 guibg=#000000 gui=NONE
 hi! link PmenuThumb	CursorLine
 hi! link ColorColumn CursorLine
-hi! link CursorColumn CursorLine
-hi CursorLine 		ctermfg=NONE ctermbg=233 cterm=NONE guifg=NONE guibg=#222222 gui=NONE
+hi! link CocListLine CursorLine
+hi CursorColumn  ctermfg=60 ctermbg=fg cterm=reverse guifg=#453d41 guibg=fg gui=reverse
+hi CursorLine 		ctermfg=NONE ctermbg=10 cterm=NONE guifg=NONE guibg=#222222 gui=NONE
 hi CursorLineFold 	ctermfg=40 ctermbg=235 cterm=bold guifg=#00d700 guibg=#262626 gui=bold
 hi CursorLineNr 	ctermfg=NONE ctermbg=233 cterm=bold guifg=NONE guibg=#1c1c1c gui=bold
 hi CursorLineSign 	ctermfg=39 ctermbg=235 cterm=bold guifg=#00afff guibg=#262626 gui=bold
@@ -73,7 +73,8 @@ hi! link vimLet Define
 hi! link vimOption Define
 hi! link tsxAttrib Define
 hi Define 			ctermfg=187 ctermbg=NONE cterm=NONE guifg=#d7d7af guibg=NONE gui=NONE
-hi DiffText 		ctermfg=fg ctermbg=208 cterm=NONE guifg=#1c1c1c guibg=#ff8700 gui=NONE
+hi DiffText 		ctermfg=208 ctermbg=fg cterm=NONE guifg=#ffffff guibg=#ff5f00 gui=reverse
+hi DiffChange			ctermfg=fg ctermbg=bg cterm=NONE  guibg=bg gui=NONE
 hi! link NonText EndOfBuffer
 hi EndOfBuffer 		ctermfg=59 ctermbg=NONE cterm=NONE guifg=#504945 guibg=NONE gui=NONE
 hi Error 			ctermfg=124 ctermbg=234 cterm=NONE guifg=#af0000 guibg=#1c1c1c gui=NONE
@@ -144,9 +145,7 @@ hi MessageWindow 	 ctermbg=52 cterm=NONE  guibg=#330000 gui=NONE
 hi! link Directory Method
 hi! link cssFunctionName Method
 hi! link netrwClassify Method
-hi! link tsxEscJs Method
 hi! link typescriptBOM Method
-hi! link typescriptBlock Method
 " hi! link typescriptDefault Normal
 " hi! link typescriptClassKeyword Keyword
 " hi! link typescriptValue Define
@@ -170,7 +169,6 @@ hi! link CocMenuSel PmenuSel
 hi PmenuSel 		ctermfg=255 ctermbg=66 cterm=none guifg=#ffffff guibg=#5f8787 gui=NONE 
 hi PreCondit 		ctermfg=148 ctermbg=NONE cterm=NONE guifg=#afd700 guibg=NONE gui=NONE cterm=NONE
 hi Question 		ctermfg=208 ctermbg=NONE cterm=NONE guifg=#ff8700 guibg=NONE gui=NONE
-hi QuickFixLine 	ctermfg=148 ctermbg=NONE cterm=NONE guifg=#afd700 guibg=#1c1c1c gui=reverse cterm=reverse
 hi! link DiffDelete Removed
 hi diffRemoved			ctermfg=255  ctermbg=10 cterm=NONE guifg=#ffffff guibg=#870000 gui=NONE
 hi Removed			ctermfg=88  ctermbg=fg cterm=reverse guifg=#870000 guibg=fg gui=reverse
@@ -187,12 +185,13 @@ hi! link CocListBgBlue Statement
 hi! link Repeat Statement
 hi Statement 		ctermfg=220 ctermbg=NONE cterm=bold guifg=#ffd700 guibg=NONE gui=NONE cterm=NONE
 hi! link ToolbarButton TabLineSel
-hi TabLineSel 		ctermfg=220 ctermbg=234 cterm=bold guifg=#ffd700 guibg=#1c1c1c gui=bold
+hi TabLineSel 	ctermfg=220 ctermbg=234 cterm=bold guifg=#ffd700 guibg=#1c1c1c gui=bold
 hi! link StatusLineTerm StatusLine
 hi StatusLine 		ctermfg=254 ctermbg=0 cterm=reverse guifg=#e4e4e4 guibg=#000000 gui=reverse
 hi! link StatusLineTermNC StatusLineNC
-hi StatusLineNC 	ctermfg=0 ctermbg=238 cterm=reverse guifg=#000000 guibg=#444444 gui=reverse
-hi StorageClass 	ctermfg=208 ctermbg=NONE cterm=NONE guifg=#ff8700 guibg=NONE gui=NONE
+hi StatusLineNC	ctermfg=0 ctermbg=238 cterm=reverse guifg=#000000 guibg=#444444 gui=reverse
+hi StorageClass	ctermfg=208 ctermbg=NONE cterm=NONE guifg=#ff8700 guibg=NONE gui=NONE
+hi typescriptBranch	ctermfg=124 guifg=#af0000
 hi! link typescriptDOMEventProp String
 hi! link typescriptCall String
 hi! link typescriptMember String
@@ -236,7 +235,6 @@ hi! link typescriptExport typescriptStatementKeyword
 hi! link javascriptStatement typescriptStatementKeyword
 hi typescriptStatementKeyword ctermfg=46 ctermbg=none cterm=none guifg=#00ff00 gui=none
 " hi tsxAttrib		ctermfg=103
-" hi typescriptFuncCallArg ctermfg=64 ctermbg=none cterm=none guifg=#95a99f guibg=NONE gui=none
 hi typescriptObjectLiteral ctermfg=64 ctermbg=none cterm=none guifg=#8ba986 guibg=NONE gui=none
 
 
