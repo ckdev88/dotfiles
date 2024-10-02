@@ -1,5 +1,6 @@
 nnoremap <SPACE> <Nop>
 let mapleader=" "
+let g:netrw_altfile=1
 
 set nocompatible
 
@@ -18,15 +19,17 @@ set number
 set re=0 "for yats
 set relativenumber	
 set scrolloff=25
-set shiftwidth=4
+set shiftwidth=2
 set signcolumn=yes
-set tabstop=4
+set tabstop=2
+set softtabstop=2
+set noexpandtab
 set timeoutlen=400
 set undofile
 set updatetime=300
 set wildmenu
 set wildoptions=pum
-" set termguicolors
+set termguicolors
 
 filetype plugin indent on
 syntax on
@@ -34,22 +37,22 @@ syntax on
 no <C-z> <nop>
 no <SPACE> <nop>
 no <ESC> :noh<CR>
-" no q <nop>
 
-no <C-c> Vyp
+nnoremap <C-c> mcVyp`cj
 vn <C-c> :copy'><CR>gv=gv
 no <C-j> :move+<CR>			
 vn <C-j> :move'>+<CR>gv=gv
 no <C-k> :move-2<CR>
 vn <C-k> :move-2<CR>gv=gv 
-no <C-s> :w<CR>
 vn <C-s> <ESC>:w<CR>
 ino <C-s> <ESC>:w<CR>
 no U :redo<CR>
 no <C-e> :Ex<CR>
 no <C-f> :FZF!<CR>
-no <C-_> :Rg!<CR>
+no <C-_> :Rg!<CR> 
 no <C-b> :Buffers!<CR>
+no <C-l> :bn<CR>
+no <C-h> :bp<CR>
 no <leader>tsh :History/!<CR>
 no <leader>tsn :Snippets!<CR>
 no <leader>tgc :Commits!<CR>
@@ -57,12 +60,17 @@ no <leader>gc :G commit -m ''<LEFT>
 no <leader>gp :G push<CR>
 no <leader>gs :G<CR>
 no <leader>rw viw"0p
-no <leader>te :tab term<CR>
+no <leader>so :so ~/.vimrc<CR>
+no <leader>te :term<CR>
 no <leader>bt :term<CR>bun test<CR>
 no <leader>bb :term<CR>bun run build<CR>
 no <leader>bl :term<CR>bun run lint<CR>
 no <leader>br :term<CR>./release.sh<CR>
 no <leader>ff :Format<CR>
+no <leader>df va{Jdd :echo 'function or declaration deleted'<CR>
+no <leader>vf [{V]}
+no <leader>yf [{V]}y
+no <leader>' <left>yi(Pa:',<esc>%a'<esc>A
 
 " "Aliases" for commonly used commands+lazy shift finger:
 command! -bar -nargs=* -complete=file -range=% -bang W         <line1>,<line2>write<bang> <args>
@@ -73,7 +81,6 @@ command! -bar                                  -bang Wqa     wqa<bang>
 vn <C-y> :w !xclip -selection clipboard<CR> 
 
 " plugins installed via native vim package manager:
-packadd! editorconfig
 packadd comment
 
 " SirVer/ultisnips.git
@@ -160,23 +167,25 @@ xmap <leader>ca  <Plug>(coc-codeaction-selected)
 nmap <leader>ca  <Plug>(coc-codeaction-selected)
 
 " Remap keys for applying code actions at the cursor position
-nmap <leader>ac  <Plug>(coc-codeaction-cursor)
+nmap <leader>cac  <Plug>(coc-codeaction-cursor)
 " Remap keys for apply code actions affect whole buffer
-nmap <leader>as  <Plug>(coc-codeaction-source)
+nmap <leader>cas  <Plug>(coc-codeaction-source)
 " Apply the most preferred quickfix action to fix diagnostic on the current line
-nmap <leader>qf  <Plug>(coc-fix-current)
+nmap <leader>cqf  <Plug>(coc-fix-current)
 
 " Remap keys for applying refactor code actions
-nmap <silent> <leader>re <Plug>(coc-codeaction-refactor)
-xmap <silent> <leader>r  <Plug>(coc-codeaction-refactor-selected)
-nmap <silent> <leader>r  <Plug>(coc-codeaction-refactor-selected)
+nmap <silent> <leader>cre <Plug>(coc-codeaction-refactor)
+xmap <silent> <leader>cr  <Plug>(coc-codeaction-refactor-selected)
+nmap <silent> <leader>cr  <Plug>(coc-codeaction-refactor-selected)
 
 " Enable/disable floating window for diagnostics
 nmap <leader>cde :call coc#config('diagnostic.messageTarget', 'echo')<CR>
 nmap <leader>cdf :call coc#config('diagnostic.messageTarget', 'float')<CR>
+nmap <leader>cdx :call coc#config('diagnostic.virtualTextCurrentLineOnly',1)<CR> :call coc#config('diagnostic.virtualText',0)<CR>
+nmap <silent> <leader>cdv1 :call coc#config('diagnostic.virtualText',1)<CR> :CocRestart<CR>
+nmap <silent> <leader>cdv0 :call coc#config('diagnostic.virtualText',0)<CR> :CocRestart<CR>
 
 " Run the Code Lens action on the current line
-nmap <leader>cl  <Plug>(coc-codelens-action)
 
 " " Remap <C-d> and <C-u> to scroll float windows/popups
 " if has('nvim-0.4.0') || has('patch-8.2.0750')
@@ -195,7 +204,7 @@ nmap gI <Plug>(coc-implementation)
 nmap gR <Plug>(coc-references)
 
 " /COC CONFIG
-let g:fzf_layout = { 'window': { 'width': 0.98, 'height': 0.8 } }
+let g:fzf_layout = { 'window': { 'width': 1, 'height': 1 } }
 let g:coc_diagnostic_enable_float = 0
 
 let g:context_enabled = 0  " load context plugin, but disable it by default
