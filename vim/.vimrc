@@ -281,3 +281,4 @@ let g:vimwiki_key_mappings = {
 " ê
 " õ
 " ot
+set statusline=%<%f\ [%{&filetype}]%h%m%r%{FugitiveStatusline()}%=%-14.(%l,%c%V%)\ %P
