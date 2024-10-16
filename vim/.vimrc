@@ -114,7 +114,7 @@ augroup cmd_msg_cls
 augroup END
 " /Clear cmd line message
 
-colorscheme bonbasique
+colorscheme bonbasi
 let g:highlightedyank_highlight_duration = 100
 
 function! SynGroup()
@@ -132,6 +132,16 @@ function! ShowDocumentation()
 	endif
 endfunction
 nnoremap <silent> K :call ShowDocumentation()<CR>
+
+" list of installed CoC plugins (:CocList extensions)  
+"  * coc-snippets 3.1.10 ~/.config/coc/extensions/node_modules/coc-snippets
+"  * coc-prettier 9.3.2 ~/.config/coc/extensions/node_modules/coc-prettier
+"  * coc-html 1.8.0 ~/.config/coc/extensions/node_modules/coc-html
+"  * coc-eslint 1.7.0 ~/.config/coc/extensions/node_modules/coc-eslint
+"  + coc-tsserver 2.2.0 ~/.config/coc/extensions/node_modules/coc-tsserver
+"  + coc-css 2.1.0 ~/.config/coc/extensions/node_modules/coc-css
+"  + @yaegassy/coc-intelephense 0.30.4 ~/.config/coc/extensions/node_modules/@yaegassy/coc-intelephense
+
 
 inoremap <silent><expr> <TAB>
 			\ coc#pum#visible() ? coc#pum#next(1) :
@@ -186,6 +196,7 @@ nmap <silent> <leader>cdv1 :call coc#config('diagnostic.virtualText',1)<CR> :Coc
 nmap <silent> <leader>cdv0 :call coc#config('diagnostic.virtualText',0)<CR> :CocRestart<CR>
 
 " Run the Code Lens action on the current line
+" nmap <leader>ccl  <Plug>(coc-codelens-action) " commented because i dont use codelens (yet)
 
 " " Remap <C-d> and <C-u> to scroll float windows/popups
 " if has('nvim-0.4.0') || has('patch-8.2.0750')
