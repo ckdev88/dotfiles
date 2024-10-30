@@ -57,6 +57,7 @@ no <leader>tsh :History/!<CR>
 no <leader>tsn :Snippets!<CR>
 no <leader>tgc :Commits!<CR>
 no <leader>gc :G commit -m ''<LEFT>
+no <leader>gg :G log --all --graph --oneline<CR>
 no <leader>gp :G push<CR>
 no <leader>gs :G<CR>
 no <leader>rw viw"0p
