@@ -114,6 +114,15 @@ augroup cmd_msg_cls
 augroup END
 " /Clear cmd line message
 
+" add syntax keywords, so they are now: TODO FIXME NOTE OPTIMIZE XXX DOING
+augroup vimrc
+  autocmd!
+  autocmd FileType * syntax keyword Todo TODO containedin=.*Comment,Comment
+  autocmd FileType * syntax keyword Todo2 NOTE OPTIMIZE containedin=.*Comment,vimCommentTitle,Comment
+  autocmd FileType * syntax keyword Todo3 FIXME containedin=.*Comment,vimCommentTitle,Comment
+  autocmd FileType * syntax keyword Todo4 DOING containedin=.*Comment,vimCommentTitle,Comment
+augroup END
+
 colorscheme bonbasi
 let g:highlightedyank_highlight_duration = 100
 
