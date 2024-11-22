@@ -17,7 +17,6 @@ set nobackup
 set nowritebackup
 set number
 set re=0 "for yats
-set relativenumber	
 set scrolloff=25
 set shiftwidth=2
 set signcolumn=yes
