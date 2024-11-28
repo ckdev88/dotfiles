@@ -38,13 +38,13 @@ no <SPACE> <nop>
 no <ESC> :noh<CR>
 
 nnoremap <C-c> mcVyp`cj
+" mc = mark c, `c = jump to mark c
 vn <C-c> :copy'><CR>gv=gv
 no <C-j> :move+<CR>			
 vn <C-j> :move'>+<CR>gv=gv
 no <C-k> :move-2<CR>
 vn <C-k> :move-2<CR>gv=gv 
-vn <C-s> <ESC>:w<CR>
-ino <C-s> <ESC>:w<CR>
+
 no U :redo<CR>
 no <C-e> :Ex<CR>
 no <C-f> :FZF!<CR>
@@ -76,8 +76,9 @@ no <leader>' <left>yi(Pa:',<esc>%a'<esc>A
 command! -bar -nargs=* -complete=file -range=% -bang W         <line1>,<line2>write<bang> <args>
 command! -bar -nargs=* -complete=file -range=% -bang Wq        <line1>,<line2>wq<bang> <args>
 command! -bar                                  -bang Wqa     wqa<bang>
+command! -bar                                  -bang Bd     bd<bang>
 
-" yank to clipboard, although -selection clipboard is too verbose, keep it
+" yank to system clipboard
 vn <C-y> :w !xclip -selection clipboard<CR> 
 
 " plugins installed via native vim package manager:
@@ -110,7 +111,7 @@ endfunction
 
 augroup cmd_msg_cls
     autocmd!
-    autocmd CmdlineLeave :  call timer_start(2000, funcref('s:empty_message'))
+    autocmd CmdlineLeave :  call timer_start(18000, funcref('s:empty_message'))
 augroup END
 " /Clear cmd line message
 
@@ -290,4 +291,4 @@ let g:vimwiki_key_mappings = {
 " ê
 " õ
 " ot
-set statusline=%<%f\ %h%m%r%{FugitiveStatusline()}%=%-14.\(%)\ %Y\ -\ %(%l,%v[%p%%]\ %)
+set statusline=%<%f\ %h%m%r%{FugitiveStatusline()}%=%-1.\(%)\ %Y\ -\ %(%l,%v[%p%%]\ %)
