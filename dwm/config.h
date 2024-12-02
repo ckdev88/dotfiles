@@ -6,34 +6,31 @@ static const unsigned int snap      = 32;       /* snap pixel */
 static const unsigned int minwsz    = 20;       /* Minimal height of a client for smfact */
 static const int showbar            = 1;        /* 0 means no bar */
 static const int topbar             = 1;        /* 0 means bottom bar */
-static const char *fonts[]          = { "Iosevka NF SemiBold:style=SemiBold:size=10:antialias=true" };
-static const char dmenufont[]       = "Iosevka NF SemiBold:style=SemiBold:size=11:antialias=true"; 
+static const char *fonts[]          = { "Iosevka:style=Medium,Regular:size=9:antialias=true" };
+static const char dmenufont[]       = "Iosevka:style=Medium,Regular:size=9:antialias=true";
 static const char col_gray1[]       = "#111111";
 static const char col_gray2[]       = "#2a2a2a";
-static const char col_gray3[]       = "#504945";
-static const char col_gray4[]       = "#cfbfa6";
-static const char col_cyan[]        = "#005577";
-static const char col_brown[]       = "#a89984";
+static const char col_fg_inactive[] = "#8787af";
+static const char col_white[]       = "#ffffff";
 static const char col_lime[]        = "#00ff00";
 static const char col_yellow[]      = "#eeee00";
 static const char col_black[]       = "#000000";
-static const char col_tan[]         = "#cfbfa6";
+static const char col_fg_active[]   = "#e4e4e4";
 static const char *colors[][3]      = {
 	/*               fg         bg         border   */
-	[SchemeNorm] = { col_gray3, col_black, col_black },
-	[SchemeSel]  = { col_tan, col_black, col_tan  },
+	[SchemeNorm] = { col_fg_inactive, col_black, col_black },
+	[SchemeSel]  = { col_fg_active, col_black, col_yellow  },
 };
 
 /* tagging */
-static const char *tags[] = { "1", "2", "3", "4" };
+static const char *tags[] = { "1", "2", "3", "4", "5" };
 static const Rule rules[] = {
 	/* xprop(1):
 	 *	WM_CLASS(STRING) = instance, class
 	 *	WM_NAME(STRING) = title
 	 */
 	/* class      instance    title       tags mask     isfloating   monitor */
-
- 	{ "Gimp",     NULL,       NULL,       0,            1,           -1 },
+	{ "ApplicationNameWhichCannotTile",     NULL,       NULL,       0,            1,           -1 },
 };
 
 /* layout(s) */
@@ -77,22 +74,17 @@ static const Key keys[] = {
 	{ MODKEY,                       XK_d,      incnmaster,     {.i = -1 } },
 	{ MODKEY,                       XK_h,      setmfact,       {.f = -0.05} },
 	{ MODKEY,                       XK_l,      setmfact,       {.f = +0.05} },
-	{ MODKEY,                       XK_comma,  setsmfact,      {.f = +0.05} },
-	{ MODKEY,                       XK_period, setsmfact,      {.f = -0.05} },
+	{ MODKEY,                       XK_m,			 setsmfact,      {.f = +0.05} }, 
+	{ MODKEY,                       XK_n,			 setsmfact,      {.f = -0.05} }, 
 	{ MODKEY,                       XK_Return, zoom,           {0} },
 	{ MODKEY,                       XK_Tab,    view,           {0} },
 	{ MODKEY|ShiftMask,             XK_c,      killclient,     {0} },
-	{ MODKEY,                       XK_t,      setlayout,      {.v = &layouts[0]} },
-	{ MODKEY,                       XK_f,      setlayout,      {.v = &layouts[1]} },
-	{ MODKEY,                       XK_m,      setlayout,      {.v = &layouts[2]} },
-	{ MODKEY,                       XK_space,  setlayout,      {0} },
-	{ MODKEY|ShiftMask,             XK_space,  togglefloating, {0} },
-	{ MODKEY,                       XK_0,      view,           {.ui = ~0 } },
-	{ MODKEY|ShiftMask,             XK_0,      tag,            {.ui = ~0 } },
-	/* { MODKEY,                       XK_comma,  focusmon,       {.i = -1 } }, */
-	/* { MODKEY,                       XK_period, focusmon,       {.i = +1 } }, */
+	{ MODKEY,												XK_space,  setlayout,      {.v = &layouts[0]} },
+	{ MODKEY|ShiftMask,             XK_space,  setlayout,      {.v = &layouts[2]} }, 
+	{ MODKEY,                       XK_comma,  focusmon,       {.i = -1 } }, 
+	{ MODKEY,                       XK_period, focusmon,       {.i = +1 } }, 
 	{ MODKEY|ShiftMask,             XK_comma,  tagmon,         {.i = -1 } },
-	{ MODKEY|ShiftMask,             XK_period, tagmon,         {.i = +1 } },
+	{ MODKEY|ShiftMask,             XK_period, tagmon,         {.i = +1 } }, 
 	TAGKEYS(                        XK_1,                      0)
 	TAGKEYS(                        XK_2,                      1)
 	TAGKEYS(                        XK_3,                      2)
