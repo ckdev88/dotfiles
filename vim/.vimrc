@@ -71,6 +71,7 @@ no <leader>df va{Jdd :echo 'function or declaration deleted'<CR>
 no <leader>vf [{V]}
 no <leader>yf [{V]}y
 no <leader>' <left>yi(Pa:',<esc>%a'<esc>A
+nn * *N
 
 " "Aliases" for commonly used commands+lazy shift finger:
 command! -bar -nargs=* -complete=file -range=% -bang W         <line1>,<line2>write<bang> <args>
