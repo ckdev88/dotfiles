@@ -123,6 +123,7 @@ augroup vimrc
   autocmd FileType * syntax keyword Todo2 NOTE OPTIMIZE containedin=.*Comment,vimCommentTitle,Comment
   autocmd FileType * syntax keyword Todo3 FIXME containedin=.*Comment,vimCommentTitle,Comment
   autocmd FileType * syntax keyword Todo4 DOING containedin=.*Comment,vimCommentTitle,Comment
+  autocmd FileType javascript set syntax=typescript
 augroup END
 
 colorscheme bonbasi
