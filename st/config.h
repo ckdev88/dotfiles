@@ -1,3 +1,4 @@
+
 /* See LICENSE file for copyright and license details. */
 
 /*
@@ -5,7 +6,7 @@
  *
  * font: see http://freedesktop.org/software/fontconfig/fontconfig-user.html
  */
-static char *font = "Iosevka Custom Md SmCn:style=Medium Semi-Condensed, Regular:pixelsize=20:antialias=true";
+static char *font = "Iosevka Custom Md SmCn:style=Medium Semi-Condensed, Regular:pixelsize=20:antialias=true:hintstyle=2";
 static int borderpx = 6;
 
 /*
@@ -91,7 +92,7 @@ char *termname = "st-256color";
  *
  *	stty tabs
  */
-unsigned int tabspaces = 8;
+unsigned int tabspaces = 4;
 
 /* Terminal colors (16 first used in escape sequence) */
 static const char *colorname[] = {
@@ -106,9 +107,9 @@ static const char *colorname[] = {
 	"white",
 
 	/* 8 bright colors */
+	"green",
 	"yellow",
 	"red",
-	"green",
 	"yellow",
 	"#5c5cff",
 	"magenta",
@@ -118,7 +119,7 @@ static const char *colorname[] = {
 	[255] = 0,
 
 	/* more colors can be added after 255 to use with DefaultXX */
-	"#ffd700",
+	"#00ff00",
 	"#555555",
 	"white", /* default foreground colour */
 	"black", /* default background colour */
@@ -481,3 +482,4 @@ static char ascii_printable[] =
 	" !\"#$%&'()*+,-./0123456789:;<=>?"
 	"@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\\]^_"
 	"`abcdefghijklmnopqrstuvwxyz{|}~";
+
