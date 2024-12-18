@@ -1,7 +1,7 @@
 /* See LICENSE file for copyright and license details. */
 
 /* appearance */
-static const unsigned int borderpx  = 1;        /* border pixel of windows */
+static const unsigned int borderpx  = 2;        /* border pixel of windows */
 static const unsigned int snap      = 32;       /* snap pixel */
 static const unsigned int minwsz    = 20;       /* Minimal height of a client for smfact */
 static const int showbar            = 1;        /* 0 means no bar */
@@ -19,7 +19,7 @@ static const char col_fg_active[]   = "#e4e4e4";
 static const char *colors[][3]      = {
 	/*               fg         bg         border   */
 	[SchemeNorm] = { col_fg_inactive, col_black, col_black },
-	[SchemeSel]  = { col_fg_active, col_black, col_yellow  },
+	[SchemeSel]  = { col_fg_active, col_black, col_lime  },
 };
 
 /* tagging */
@@ -29,8 +29,8 @@ static const Rule rules[] = {
 	 *	WM_CLASS(STRING) = instance, class
 	 *	WM_NAME(STRING) = title
 	 */
-	/* class      instance    title       tags mask     isfloating   monitor */
-	{ "ApplicationNameWhichCannotTile",     NULL,       NULL,       0,            1,           -1 },
+	/* class instance										title tags	mask  isfloating monitor */
+	{ "ApplicationNameWhichCannotTile", NULL,	NULL, 0,	  1,         -1 },
 };
 
 /* layout(s) */
