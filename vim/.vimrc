@@ -59,6 +59,7 @@ no <leader>gc :G commit -m ''<LEFT>
 no <leader>gg :G log --all --graph --oneline<CR>
 no <leader>gp :G push<CR>
 no <leader>gs :G<CR>
+no <leader>gt :call GitQuickfixCheckout('@-->')<CR>
 no <leader>rw viw"0p
 no <leader>so :so ~/.vimrc<CR>
 no <leader>te :term<CR>
@@ -81,6 +82,30 @@ command! -bar                                  -bang Bd     bd<bang>
 
 " yank to system clipboard
 vn <C-y> :w !xclip -selection clipboard<CR> 
+
+" when using quickfix menu with :Gclog, checkout easily to former commits,
+" called by custom hotkey calling GitQuickfixCheckout
+let g:last_prefixed_line = -1  " Initialize a variable to track the last prefixed line
+function! GitQuickfixCheckout(prefix)
+    let lnum = line('.')
+    let qflist = getqflist()
+	if g:last_prefixed_line >= 0 && g:last_prefixed_line < len(qflist)
+        let qflist[g:last_prefixed_line].text = substitute(qflist[g:last_prefixed_line].text, '^\s*@-->', '', '')
+    endif
+    if lnum > 0 && lnum <= len(qflist)
+        let qflist[lnum - 1].text = a:prefix . ' ' . qflist[lnum - 1].text
+				" update last prefixed line
+	    let g:last_prefixed_line = lnum - 1  
+        call setqflist(qflist, 'r')
+    endif
+
+	" restore cursor position so it appears not to have moved
+    execute 'normal! ' . lnum . 'G'
+
+	" use commit hash to checkout (move HEAD) towards
+	let commit_hash = substitute(getline(lnum), '\v^([0-9a-f]{6}).*', '\1', '')
+    execute 'Git checkout ' . commit_hash 
+endfunction
 
 " plugins installed via native vim package manager:
 packadd comment
