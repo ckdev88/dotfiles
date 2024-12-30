@@ -1,6 +1,8 @@
 nnoremap <SPACE> <Nop>
 let mapleader=" "
 let g:netrw_altfile=1
+let g:netrw_liststyle = 1
+let g:netrw_sort_sequence = '[\/]\s'
 
 set nocompatible
 
