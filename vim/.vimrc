@@ -69,7 +69,7 @@ no <leader>bt :term<CR>bun test<CR>
 no <leader>bb :term<CR>bun run build<CR>
 no <leader>bl :term<CR>bun run lint<CR>
 no <leader>br :term<CR>./release.sh<CR>
-no <leader>ff :Format<CR>
+no <leader>ff :Format<CR>:w<CR>
 no <leader>df va{Jdd :echo 'function or declaration deleted'<CR>
 no <leader>vf [{V]}
 no <leader>yf [{V]}y
