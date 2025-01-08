@@ -7,5 +7,6 @@
 	"diagnostic.virtualTextAlign": "right",
 	"diagnostic.messageTarget": null,
 	"suggest.virtualText": true,
+	"suggest.enablePreselect": true,
 	"coc.preferences.formatOnSaveFiletypes": ["*"]
 }
