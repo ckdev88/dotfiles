@@ -74,6 +74,7 @@ no <leader>df va{Jdd :echo 'function or declaration deleted'<CR>
 no <leader>vf [{V]}
 no <leader>yf [{V]}y
 no <leader>' <left>yi(Pa:',<esc>%a'<esc>A
+imap <c-t> <Esc>cs"{A
 nn * *N
 
 " "Aliases" for commonly used commands+lazy shift finger:
