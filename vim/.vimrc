@@ -7,7 +7,6 @@ let g:netrw_sort_sequence = '[\/]\s'
 set nocompatible
 
 set autoindent
-set backspace=2
 set completeopt=menuone,preview
 set cursorline
 set encoding=utf-8
@@ -20,10 +19,10 @@ set nowritebackup
 set number
 set re=0 "for yats
 set scrolloff=25
-set shiftwidth=2
+" set shiftwidth=4
 set signcolumn=yes
-set tabstop=2
-set softtabstop=2
+set tabstop=4
+" set softtabstop=2
 set noexpandtab
 set timeoutlen=400
 set undofile
@@ -75,14 +74,15 @@ no <leader>vf [{V]}
 no <leader>yf [{V]}y
 no <leader>' <left>yi(Pa:',<esc>%a'<esc>A
 imap <c-t> <Esc>cs"{A
+no <leader>o :call HandleURL()<cr>
 imap <C-t> <esc>cs"'cs'{A
 nn * *N
 
-" "Aliases" for commonly used commands+lazy shift finger:
-command! -bar -nargs=* -complete=file -range=% -bang W         <line1>,<line2>write<bang> <args>
-command! -bar -nargs=* -complete=file -range=% -bang Wq        <line1>,<line2>wq<bang> <args>
-command! -bar                                  -bang Wqa     wqa<bang>
-command! -bar                                  -bang Bd     bd<bang>
+" Aliases for commonly used commands+lazy shift finger:
+command! -bar -nargs=* -complete=file -range=% -bang W   <line1>,<line2>write<bang> <args>
+command! -bar -nargs=* -complete=file -range=% -bang Wq  <line1>,<line2>wq<bang> <args>
+command! -bar                                  -bang Wqa wqa<bang>
+command! -bar                                  -bang Bd  bd<bang>
 
 " yank to system clipboard
 vn <C-y> :w !xclip -selection clipboard<CR> 
@@ -111,6 +111,17 @@ function! GitQuickfixCheckout(prefix)
     execute 'Git checkout ' . commit_hash 
 endfunction
 
+" Follow url to Open in browser
+function! HandleURL()
+  let s:uri = matchstr(getline("."), '[a-z]*:\/\/[^ >,;]*')
+  echo s:uri
+  if s:uri != ""
+    silent exec "!qutebrowser '".s:uri."' &"
+  else
+    echo "No URI found in line."
+  endif
+endfunction
+
 " plugins installed via native vim package manager:
 packadd comment
 
@@ -127,9 +138,17 @@ packadd comment
 " let g:vimwiki_list = [{'path': '~/vimwiki/',
 " \ 'syntax': 'markdown', 'ext': 'md'}]
 
-" misc support
-" :CocInstall @yaegassy/coc-astro
-" :CocInstall @yaegassy/coc-intelephense
+" coc extensions
+" * coc-snippets 3.1.10 ~/.config/coc/extensions/node_modules/coc-snippets
+" * coc-prettier 9.3.2 ~/.config/coc/extensions/node_modules/coc-prettier
+" * coc-html 1.8.0 ~/.config/coc/extensions/node_modules/coc-html
+" * coc-eslint 1.7.0 ~/.config/coc/extensions/node_modules/coc-eslint
+" + coc-tsserver 2.2.0 ~/.config/coc/extensions/node_modules/coc-tsserver
+" + coc-json 1.9.2 ~/.config/coc/extensions/node_modules/coc-json
+" + coc-css 2.1.0 ~/.config/coc/extensions/node_modules/coc-css
+" + @yaegassy/coc-volar 0.37.0 ~/.config/coc/extensions/node_modules/@yaegassy/coc-volar
+" + @yaegassy/coc-intelephense 0.30.4 ~/.config/coc/extensions/node_modules/@yaegassy/coc-inte
+" + @yaegassy/coc-astro 0.9.2 ~/.config/coc/extensions/node_modules/@yaegassy/coc-astro
 
 
 " Clear cmd line message
@@ -145,14 +164,15 @@ augroup cmd_msg_cls
 augroup END
 " /Clear cmd line message
 
-" add syntax keywords, so they are now: TODO FIXME NOTE OPTIMIZE XXX DOING
 augroup vimrc
-  autocmd!
-  autocmd FileType * syntax keyword Todo TODO containedin=.*Comment,Comment
-  autocmd FileType * syntax keyword Todo2 NOTE OPTIMIZE containedin=.*Comment,vimCommentTitle,Comment
-  autocmd FileType * syntax keyword Todo3 FIXME containedin=.*Comment,vimCommentTitle,Comment
-  autocmd FileType * syntax keyword Todo4 DOING containedin=.*Comment,vimCommentTitle,Comment
-  autocmd FileType javascript set syntax=typescript
+autocmd!
+	" autocmd FileType * syntax keyword vimTodo TODO FIXME NOTE OPTIMIZE containedin=.*Comment,vimCommentTitle
+	autocmd FileType * syntax keyword Todo TODO containedin=.*Comment,Comment
+	autocmd FileType * syntax keyword Todo2 NOTE OPTIMIZE containedin=.*Comment,vimCommentTitle,Comment
+	autocmd FileType * syntax keyword Todo3 FIXME containedin=.*Comment,vimCommentTitle,Comment
+	autocmd FileType * syntax keyword Todo4 DOING containedin=.*Comment,vimCommentTitle,Comment
+	autocmd FileType javascript set syntax=typescript
+	autocmd FileType vue set syntax=typescript
 augroup END
 
 colorscheme bonbasi
@@ -174,15 +194,17 @@ function! ShowDocumentation()
 endfunction
 nnoremap <silent> K :call ShowDocumentation()<CR>
 
-" list of installed CoC plugins (:CocList extensions)  
+" /COC CONFIG
+
+" list of installed CoC plugins (:CocList extensions), to be installed i.e. :CocInstall coc-snippets
 "  * coc-snippets 3.1.10 ~/.config/coc/extensions/node_modules/coc-snippets
 "  * coc-prettier 9.3.2 ~/.config/coc/extensions/node_modules/coc-prettier
 "  * coc-html 1.8.0 ~/.config/coc/extensions/node_modules/coc-html
 "  * coc-eslint 1.7.0 ~/.config/coc/extensions/node_modules/coc-eslint
 "  + coc-tsserver 2.2.0 ~/.config/coc/extensions/node_modules/coc-tsserver
+"  + coc-json 1.9.2 ~/.config/coc/extensions/node_modules/coc-json
 "  + coc-css 2.1.0 ~/.config/coc/extensions/node_modules/coc-css
 "  + @yaegassy/coc-intelephense 0.30.4 ~/.config/coc/extensions/node_modules/@yaegassy/coc-intelephense
-
 
 inoremap <silent><expr> <TAB>
 			\ coc#pum#visible() ? coc#pum#next(1) :
@@ -239,18 +261,18 @@ nmap <silent> <leader>cdv0 :call coc#config('diagnostic.virtualText',0)<CR> :Coc
 " Run the Code Lens action on the current line
 " nmap <leader>ccl  <Plug>(coc-codelens-action) " commented because i dont use codelens (yet)
 
-" " Remap <C-d> and <C-u> to scroll float windows/popups
-" if has('nvim-0.4.0') || has('patch-8.2.0750')
-"   nnoremap <silent><nowait><expr> <C-d> coc#float#has_scroll() ? coc#float#scroll(1) : "\<C-f>"
-"   nnoremap <silent><nowait><expr> <C-u> coc#float#has_scroll() ? coc#float#scroll(0) : "\<C-b>"
-"   inoremap <silent><nowait><expr> <C-d> coc#float#has_scroll() ? "\<c-r>=coc#float#scroll(1)\<cr>" : "\<Right>"
-"   inoremap <silent><nowait><expr> <C-u> coc#float#has_scroll() ? "\<c-r>=coc#float#scroll(0)\<cr>" : "\<Left>"
-"   vnoremap <silent><nowait><expr> <C-d> coc#float#has_scroll() ? coc#float#scroll(1) : "\<C-f>"
-"   vnoremap <silent><nowait><expr> <C-u> coc#float#has_scroll() ? coc#float#scroll(0) : "\<C-b>"
-" endif
+ " Remap <C-d> and <C-u> to scroll float windows/popups
+ nnoremap <silent><nowait><expr> <C-d> coc#float#has_scroll() ? coc#float#scroll(1) : "\<C-f>"
+ nnoremap <silent><nowait><expr> <C-u> coc#float#has_scroll() ? coc#float#scroll(0) : "\<C-b>"
+ inoremap <silent><nowait><expr> <C-d> coc#float#has_scroll() ? "\<c-r>=coc#float#scroll(1)\<cr>" : "\<Right>"
+ inoremap <silent><nowait><expr> <C-u> coc#float#has_scroll() ? "\<c-r>=coc#float#scroll(0)\<cr>" : "\<Left>"
+ vnoremap <silent><nowait><expr> <C-d> coc#float#has_scroll() ? coc#float#scroll(1) : "\<C-f>"
+ vnoremap <silent><nowait><expr> <C-u> coc#float#has_scroll() ? coc#float#scroll(0) : "\<C-b>"
 	
 " GoTo code navigation, pointing directly to deepest source
 nmap gD <Plug>(coc-definition)
+nmap <silent> <leader>gdv :call CocAction('jumpDefinition', 'vsplit')<CR>
+nmap <silent> <leader>gds :call CocAction('jumpDefinition', 'split')<CR>
 nmap gY <Plug>(coc-type-definition)
 nmap gI <Plug>(coc-implementation)
 nmap gR <Plug>(coc-references)
