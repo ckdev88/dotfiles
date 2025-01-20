@@ -19,10 +19,8 @@ set nowritebackup
 set number
 set re=0 "for yats
 set scrolloff=25
-" set shiftwidth=4
 set signcolumn=yes
 set tabstop=4
-" set softtabstop=2
 set noexpandtab
 set timeoutlen=400
 set undofile
@@ -122,9 +120,7 @@ function! HandleURL()
   endif
 endfunction
 
-" editorconfig working properly since Vim 9.1, see `:h editorconfig-install` and `:h editorconfig.txt` after that.
-packadd! editorconfig 
-
+packadd! editorconfig " editorconfig working properly since Vim 9.1, see `:h editorconfig-install` and `:h editorconfig.txt` after that.
 packadd comment " TODO check if still useful
 
 " SirVer/ultisnips.git
@@ -209,9 +205,9 @@ nnoremap <silent> K :call ShowDocumentation()<CR>
 "  + @yaegassy/coc-intelephense 0.30.4 ~/.config/coc/extensions/node_modules/@yaegassy/coc-intelephense
 
 inoremap <silent><expr> <TAB>
-			\ coc#pum#visible() ? coc#pum#next(1) :
-			\ CheckBackspace() ? "\<Tab>" :
-			\ coc#refresh()
+	\ coc#pum#visible() ? coc#pum#next(1) :
+	\ CheckBackspace() ? "\<Tab>" :
+	\ coc#refresh()
 inoremap <expr><S-TAB> coc#pum#visible() ? coc#pum#prev(1) : "\<C-h>"
 
 " Make <CR> to accept selected completion item or notify coc.nvim to format
@@ -286,64 +282,80 @@ let g:coc_diagnostic_enable_float = 0
 let g:context_enabled = 0  " load context plugin, but disable it by default
 
 let g:vimwiki_key_mappings = {
-            \ 'all_maps': 1,
-            \ 'global': 1,
-            \ 'headers': 1,
-            \ 'text_objs': 1,
-            \ 'table_format': 1,
-            \ 'table_mappings': 0,
-            \ 'lists': 1,
-            \ 'links': 1,
-            \ 'html': 1,
-            \ 'mouse': 0,
-            \ }
+	\ 'all_maps': 1,
+	\ 'global': 1,
+	\ 'headers': 1,
+	\ 'text_objs': 1,
+	\ 'table_format': 1,
+	\ 'table_mappings': 0,
+	\ 'lists': 1,
+	\ 'links': 1,
+	\ 'html': 1,
+	\ 'mouse': 0,
+	\ }
 
 " Abbreviations
+let g:Port = 0
+function! TogglingPort()
+if g:Port == 1
+    let g:Port = 0
+    echo "Portuguese abbreviations are not active."
+else
+    let g:Port = 1
+    echo "Portuguese abbreviations are active."
+	:iabbrev Comunicacao Comunicação
+	:iabbrev Nao Não
+	:iabbrev Portugues Português
+	:iabbrev Situacao Situação
+	:iabbrev acoes ações
+	:iabbrev analise análise
+	:iabbrev botao botão
+	:iabbrev botoes botões
+	:iabbrev comencou començou
+	:iabbrev compativel compatível
+	:iabbrev comunicacao comunicação
+	:iabbrev comunicacoes comunicações
+	:iabbrev conexao conexão
+	:iabbrev confusao confusão
+	:iabbrev estatisticas estatísticas
+	:iabbrev experiencia experiência
+	:iabbrev experiencia experiência
+	:iabbrev codigo código
+	:iabbrev inorganico inorgânico
+	:iabbrev integracao integração
+	:iabbrev manutencao manutenção
+	:iabbrev modificacao modificação
+	:iabbrev nao não
+	:iabbrev navegacao navegação
+	:iabbrev orcamento orçamento
+	:iabbrev organico orgânico
+	:iabbrev otimizacao otimização 
+	:iabbrev portugues português
+	:iabbrev promocoes promoções
+	:iabbrev proxima próxima
+	:iabbrev saida saída
+	:iabbrev sao são
+	:iabbrev servicos serviços
+	:iabbrev situacao situação
+	:iabbrev subsidiarios subsidiários
+	:iabbrev tambem também
+	:iabbrev teh the
+	:iabbrev usuario usuário
+	:iabbrev voce você
+	:iabbrev waht what
+	:iabbrev sequencia sequência
+	:iabbrev acessivel acessível
+	:iabbrev reference referência
+	:iabbrev crianca criança
+	:iabbrev criancas crianças
+	:iabbrev variavel variável
+	:iabbrev memoria memória
+	:iabbrev definicao definição
+	:iabbrev aplicacoes aplicações
+	:iabbrev computacao computaçao
+	:iabbrev padrao padrão
+endif
+endfunction
+nnoremap <leader>tp :call TogglingPort()<CR>
 
-:iabbrev Comunicacao Comunicação
-:iabbrev Nao Não
-:iabbrev Portugues Português
-:iabbrev Situacao Situação
-:iabbrev acoes ações
-:iabbrev analise análise
-:iabbrev botao botão
-:iabbrev botoes botões
-:iabbrev comencou començou
-:iabbrev compativel compatível
-:iabbrev comunicacao comunicação
-:iabbrev comunicacoes comunicações
-:iabbrev conexao conexão
-:iabbrev confusao confusão
-:iabbrev estatisticas estatísticas
-:iabbrev experiencia experiência
-:iabbrev experiencia experiência
-:iabbrev codigo código
-:iabbrev inorganico inorgânico
-:iabbrev integracao integração
-:iabbrev manutencao manutenção
-:iabbrev modificacao modificação
-:iabbrev nao não
-:iabbrev navegacao navegação
-:iabbrev orcamento orçamento
-:iabbrev organico orgânico
-:iabbrev otimizacao otimização 
-:iabbrev portugues português
-:iabbrev promocoes promoções
-:iabbrev proxima próxima
-:iabbrev saida saída
-:iabbrev sao são
-:iabbrev servicos serviços
-:iabbrev situacao situação
-:iabbrev subsidiarios subsidiários
-:iabbrev tambem também
-:iabbrev teh the
-:iabbrev usuario usuário
-:iabbrev voce você
-:iabbrev waht what
-" á
-" ç
-" ã
-" ê
-" õ
-" ot
 set statusline=%<%f\ %h%m%r%{FugitiveStatusline()}%=%-1.\(%)\ %Y\ -\ %(%l,%v[%p%%]\ %)
