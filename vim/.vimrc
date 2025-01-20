@@ -45,7 +45,7 @@ no <C-k> :move-2<CR>
 vn <C-k> :move-2<CR>gv=gv 
 
 no U :redo<CR>
-no <C-e> :Ex<CR>
+no <C-e> :Explore<CR>
 no <C-f> :FZF!<CR>
 no <C-_> :Rg!<CR> 
 no <C-b> :Buffers!<CR>
