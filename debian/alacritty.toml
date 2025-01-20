@@ -1,0 +1,8 @@
+# ~/.config/alacritty/alacritty.toml
+[terminal.shell]
+program = '/usr/bin/zsh'
+
+[font]
+normal = { family = "IosevkaTerm NFM" }
+bold = { family = "IosevkaTerm NFP ExtraBold" }
+size = 14
