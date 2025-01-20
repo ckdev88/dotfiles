@@ -122,8 +122,10 @@ function! HandleURL()
   endif
 endfunction
 
-" plugins installed via native vim package manager:
-packadd comment
+" editorconfig working properly since Vim 9.1, see `:h editorconfig-install` and `:h editorconfig.txt` after that.
+packadd! editorconfig 
+
+packadd comment " TODO check if still useful
 
 " SirVer/ultisnips.git
 " honza/vim-snippets.git
