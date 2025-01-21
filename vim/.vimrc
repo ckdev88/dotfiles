@@ -28,7 +28,6 @@ set updatetime=300
 set wildmenu
 set wildoptions=pum
 set termguicolors
-" set clipboard=unnamedplus " Debian/Rails
 
 filetype plugin indent on
 syntax on
@@ -133,9 +132,6 @@ packadd comment " TODO check if still useful
 " tpope/vim-fugitive
 " tpope/vim-surround
 " vimwiki/vimwiki
-" tpope/vim-pathogen " Debian/Rails
-" tpope/vim-rails " Debian/Rails
-" vim-ruby/vim-ruby " Debian/Rails
 
 " let g:vimwiki_list = [{'path': '~/vimwiki/',
 " \ 'syntax': 'markdown', 'ext': 'md'}]
@@ -207,7 +203,6 @@ nnoremap <silent> K :call ShowDocumentation()<CR>
 "  + coc-json 1.9.2 ~/.config/coc/extensions/node_modules/coc-json
 "  + coc-css 2.1.0 ~/.config/coc/extensions/node_modules/coc-css
 "  + @yaegassy/coc-intelephense 0.30.4 ~/.config/coc/extensions/node_modules/@yaegassy/coc-intelephense
-"  coc-solargraph 1.2.4 ~/.config/coc/extensions/node_modules/coc-solargraph " Debian/Rails
 
 inoremap <silent><expr> <TAB>
 	\ coc#pum#visible() ? coc#pum#next(1) :
@@ -364,4 +359,9 @@ endfunction
 nnoremap <leader>tp :call TogglingPort()<CR>
 
 set statusline=%<%f\ %h%m%r%{FugitiveStatusline()}%=%-1.\(%)\ %Y\ -\ %(%l,%v[%p%%]\ %)
-" execute pathogen#infect() " Debian/Rails
+
+" Debian/Rails (uncomment 2 lines below, install plugins below)
+" set clipboard=unnamedplus 
+" execute pathogen#infect()
+" Plugins for rails in debian:
+" tpope/vim-pathogen, tpope/vim-rails, vim-ruby/vim-ruby, coc-solargraph (coc)
