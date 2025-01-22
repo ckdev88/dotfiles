@@ -74,6 +74,9 @@ no <leader>' <left>yi(Pa:',<esc>%a'<esc>A
 imap <c-t> <Esc>cs"{A
 no <leader>o :call HandleURL()<cr>
 imap <C-t> <esc>cs"'cs'{A
+no <leader>rc :Rails console<CR>
+
+" Whats this?
 nn * *N
 
 " Aliases for commonly used commands+lazy shift finger:
