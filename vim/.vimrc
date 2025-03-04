@@ -22,6 +22,7 @@ set scrolloff=25
 set signcolumn=yes
 set tabstop=4
 set noexpandtab
+set expandtab
 set timeoutlen=400
 set undofile
 set updatetime=300
@@ -49,30 +50,41 @@ nnoremap k gk
 
 no U :redo<CR>
 no <C-e> :Explore<CR>
+" popup search stuffs
 no <C-f> :FZF!<CR>
 no <C-_> :Rg!<CR> 
 no <C-b> :Buffers!<CR>
+no <leader>psh :History/!<CR>
+no <leader>psn :Snippets!<CR>
+no <leader>pgc :Commits!<CR>
 no <C-l> :bn<CR>
 no <C-h> :bp<CR>
-no <leader>tsh :History/!<CR>
-no <leader>tsn :Snippets!<CR>
-no <leader>tgc :Commits!<CR>
+
+" fugitives
 no <leader>gc :G commit -m ''<LEFT>
 no <leader>gg :G log --all --graph --oneline<CR>
 no <leader>gp :G push<CR>
 no <leader>gs :G<CR>
 no <leader>gt :call GitQuickfixCheckout('@-->')<CR>
 no <leader>rw viw"0p
+no <leader>df va{Jdd :echo 'function or declaration deleted'<CR>
+no <leader>vf [{V]}
+no <leader>yf [{V]}y
+
+" misc quickmaps
 no <leader>so :so ~/.vimrc<CR>
+
+" terminal builds
 no <leader>te :term<CR>
 no <leader>bt :term<CR>bun test<CR>
 no <leader>bb :term<CR>bun run build<CR>
 no <leader>bl :term<CR>bun run lint<CR>
 no <leader>br :term<CR>./release.sh<CR>
 no <leader>ff :Format<CR>:w<CR>
-no <leader>df va{Jdd :echo 'function or declaration deleted'<CR>
-no <leader>vf [{V]}
-no <leader>yf [{V]}y
+
+" markdown
+no <leader>mb I**<esc>A**<esc>
+
 no <leader>' <left>yi(Pa:',<esc>%a'<esc>A
 no <leader>o :call HandleURL()<cr>
 no <leader>dp G2xV :w !xclip -selection clipboard<CR>:undo<CR><CR>
@@ -137,6 +149,7 @@ packadd comment " TODO check if still useful
 " neoclide/coc.nvim
 " tpope/vim-fugitive
 " tpope/vim-surround
+" tpope/vim-repeat
 " vimwiki/vimwiki
 
 " let g:vimwiki_list = [{'path': '~/vimwiki/',
