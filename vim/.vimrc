@@ -21,7 +21,7 @@ set re=0 "for yats
 set scrolloff=25
 set signcolumn=yes
 set tabstop=4
-set noexpandtab
+set shiftwidth=4
 set expandtab
 set timeoutlen=400
 set undofile
@@ -66,6 +66,14 @@ no <leader>gg :G log --all --graph --oneline<CR>
 no <leader>gp :G push<CR>
 no <leader>gs :G<CR>
 no <leader>gt :call GitQuickfixCheckout('@-->')<CR>
+
+" diff
+no <leader>dg V:diffget<CR>
+vno <leader>dg :diffget<CR>
+no <leader>dp :'<,'>diffput<CR>
+vno <leader>dp :diffput<CR>
+
+" misc macros
 no <leader>rw viw"0p
 no <leader>df va{Jdd :echo 'function or declaration deleted'<CR>
 no <leader>vf [{V]}
@@ -87,7 +95,6 @@ no <leader>mb I**<esc>A**<esc>
 
 no <leader>' <left>yi(Pa:',<esc>%a'<esc>A
 no <leader>o :call HandleURL()<cr>
-no <leader>dp G2xV :w !xclip -selection clipboard<CR>:undo<CR><CR>
 imap <C-t> <esc>cs"'cs'{A
 no <leader>rc :Rails console<CR>
 
