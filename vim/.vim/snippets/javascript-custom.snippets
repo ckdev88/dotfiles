@@ -1,0 +1,19 @@
+extends javascript
+
+snippet jsd1 "JSDoc comment: variable"
+/** @type {${1:Type}} - ${3:description} */
+endsnippet
+snippet jsd2 "JSDoc comment: method"
+/**
+ * ${1:Method description}
+ * @param {${2:Param type}} ${3:field} - ${4:description}
+ * @returns {${5:Return type}}
+ */
+endsnippet
+snippet co "console.log object"
+console.log('${0:Object}:',${0})
+endsnippet
+snippet clr "console.clear"
+console.clear()`!p snip.rv = semi(snip)`
+
+endsnippet
