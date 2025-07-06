@@ -87,6 +87,14 @@ no <leader>te :term<CR>
 no <leader>bt :term<CR>bun test<CR>
 no <leader>bb :term<CR>bun run build<CR>
 no <leader>bl :term<CR>bun run lint<CR>
+no <leader>bb :w<CR>:term<CR>bun run build<CR>
+
+no <leader>bl :call BunLintRunner()<CR>
+no <leader>bL :call BunTscLintRunner()<CR>
+
+no [q :cprev<CR>
+no ]q :cnext<CR>
+
 no <leader>br :term<CR>./release.sh<CR>
 no <leader>ff :Format<CR>:w<CR>
 
@@ -110,6 +118,35 @@ command! -bar                                  -bang Bd  bd<bang>
 " yank to system clipboard, although -selection clipboard is too verbose, keep it
 vn <C-y> :w !xclip -selection clipboard<CR> 
 
+function! BunLintRunner()
+	exec ":cgetexpr system('bun run lint')"
+	exec ":copen"
+endfunction
+
+function! BunTscLintRunner()
+    " Save current errorformat
+    let l:old_errorformat = &errorformat
+
+    " Set simple errorformat that matches standard tsc output
+    set errorformat=%f(%l\\,%c):\ %m
+
+    " Get output and remove || prefixes
+    let l:output = system('bunx tsc --noEmit')
+    let l:cleaned_output = substitute(l:output, '^|| ', '', 'g')
+
+    " Load into quickfix
+    cexpr l:cleaned_output
+
+    " Restore errorformat
+    let &errorformat = l:old_errorformat
+
+    " Open quickfix if there are errors
+    if !empty(getqflist())
+        copen
+    else
+        echo "No TypeScript errors found"
+    endif
+endfunction
 " when using quickfix menu with :Gclog, checkout easily to former commits,
 " called by custom hotkey calling GitQuickfixCheckout
 let g:last_prefixed_line = -1  " Initialize a variable to track the last prefixed line
