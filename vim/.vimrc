@@ -60,6 +60,10 @@ no <leader>pgc :Commits!<CR>
 no <C-l> :bn<CR>
 no <C-h> :bp<CR>
 
+" grep & navigate
+nn <leader>vg :copen<CR>:vimgrep // ./src/**/* <LEFT><LEFT><LEFT><LEFT><LEFT><LEFT><LEFT><LEFT><LEFT><LEFT><LEFT><LEFT><LEFT>
+nn <leader>n :cnext<CR>
+nn <leader>p :cprev<CR>
 " fugitives
 no <leader>gc :G commit -m ''<LEFT>
 no <leader>gg :G log --all --graph --oneline<CR>
