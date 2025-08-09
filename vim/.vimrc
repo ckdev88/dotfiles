@@ -199,6 +199,11 @@ packadd comment " TODO check if still useful
 " tpope/vim-surround
 " tpope/vim-repeat
 " vimwiki/vimwiki
+" sheerun/vim-polyglot
+" tpope/vim-dadbod
+" kristijanhusak/vim-dadbod-completion
+" kristijanhusak/vim-dadbod-ui
+" junegunn/gv.vim
 
 " let g:vimwiki_list = [{'path': '~/vimwiki/',
 " \ 'syntax': 'markdown', 'ext': 'md'}]
