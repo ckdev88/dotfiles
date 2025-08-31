@@ -12,6 +12,8 @@ set cursorline
 set encoding=utf-8
 set hlsearch
 set ignorecase
+set foldmethod=syntax
+set foldlevel=1
 set incsearch
 set laststatus=2
 set nobackup
