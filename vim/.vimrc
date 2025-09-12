@@ -243,7 +243,7 @@ function! SynGroup()
 endfunction
 nnoremap <leader>ws :call SynGroup()<CR>
 
-" COC CONFIG
+" CoC: CONFIG
 function! ShowDocumentation()
 	if CocAction('hasProvider', 'hover')
 		call CocActionAsync('doHover')
@@ -253,7 +253,6 @@ function! ShowDocumentation()
 endfunction
 nnoremap <silent> K :call ShowDocumentation()<CR>
 
-" /COC CONFIG
 
 " list of installed CoC plugins (:CocList extensions), to be installed i.e. :CocInstall coc-snippets
 " coc-tsserver 2.2.0 ~/.config/coc/extensions/node_modules/coc-tsserver
@@ -330,7 +329,7 @@ if has('nvim-0.4.0') || has('patch-8.2.0750')
    vnoremap <silent><nowait><expr> <C-u> coc#float#has_scroll() ? coc#float#scroll(0) : "\<C-b>"
  endif
 	
-" GoTo code navigation, pointing directly to deepest source
+" CoC: GoTo code navigation, pointing directly to deepest source
 nmap gD <Plug>(coc-definition)
 nmap <silent> <leader>gdv :call CocAction('jumpDefinition', 'vsplit')<CR>
 nmap <silent> <leader>gds :call CocAction('jumpDefinition', 'split')<CR>
@@ -338,7 +337,120 @@ nmap gY <Plug>(coc-type-definition)
 nmap gI <Plug>(coc-implementation)
 nmap gR <Plug>(coc-references)
 
-" /COC CONFIG
+" CoC: Jump-to-definition for gf in TypeScript/JS files
+autocmd FileType typescript,typescriptreact,javascript,javascriptreact nnoremap <buffer> <silent> gf :call CocAction('jumpDefinition')<CR>
+
+" Dumb file jumper with tsconfig alias resolution
+nnoremap <silent> gF :call DumbFileJump()<CR>
+
+function! DumbFileJump()
+    let l:import_path = matchstr(getline('.'), '[''"]\zs[^''"]*\ze[''"]')
+    if empty(l:import_path)
+        echo "No import path found"
+        return
+    endif
+    " echo "Import path: " . l:import_path
+    let l:tsconfig_file = findfile('tsconfig.json', '.;')
+    if empty(l:tsconfig_file)
+        echo "tsconfig.json not found"
+        return
+    endif
+    " echo "tsconfig: " . l:tsconfig_file
+
+    try
+        let l:config = json_decode(join(readfile(l:tsconfig_file), "\n"))
+        let l:paths = get(get(l:config, 'compilerOptions', {}), 'paths', {})
+
+        " echo "Available paths: "
+        for [l:alias, l:targets] in items(l:paths)
+            " echo "  " . l:alias . " -> " . string(l:targets)
+
+            " Check if this alias matches
+            let l:alias_base = substitute(l:alias, '\*$', '', '')
+            if l:import_path =~# '^' . l:alias_base
+                " echo "MATCH found: " . l:alias
+                let l:target = l:targets[0]
+                let l:target_base = substitute(l:target, '\*$', '', '')
+                let l:rest = substitute(l:import_path, '^' . l:alias_base, '', '')
+                let l:resolved = l:target_base . l:rest
+                " echo "Resolved to: " . l:resolved
+
+                if filereadable(l:resolved) || isdirectory(l:resolved)
+                    execute 'edit ' . l:resolved
+                else
+                    echo "File not found: " . l:resolved
+                endif
+                return
+            endif
+        endfor
+        echo "No matching alias found for: " . l:import_path
+    catch
+        echo "Error parsing tsconfig.json: " . v:exception
+    endtry
+endfunction
+
+" CoC: GoTo code navigation, pointing directly to deepest source
+nmap gD <Plug>(coc-definition)
+nmap <silent> <leader>gdv :call CocAction('jumpDefinition', 'vsplit')<CR>
+nmap <silent> <leader>gds :call CocAction('jumpDefinition', 'split')<CR>
+nmap gY <Plug>(coc-type-definition)
+nmap gI <Plug>(coc-implementation)
+nmap gR <Plug>(coc-references)
+
+" CoC: Jump-to-definition for gf in TypeScript/JS files
+autocmd FileType typescript,typescriptreact,javascript,javascriptreact nnoremap <buffer> <silent> gf :call CocAction('jumpDefinition')<CR>
+
+" Dumb file jumper with tsconfig alias resolution
+nnoremap <silent> gF :call DumbFileJump()<CR>
+
+function! DumbFileJump()
+    let l:import_path = matchstr(getline('.'), '[''"]\zs[^''"]*\ze[''"]')
+    if empty(l:import_path)
+        echo "No import path found"
+        return
+    endif
+    " echo "Import path: " . l:import_path
+    let l:tsconfig_file = findfile('tsconfig.json', '.;')
+    if empty(l:tsconfig_file)
+        echo "tsconfig.json not found"
+        return
+    endif
+    " echo "tsconfig: " . l:tsconfig_file
+
+    try
+        let l:config = json_decode(join(readfile(l:tsconfig_file), "\n"))
+        let l:paths = get(get(l:config, 'compilerOptions', {}), 'paths', {})
+
+        " echo "Available paths: "
+        for [l:alias, l:targets] in items(l:paths)
+            " echo "  " . l:alias . " -> " . string(l:targets)
+
+            " Check if this alias matches
+            let l:alias_base = substitute(l:alias, '\*$', '', '')
+            if l:import_path =~# '^' . l:alias_base
+                " echo "MATCH found: " . l:alias
+                let l:target = l:targets[0]
+                let l:target_base = substitute(l:target, '\*$', '', '')
+                let l:rest = substitute(l:import_path, '^' . l:alias_base, '', '')
+                let l:resolved = l:target_base . l:rest
+                " echo "Resolved to: " . l:resolved
+
+                if filereadable(l:resolved) || isdirectory(l:resolved)
+                    execute 'edit ' . l:resolved
+                else
+                    echo "File not found: " . l:resolved
+                endif
+                return
+            endif
+        endfor
+        echo "No matching alias found for: " . l:import_path
+    catch
+        echo "Error parsing tsconfig.json: " . v:exception
+    endtry
+endfunction
+
+" CoC: /CONFIG
+
 let g:fzf_layout = { 'window': { 'width': 1, 'height': 1 } }
 let g:coc_diagnostic_enable_float = 0
 
