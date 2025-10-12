@@ -331,7 +331,7 @@ if has('nvim-0.4.0') || has('patch-8.2.0750')
 	
 " CoC: GoTo code navigation, pointing directly to deepest source
 nmap gD <Plug>(coc-definition)
-nmap <silent> <leader>gdv :call CocAction('jumpDefinition', 'vsplit')<CR>
+nmap <silent> gs :call CocAction('jumpDefinition', 'vsplit')<CR>
 nmap <silent> <leader>gds :call CocAction('jumpDefinition', 'split')<CR>
 nmap gY <Plug>(coc-type-definition)
 nmap gI <Plug>(coc-implementation)
