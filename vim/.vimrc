@@ -242,17 +242,16 @@ enddef
 packadd! editorconfig # editorconfig working properly since Vim 9.1, see `:h editorconfig-install` and `:h editorconfig.txt` after that.
 packadd comment # https://vimhelp.org/usr_05.txt.html#comment-install
 packadd hlyank # https://vimhelp.org/usr_05.txt.html#hlyank-install
+g:hlyank_duration = 100
 
 # SirVer/ultisnips.git
 # honza/vim-snippets.git
 # junegunn/fzf.vim
-# machakann/vim-highlightedyank
 # mg979/vim-visual-multi
 # neoclide/coc.nvim
 # tpope/vim-fugitive
 # tpope/vim-surround
 # tpope/vim-repeat
-# sheerun/vim-polyglot
 # tpope/vim-dadbod
 # kristijanhusak/vim-dadbod-completion
 # kristijanhusak/vim-dadbod-ui
@@ -544,5 +543,13 @@ def ShowDocumentation()
     feedkeys('K', 'in')
   endif
 enddef
+# TROUBLESHOOTING
+# :profile start profile.log
+# :profile func *
+# :profile file *
+# NOTES: Polyglot 2025-10-24
+# vim-polyglot verwijderd op 2025-10-24, onnodig zwaar, en weet niet meer
+# waarom het nuttig is, aangezien 1) vim-basics erg goed zijn en 2)
+# vim-polyglot vrijwel nooit geupdate wordt
 
 nnoremap <silent> K <ScriptCmd>call ShowDocumentation()<CR>
