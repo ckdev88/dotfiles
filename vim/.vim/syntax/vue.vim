@@ -1,8 +1,5 @@
 vim9script
 
-echo "asdffsdafasdfasdfasdfasdfasf"
-# Ultra-fast Vue syntax with consistent structure
-
 if exists("b:current_syntax")
   finish
 endif
@@ -28,6 +25,9 @@ if !empty(globpath(&runtimepath, 'syntax/typescript.vim', 1))
         \ fold
 
   syntax match vueScriptClosingRegion "^</script>" contains=vueScriptClosingTag
+
+  # Set comment string for TypeScript regions
+  syntax cluster typescriptTop add=vueTypescriptComment
 endif
 
 # Template - use transparent to allow HTML syntax through
@@ -77,6 +77,52 @@ highlight link vueScriptClosingTag htmlTagName
 highlight link vueStyleClosingTag htmlTagName
 highlight link vueTemplateClosingTag htmlTagName
 highlight link vueInterpolation Special
+
+# Set buffer-local comment format for different regions
+def SetVueComments()
+  # Save the original comment format
+  if !exists("b:original_commentstring")
+    b:original_commentstring = &commentstring
+  endif
+
+  # Check current syntax region
+  var synstack = synstack(line("."), col("."))
+  var in_script = false
+  var in_style = false
+
+  for synid in synstack
+    var synname = synIDattr(synid, "name")
+    if synname =~? 'vueTypescript\|vueScript\|typescript\|javascript'
+      in_script = true
+      break
+    elseif synname =~? 'vueStyle\|css'
+      in_style = true
+      break
+    endif
+  endfor
+
+  if in_script
+    # Use JavaScript comments in script blocks
+    &l:commentstring = "// %s"
+  elseif in_style
+    # Use CSS comments in style blocks
+    &l:commentstring = "/* %s */"
+  else
+    # Use HTML comments elsewhere (template and outside regions)
+    &l:commentstring = "<!-- %s -->"
+  endif
+enddef
+
+# Set up autocommand to detect comment style
+augroup VueComment
+  autocmd!
+  autocmd CursorMoved *.vue SetVueComments()
+  autocmd CursorMovedI *.vue SetVueComments()
+  autocmd BufEnter *.vue SetVueComments()
+augroup END
+
+# Initialize comment format
+SetVueComments()
 
 syntax sync minlines=100
 b:current_syntax = "vue"
