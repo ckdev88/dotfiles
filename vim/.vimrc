@@ -152,10 +152,14 @@ nn * *N
 no <silent> <leader>o <ScriptCmd> HandleURL()<cr> 
 
 # Aliases for commonly used commands+lazy shift finger:
-command! -bar -nargs=* -complete=file -range=% -bang W   <line1>,<line2>write<bang> <args>
-command! -bar -nargs=* -complete=file -range=% -bang Wq  <line1>,<line2>wq<bang> <args>
-command! -bar                                  -bang Wqa wqa<bang>
-command! -bar                                  -bang Bd  bd<bang>
+command! -bar -bang W w<bang>
+command! -bar -bang WQ wq<bang>
+command! -bar -bang Wq wq<bang>
+command! -bar -bang WQA wqa<bang>
+command! -bar -bang WQa wqa<bang>
+command! -bar -bang Wqa wqa<bang>
+command! -bar -bang Bd bd<bang>
+command! -bar -bang Q q<bang>
 
 # yank to system clipboard, although -selection clipboard is too verbose, keep it
 vn <C-y> :w !xclip -selection clipboard<CR> 
