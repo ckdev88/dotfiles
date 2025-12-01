@@ -7,10 +7,7 @@ g:netrw_liststyle = 1
 g:netrw_sort_sequence = '[\/]\s'
 
 set nocompatible
-
-set autoindent
 set completeopt=menuone,preview
-set cursorline
 set encoding=utf-8
 set hlsearch
 set ignorecase
@@ -21,18 +18,32 @@ set laststatus=2
 set nobackup
 set nowritebackup
 set number
+set relativenumber
 set re=0 # for yats
 set scrolloff=25
 set signcolumn=yes
+# onderstaande 4 in comment, experiment met biome
+# set autoindent off
+# set tabstop=4
+# set shiftwidth=4
+# set expandtab
+
+set expandtab
 set tabstop=4
 set shiftwidth=4
-set expandtab
-set timeoutlen=400
+set softtabstop=4
+set autoindent
+set smartindent
+
+set timeoutlen=800
 set undofile
-set updatetime=300
+set updatetime=10000
 set wildmenu
 set wildoptions=pum
 set termguicolors
+set cursorline
+
+set splitright
 
 filetype plugin indent on
 syntax on
@@ -81,7 +92,8 @@ no <leader>gb :G branch<CR>
 no <leader>gc :G commit -m ''<LEFT>
 no <leader>gg :G log --all --graph --oneline<CR>
 no <leader>gp :G push<CR>
-no <leader>gs :w<CR>:!bun run format<CR>:G<CR>
+# no <leader>gs :w<CR>:!bun run format<CR>:G<CR>
+no <leader>gs :w<CR>:G<CR>
 no <leader>gt <ScriptCmd> GitQuickfixCheckout('@-->')<CR>
 no <leader>gv <ScriptCmd> GV!<CR> # requires vim-gv
 
@@ -90,6 +102,11 @@ no <leader>dg V:diffget<CR>
 vno <leader>dg :diffget<CR>
 no <leader>dp :'<,'>diffput<CR>
 vno <leader>dp :diffput<CR>
+nnoremap <leader>lipsum :Lipsum<CR>
+
+# Vue: style or related
+# jump to referenced sfc
+no <leader>vd gdngf
 
 # MISC MACROS
 # replace current word with latest from register
@@ -114,14 +131,11 @@ vno <leader>strike :s/\%V\(.\)/\=submatch(1) . "\u0336"/g<CR>
 no <leader>so :so ~/.vimrc<CR>
 
 # terminal builds
-no <leader>te :term<CR>
+no <leader>` :term<CR>
 no <leader>bt :term<CR>bun test<CR>
 no <leader>bb :term<CR>bun run build<CR>
-no <leader>bl :term<CR>bun run lint<CR>
+# no <leader>bl :term<CR>bun run lint<CR>
 no <leader>bb :w<CR>:term<CR>bun run build<CR>
-
-no <leader>bl :call BunLintRunner()<CR>
-no <leader>bL :call BunTscLintRunner()<CR>
 
 no [q :cprev<CR>
 no ]q :cnext<CR>
@@ -130,14 +144,27 @@ no ]q :cnext<CR>
 no <leader>brb :term<CR>./release_beta.sh<CR>
 no <leader>brp :term<CR>./release.sh<CR>
 no <leader>ff :Format<CR>
-# no <leader>ff :Format<CR>:w<CR>
-# no <leader>fm :w<CR><ScriptCmd> FormatBiome()<CR>:e<CR><CR>jk
-no <leader>fm :w<CR>:!biome format % --write<CR>:e<CR><CR>jk
+vmap <leader>fa <Plug>(coc-format-selected)
 
-# Markdown
+no <silent> <leader>fm :w<CR>:!biome format % --write<CR>:e<CR><CR>ggG<c-o><c-o>
+
+# command! -nargs=0 Format call s:DebugFormat()
+# 
+# function! s:DebugFormat()
+#   echo "Starting format request..."
+#   echo "Filetype: " . &filetype
+#   echo "Coc formatters: " . string(coc#list#formatters())
+# 
+#   " Call the original format
+#   call coc#rpc#request('format', [])
+# endfunction
+
+# Markdown: shortcuts
+# Make Bold
 no <leader>mb I**<esc>A**<esc>
-# Markdown: Highlight strike-through text in markdown (vim-polyglot/syntax/markdown.vim)
-g:vim_markdown_strikethrough = 1
+
+# Macro: macro's
+
 
 # misc
 no <leader>' <left>yi(Pa:',<esc>%a'<esc>A
@@ -146,10 +173,6 @@ no <leader>rc :Rails console<CR>
 
 # Whats this?
 nn * *N
-
-# Nog nodig na gx?
-# zie bug in polyglot: ./ftplugin/markdown.vim : 729
-no <silent> <leader>o <ScriptCmd> HandleURL()<cr> 
 
 # Aliases for commonly used commands+lazy shift finger:
 command! -bar -bang W w<bang>
@@ -181,25 +204,55 @@ def NpmTest()
 enddef
 
 def BunLintRunner()
-	exec ':cgetexpr system("bun run lint")'
-	exec ':copen'
+  cgetexpr system('bun run lint')
+  copen
 enddef
+nnoremap <leader>bl <ScriptCmd> BunLintRunner()<CR>
+
+def BunCheckRunner()
+  cgetexpr system('bun run check')
+  copen
+enddef
+nnoremap <leader>bc <ScriptCmd> BunCheckRunner()<CR>
+nnoremap <leader>bC :silent !bun run check-write<CR>
 
 def BunTscLintRunner()
-  var old_errorformat = &errorformat # Save current errorformat
-  set errorformat=%f(%l\\,%c):\ %m # Set simple errorformat that matches standard tsc output
-  var output = system('bunx tsc --noEmit') # Get output ... 
-  var cleaned_output = substitute(output, '^|| ', '', 'g') # ... and remove || prefixes
-  cexpr cleaned_output # Load into quickfix
-  &errorformat = old_errorformat # Restore errorformat
-  if !empty(getqflist()) # Open quickfix if there are errors
-    copen
-  else
-    echo 'No TypeScript errors found'
-  endif
+    var old_errorformat = &errorformat 
+    set errorformat=%f(%l\\,%c):\ %m    
+    var output = system('bunx tsc --noEmit')  
+    var cleaned_output = substitute(output, '^|| ', '', 'g')
+    cexpr cleaned_output  
+    &errorformat = old_errorformat 
+    if !empty(getqflist()) 
+        copen
+    else
+        echo 'No TypeScript errors found'
+    endif
 enddef
+nnoremap <leader>bL <ScriptCmd> BunTscLintRunner()<CR>
 
+## TROUBLESHOOTING: vue setup
+# def CheckVueSetup()
+#   echo 'Filetype: ' . &filetype
+#   echo 'Syntax: ' . &syntax
+#   echo 'coc.volar active: ' . (get(g:, 'coc_service_initialized', 0) ? 'Yes' : 'No')
+#   # Check if we have Vue syntax plugin
+#   if !empty(findfile('syntax/vue.vim', &rtp))
+#     echo 'Vue syntax plugin: Found'
+#   else
+#     echo 'Vue syntax plugin: NOT found - install vim-vue'
+#   endif
+# enddef
 
+# Copies only the text that matches search hits
+# see https://vim.fandom.com/wiki/Copy_search_matches
+def CopyMatches(reg: string)
+  var hits: list<string> = []
+  %s//\=len(add(hits, submatch(0))) ? submatch(0) : ''/gne
+  var target_reg = empty(reg) ? '+' : reg
+  execute 'let @' .. target_reg .. ' = join(hits, "\n") . "\n"'
+enddef
+command! -register CopyMatches Call CopyMatches(<q-reg>)
 
 # when using quickfix menu with :Gclog, checkout easily to former commits,
 # called by custom hotkey calling GitQuickfixCheckout
@@ -238,9 +291,33 @@ def HandleURL()
   endif
 enddef
 
-def FormatBiome()
-	exec "silent! !biome format % --write"
+# COC: open mdn link in popup window van :doHover FIXME werkt niet met
+# vim9script man, CocAction not available...
+def OpenMDNReference()
+    # Use CocAction to get hover and try to extract URL
+    try
+        var hover = CocAction('getHover')
+        var content = string(hover)
+        var urls = matchlist(content, 'MDN Reference: \(\https://[^''"]*\)')
+        if !empty(urls) && len(urls) > 1
+            var url = urls[1]
+            if has('mac')
+                silent! call job_start(['open', url])
+            elseif has('unix')
+                silent! call job_start(['xdg-open', url])
+            elseif has('win32')
+                silent! call job_start(['cmd', '/c', 'start', '', url])
+            endif
+            echom "Opening: " .. url
+        else
+            echom "No MDN URL found in hover"
+        endif
+    catch
+        echom "Error getting hover information"
+    endtry
 enddef
+nnoremap <silent> <leader>mdn <ScriptCmd> OpenMDNReference()<CR>
+# /COC: open mdn link in popup window van :doHover
 
 # PACKADD NATIVE FUNCTIONS: replacing plugins
 packadd! editorconfig # editorconfig working properly since Vim 9.1, see `:h editorconfig-install` and `:h editorconfig.txt` after that.
@@ -290,15 +367,17 @@ nnoremap <silent> K <ScriptCmd>call ShowDocumentation()<CR>
 
 # list of installed CoC plugins (:CocList extensions), to be installed i.e. :CocInstall coc-snippets
 # coc-snippets 3.4.7 ~/.config/coc/extensions/node_modules/coc-snippets
-# coc-pyright 1.1.400 ~/.config/coc/extensions/node_modules/coc-pyright
+# coc-prettier 11.0.1 ~/.config/coc/extensions/node_modules/coc-prettier
 # coc-html 1.8.0 ~/.config/coc/extensions/node_modules/coc-html
+# coc-eslint 3.0.15 ~/.config/coc/extensions/node_modules/coc-eslint
 # coc-db 0.0.44 ~/.config/coc/extensions/node_modules/coc-db
-# @yaegassy/coc-tailwindcss3 0.6.6 ~/.config/coc/extensions/node_modules/@yaegassy/coc-tailwindcss3
+# @yaegassy/coc-tailwindcss3 0.6.14 ~/.config/coc/extensions/node_modules/@yaegassy/coc-tailwindcss3
 # coc-tsserver 2.3.1 ~/.config/coc/extensions/node_modules/coc-tsserver
-# coc-omnisharp 0.0.28 ~/.config/coc/extensions/node_modules/coc-omnisharp
+# coc-sql 0.14.0 ~/.config/coc/extensions/node_modules/coc-sql
+# coc-pyright 1.1.405 ~/.config/coc/extensions/node_modules/coc-pyright
 # coc-json 1.9.3 ~/.config/coc/extensions/node_modules/coc-json
 # coc-java 1.26.1 ~/.config/coc/extensions/node_modules/coc-java
-# coc-htmldjango 0.14.22 ~/.config/coc/extensions/node_modules/coc-htmldjango
+# coc-htmldjango 0.14.23 ~/.config/coc/extensions/node_modules/coc-htmldjango
 # coc-css 2.1.0 ~/.config/coc/extensions/node_modules/coc-css
 # coc-blade 0.18.11 ~/.config/coc/extensions/node_modules/coc-blade
 # coc-biome 1.8.0 ~/.config/coc/extensions/node_modules/coc-biome
@@ -306,7 +385,6 @@ nnoremap <silent> K <ScriptCmd>call ShowDocumentation()<CR>
 # @yaegassy/coc-laravel 0.7.18 ~/.config/coc/extensions/node_modules/@yaegassy/coc-laravel
 # @yaegassy/coc-intelephense 0.31.3 ~/.config/coc/extensions/node_modules/@yaegassy/coc-intelephense
 # @yaegassy/coc-astro 0.9.2 ~/.config/coc/extensions/node_modules/@yaegassy/coc-astro
-
 
 # au FileType python setlocal formatprg=autopep8\ -
 # `pipx install autopep8` will install autopep8 into ~/.local/bin which is
@@ -336,7 +414,7 @@ enddef
 nmap <leader>rn <Plug>(coc-rename)
 
 # Add `:Format` command to format current buffer
-command! -nargs=0 Format <ScriptCmd> CocActionAsync('format')
+command! -nargs=0 Format call coc#rpc#request('format', [])
 
 nmap <silent> [g <Plug>(coc-diagnostic-prev)
 nmap <silent> ]g <Plug>(coc-diagnostic-next)
@@ -375,14 +453,17 @@ vnoremap <silent><nowait><expr> <C-u> coc#float#has_scroll() ? coc#float#scroll(
 	
 # CoC: GoTo code navigation, pointing directly to deepest source
 nmap gD <Plug>(coc-definition)
-nmap <silent> gs <ScriptCmd> CocAction('jumpDefinition', 'vsplit')<CR>
-nmap <silent> <leader>gds <ScriptCmd> CocAction('jumpDefinition', 'split')<CR>
+nmap <silent> gs <Cmd>call coc#rpc#request('jumpDefinition', ['vsplit'])<CR>
+# nmap <silent> gs <ScriptCmd> CocAction('jumpDefinition', 'vsplit')<CR>
+# nmap <silent> <leader>gds <ScriptCmd> CocAction('jumpDefinition', 'split')<CR>
 nmap gY <Plug>(coc-type-definition)
 nmap gI <Plug>(coc-implementation)
 nmap gR <Plug>(coc-references)
 
 # CoC: Jump-to-definition for gf in TypeScript/JS files
-autocmd FileType typescript,typescriptreact,javascript,javascriptreact nnoremap <buffer> <silent> gf <ScriptCmd> CocAction('jumpDefinition')<CR>
+
+# Commented 2025-11-04 - Vue works better this way, dno about React yet
+#autocmd FileType typescript,typescriptreact,javascript,javascriptreact,vue nnoremap <buffer> <silent> gf <ScriptCmd> CocAction('jumpDefinition')<CR>
 
 # Dumb file jumper with tsconfig alias resolution
 nnoremap <silent> gF <ScriptCmd> DumbFileJump()<CR>
@@ -464,17 +545,27 @@ g:db_ui_auto_execute_table_helpers = 1
 # nnoremap <leader>Rg :Rg! --hidden<Space>
 nnoremap <leader>Rg :Rg --no-filename<CR>
 
-nnoremap <leader>rg <ScriptCmd> fzf#vim#grep(
-  \ 'rg --column --line-number --no-heading --color=always --smart-case '.fzf#shellescape(expand('<cword>')),
-  \ 1,
-  \ fzf#vim#with_preview({'options': '--delimiter : --with-nth 3..'}),
-  \ 0
-\)<CR>
+# RipGrep: search current word in files
+nnoremap <leader>rg <ScriptCmd>
+  \ fzf#vim#grep('rg --column --line-number --no-heading --color=always --smart-case '
+  \ .. fzf#shellescape(expand('<cword>')), 1,
+  \ fzf#vim#with_preview({'options': '--delimiter : --with-nth 3..'}), 0)<CR>
+
+inoremap <expr> <c-x><c-l> fzf#vim#complete(fzf#wrap({
+  \ 'prefix': '^.*$',
+  \ 'source': 'rg -n ^ --color always',
+  \ 'options': '--ansi --delimiter : --nth 3..',
+  \ 'reducer': { lines -> join(split(lines[0], ':\zs')[2:], '') }}))
 
 set statusline=%<%f\ %h%m%r%{FugitiveStatusline()}%=%-1.\(%)\ %Y\ -\ %(%l,%v[%p%%]\ %)
 
+ # Abbreviations: General -- see :digraphs / :dig!
+iabbrev digstar1 ☆
+iabbrev digstar2 ★
+iabbrev digok ✓
+iabbrev digx ✗
 
-# Abbreviations
+# Abbreviations: Português
 g:Port = 0
 def TogglingPort()
     if g:Port == 1
@@ -483,77 +574,344 @@ def TogglingPort()
     else
         g:Port = 1
         echo "Portuguese abbreviations are active."
-        :iabbrev Comunicacao Comunicação
-        :iabbrev Nao Não
-        :iabbrev Portugues Português
-        :iabbrev Situacao Situação
-        :iabbrev acoes ações
-        :iabbrev analise análise
-        :iabbrev botao botão
-        :iabbrev botoes botões
-        :iabbrev comencou començou
-        :iabbrev compativel compatível
-        :iabbrev comunicacao comunicação
-        :iabbrev comunicacoes comunicações
-        :iabbrev conexao conexão
-        :iabbrev confusao confusão
-        :iabbrev estatisticas estatísticas
-        :iabbrev experiencia experiência
-        :iabbrev experiencia experiência
-        :iabbrev codigo código
-        :iabbrev inorganico inorgânico
-        :iabbrev integracao integração
-        :iabbrev manutencao manutenção
-        :iabbrev modificacao modificação
-        :iabbrev nao não
-        :iabbrev navegacao navegação
-        :iabbrev orcamento orçamento
-        :iabbrev organico orgânico
-        :iabbrev otimizacao otimização 
-        :iabbrev portugues português
-        :iabbrev promocoes promoções
-        :iabbrev proxima próxima
-        :iabbrev saida saída
-        :iabbrev sao são
-        :iabbrev servicos serviços
-        :iabbrev situacao situação
-        :iabbrev subsidiarios subsidiários
-        :iabbrev tambem também
-        :iabbrev teh the
-        :iabbrev usuario usuário
-        :iabbrev voce você
-        :iabbrev waht what
-        :iabbrev sequencia sequência
-        :iabbrev acessivel acessível
-        :iabbrev reference referência
-        :iabbrev crianca criança
-        :iabbrev criancas crianças
-        :iabbrev variavel variável
-        :iabbrev memoria memória
-        :iabbrev definicao definição
-        :iabbrev aplicacoes aplicações
-        :iabbrev computacao computaçao
-        :iabbrev padrao padrão
+        iabbrev Comunicacao Comunicação
+        iabbrev Nao Não
+        iabbrev Portugues Português
+        iabbrev Situacao Situação
+        iabbrev acoes ações
+        iabbrev analise análise
+        iabbrev botao botão
+        iabbrev botoes botões
+        iabbrev comencou començou
+        iabbrev compativel compatível
+        iabbrev comunicacao comunicação
+        iabbrev comunicacoes comunicações
+        iabbrev conexao conexão
+        iabbrev confusao confusão
+        iabbrev estatisticas estatísticas
+        iabbrev experiencia experiência
+        iabbrev experiencia experiência
+        iabbrev codigo código
+        iabbrev inorganico inorgânico
+        iabbrev integracao integração
+        iabbrev manutencao manutenção
+        iabbrev modificacao modificação
+        iabbrev nao não
+        iabbrev navegacao navegação
+        iabbrev orcamento orçamento
+        iabbrev organico orgânico
+        iabbrev otimizacao otimização 
+        iabbrev portugues português
+        iabbrev promocoes promoções
+        iabbrev proxima próxima
+        iabbrev saida saída
+        iabbrev sao são
+        iabbrev servicos serviços
+        iabbrev situacao situação
+        iabbrev subsidiarios subsidiários
+        iabbrev tambem também
+        iabbrev teh the
+        iabbrev usuario usuário
+        iabbrev voce você
+        iabbrev waht what
+        iabbrev sequencia sequência
+        iabbrev acessivel acessível
+        iabbrev reference referência
+        iabbrev crianca criança
+        iabbrev criancas crianças
+        iabbrev variavel variável
+        iabbrev memoria memória
+        iabbrev definicao definição
+        iabbrev aplicacoes aplicações
+        iabbrev computacao computaçao
+        iabbrev padrao padrão
     endif
 enddef
 nnoremap <leader>tp <ScriptCmd> TogglingPort()<CR>
 
 colorscheme bonbasi
 
-def ShowDocumentation()
-  if coc#rpc#request('hasProvider', ['hover'])
-    coc#rpc#request('doHover', [])
-  else
-    feedkeys('K', 'in')
-  endif
-enddef
+# Syntax optimization settings
+# set synmaxcol=300           # Only highlight first 300 columns
+# set lazyredraw              # Don't redraw during macros
+# set ttyfast                 # Faster terminal connection
+
+# Filetype-specific optimizations
+augroup VuePerformance
+  autocmd!
+  autocmd FileType vue set synmaxcol=500
+  autocmd FileType vue syntax sync minlines=100 maxlines=250
+augroup END
+
+# g:vim_markdown_conceal = 1
+# g:vim_markdown_conceal_code_blocks = 1
+
+
 # TROUBLESHOOTING
 # :profile start profile.log
 # :profile func *
 # :profile file *
+
 # NOTES: Polyglot 2025-10-24
 # vim-polyglot verwijderd op 2025-10-24, onnodig zwaar, en weet niet meer
 # waarom het nuttig is, aangezien 1) vim-basics erg goed zijn en 2)
 # vim-polyglot vrijwel nooit geupdate wordt
 
-nnoremap <silent> K <ScriptCmd>call ShowDocumentation()<CR>
+
+# DOTNET: 
+# geen omnisharp-vim gebruiken
+# wel csharp-ls gebruiken
+# coc-settings bevat lsp info:
+#     "languageserver": {
+#         "csharp-ls": {
+#             "command": "csharp-ls",
+#             "filetypes": [
+#                 "cs"
+#             ],
+#             "rootPatterns": [
+#                 "*.csproj",
+#                 ".vim/",
+#                 ".git/",
+#                 ".hg/"
+#             ]
+#         }
+#     }
+
+
+# command! -nargs=0 FormatDebug call FormatDebug()
+# command! -nargs=0 CheckFormatters call CheckFormatters()
+# 
+# def FormatDebug()
+#     echo "=== Coc Formatting Debug Information ==="
+#     echo ""
+# 
+#     # Basic buffer information
+#     echo "Buffer Information:"
+#     echo "  Filetype: " .. &filetype
+#     echo "  Buffer: " .. bufname()
+#     echo "  File: " .. expand('%:p')
+#     echo ""
+# 
+#     # Check Coc status
+#     echo "Coc Status:"
+#     try
+#         var info = coc#rpc#request('getState', [])
+#         echo "  Coc State: " .. string(info)
+#     catch
+#         echo "  Coc State: Unable to retrieve"
+#     endtry
+#     echo ""
+# 
+#     # Check extensions
+#     echo "Coc Extensions:"
+#     try
+#         var extensions = coc#rpc#request('listExtensions', [])
+#         if !empty(extensions)
+#             for ext in extensions
+#                 if ext.id =~? 'biome\|prettier\|formatter'
+#                     echo "  " .. ext.id .. " (active: " .. ext.state .. ")"
+#                 endif
+#             endfor
+#         else
+#             echo "  No extensions found"
+#         endif
+#     catch
+#         echo "  Unable to retrieve extensions"
+#     endtry
+#     echo ""
+# 
+#     # Check LSP clients
+#     echo "LSP Clients:"
+#     try
+#         var clients = coc#client#getClients()
+#         if !empty(clients)
+#             for client in clients
+#                 echo "  " .. client.id .. " - " .. client.name
+#                 if has_key(client, 'config')
+#                     var config = client.config
+#                     if has_key(config, 'filetypes')
+#                         echo "    Filetypes: " .. string(config.filetypes)
+#                     endif
+#                     if has_key(config, 'capabilities')
+#                         var caps = config.capabilities
+#                         if has_key(caps, 'documentFormattingProvider')
+#                             echo "    Formatting: " .. string(caps.documentFormattingProvider)
+#                         endif
+#                     endif
+#                 endif
+#             endfor
+#         else
+#             echo "  No LSP clients found"
+#         endif
+#     catch
+#         echo "  Unable to retrieve LSP clients"
+#     endtry
+#     echo ""
+# 
+#     # Check document capabilities
+#     echo "Document Capabilities:"
+#     try
+#         var docCaps = coc#rpc#request('documentCapabilities', [])
+#         if !empty(docCaps)
+#             echo "  Formatting: " .. string(get(docCaps, 'formatting', 'Not available'))
+#             echo "  Range Formatting: " .. string(get(docCaps, 'rangeFormatting', 'Not available'))
+#         else
+#             echo "  No document capabilities"
+#         endif
+#     catch
+#         echo "  Unable to retrieve document capabilities"
+#     endtry
+#     echo ""
+# 
+#     # Check available actions
+#     echo "Available Actions:"
+#     try
+#         var actions = coc#rpc#request('availableActions', [])
+#         if !empty(actions)
+#             for action in actions
+#                 if action =~? 'format'
+#                     echo "  " .. action
+#                 endif
+#             endfor
+#         else
+#             echo "  No format actions found"
+#         endif
+#     catch
+#         echo "  Unable to retrieve actions"
+#     endtry
+#     echo ""
+# 
+#     # Test format command
+#     echo "Testing Format Command:"
+#     try
+#         var result = coc#rpc#request('format', [])
+#         echo "  Format request result: " .. string(result)
+#     catch /E605/
+#         echo "  Format action not available"
+#     catch
+#         echo "  Error testing format: " .. v:exception
+#     endtry
+# enddef
+# 
+# def CheckFormatters()
+#     echo "=== Available Formatters ==="
+#     echo ""
+# 
+#     # Check CocAction format
+#     echo "CocAction Format:"
+#     try
+#         var result = CocAction('format')
+#         echo "  Result: " .. string(result)
+#     catch
+#         echo "  Error: " .. v:exception
+#     endtry
+#     echo ""
+# 
+#     # Check specific formatter commands
+#     echo "Formatter Commands:"
+#     var formatters = ['biome', 'prettier', 'eslint', 'tsserver', 'lua', 'python']
+#     for formatter in formatters
+#         try
+#             var output = coc#rpc#request('runCommand', [formatter .. '.version'])
+#             echo "  " .. formatter .. ": " .. string(output)
+#         catch
+#             # Silent catch - formatter probably not available
+#         endtry
+#     endfor
+#     echo ""
+# 
+#     # Check buffer-specific formatters
+#     echo "Buffer Formatters:"
+#     try
+#         var bufFormatters = coc#rpc#request('formatters', [])
+#         if !empty(bufFormatters)
+#             for fmt in bufFormatters
+#                 echo "  " .. fmt
+#             endfor
+#         else
+#             echo "  No buffer-specific formatters"
+#         endif
+#     catch
+#         echo "  Unable to retrieve buffer formatters"
+#     endtry
+# enddef
+# 
+# # Helper function to check if Biome is active
+# def BiomeStatus(): string
+#     try
+#         var clients = coc#client#getClients()
+#         for client in clients
+#             if client.name =~? 'biome'
+#                 return "Biome LSP: Active (PID: " .. get(client, 'pid', 'unknown') .. ")"
+#             endif
+#         endfor
+#         return "Biome LSP: Not found"
+#     catch
+#         return "Biome LSP: Error checking"
+#     endtry
+# enddef
+# 
+# command! -nargs=0 BiomeCheck echo BiomeStatus()
+# 
+# # Simple one-line formatter check
+# def QuickFormatCheck()
+#     echo "Quick Format Check:"
+#     echo "  Filetype: " .. &filetype
+#     echo "  " .. BiomeStatus()
+# 
+#     try
+#         var clients = coc#client#getClients()
+#         echo "  Active LSP clients: " .. len(clients)
+#         for client in clients
+#             if has_key(client, 'config') && has_key(client.config, 'capabilities')
+#                 var caps = client.config.capabilities
+#                 if has_key(caps, 'documentFormattingProvider') && caps.documentFormattingProvider
+#                     echo "  → " .. client.name .. " provides formatting"
+#                 endif
+#             endif
+#         endfor
+#     catch
+#         echo "  Error checking LSP clients"
+#     endtry
+# enddef
+# 
+# command! -nargs=0 QuickFormatCheck call QuickFormatCheck()
+# 
+# echo "Format debugging commands loaded:"
+# echo "  :FormatDebug    - Comprehensive formatting information"
+# echo "  :CheckFormatters - List available formatters"
+# echo "  :BiomeCheck     - Check Biome LSP status"
+# echo "  :QuickFormatCheck - Quick format capability check"
+
+# Macro: Enhanced macro playback that expands snippets
+def PlaySnippetAwareMacro()
+    var register = v:register == '"' ? 'a' : v:register
+    var macro_content = getreg(register)
+
+    if macro_content == ""
+        echohl ErrorMst 
+
+        echo "Macro register '" .. register .. "' is empty"
+        echohl None
+        return
+    endif
+
+    # Use feedkeys with 'x' mode to allow mapping and snippet expansion
+    feedkeys("@" .. register, 'x')
+
+    # If the macro contains snippet triggers, give them time to expand
+    if macro_content =~ '\<Tab>\|\<C-y>\|\<C-r>='
+        # Small delay to allow snippet processing
+        timer_start(950, (t) => { 
+            echo 'doen we wat?'
+
+            # do nothing, just delay
+        })
+    endif
+enddef
+
+# Map <leader>q to snippet-aware macro playback
+nnoremap <leader>Q <ScriptCmd>PlaySnippetAwareMacro()<CR>
+
+# Optional: Also make the repeat command (@@) snippet-aware
+nnoremap @@ <ScriptCmd>PlaySnippetAwareMacro()<CR>
