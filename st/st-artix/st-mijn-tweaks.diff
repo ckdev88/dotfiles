@@ -1,0 +1,54 @@
+--- config.h	2024-02-05 16:07:02.786674569 -0300
++++ config.def.h	2024-02-05 16:20:33.130007779 -0300
+@@ -5,7 +5,7 @@
+  *
+  * font: see http://freedesktop.org/software/fontconfig/fontconfig-user.html
+  */
+-static char *font = "Liberation Mono:pixelsize=12:antialias=true:autohint=true";
++static char *font = "Iosevka:style=Medium:pixelsize=16:antialias=true:autohint=true";
+ static int borderpx = 5;
+ 
+ /*
+@@ -60,7 +60,7 @@
+  * blinking timeout (set to 0 to disable blinking) for the terminal blinking
+  * attribute.
+  */
+-static unsigned int blinktimeout = 800;
++static unsigned int blinktimeout = 400;
+ 
+ /*
+  * thickness of underline and bar cursors
+@@ -103,10 +103,10 @@
+ 	"blue2",
+ 	"magenta3",
+ 	"cyan3",
+-	"gray90",
++	"white",
+ 
+ 	/* 8 bright colors */
+-	"gray50",
++	"yellow",
+ 	"red",
+ 	"green",
+ 	"yellow",
+@@ -118,9 +118,9 @@
+ 	[255] = 0,
+ 
+ 	/* more colors can be added after 255 to use with DefaultXX */
+-	"#cccccc",
++	"yellow3",
+ 	"#555555",
+-	"gray90", /* default foreground colour */
++	"white", /* default foreground colour */
+ 	"black", /* default background colour */
+ };
+ 
+@@ -208,6 +208,8 @@
+ 	{ TERMMOD,              XK_Y,           selpaste,       {.i =  0} },
+ 	{ ShiftMask,            XK_Insert,      selpaste,       {.i =  0} },
+ 	{ TERMMOD,              XK_Num_Lock,    numlock,        {.i =  0} },
++	{ TERMMOD,            	XK_K,     	kscrollup,      {.i = -1} },
++	{ TERMMOD,            	XK_J,   	kscrolldown,    {.i = -1} },
+ };
+ 
+ /*
