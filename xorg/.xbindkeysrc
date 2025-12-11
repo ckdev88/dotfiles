@@ -1,0 +1,29 @@
+"pactl set-sink-volume @DEFAULT_SINK@ +3%"
+XF86AudioRaiseVolume
+
+"pactl set-sink-volume @DEFAULT_SINK@ -3%"
+XF86AudioLowerVolume
+
+"pactl set-sink-mute @DEFAULT_SINK@ toggle"
+XF86AudioMute
+
+"cmus-remote --pause"
+Mod4 + 6
+
+"cmus-remote --prev"
+Mod4 + 7
+
+"cmus-remote --next"
+Mod4 + 8
+
+"pactl set-sink-volume @DEFAULT_SINK@ -3%"
+Mod4 + 9
+
+"pactl set-sink-volume @DEFAULT_SINK@ +3%"
+Mod4 + 0
+
+"cat /sys/class/backlight/intel_backlight/max_brightness > /sys/class/backlight/intel_backlight/brightness"
+XF86MonBrightnessUp
+
+"echo  $(($(awk '{print $1-200}' <<< cat /sys/class/backlight/intel_backlight/brightness))) > /sys/class/backlight/intel_backlight/brightness"
+XF86MonBrightnessDown
