@@ -1,4 +1,5 @@
 vim9script
+#
 
 nnoremap <SPACE> <Nop>
 g:mapleader = " "
@@ -6,44 +7,40 @@ g:netrw_altfile = 1
 g:netrw_liststyle = 1
 g:netrw_sort_sequence = '[\/]\s'
 
-set nocompatible
+set autoindent
 set completeopt=menuone,preview
+set cursorline
+set cursorlineopt=number
 set encoding=utf-8
+set expandtab
+set foldlevel=0
+set foldmethod=manual
 set hlsearch
 set ignorecase
-set foldmethod=manual
-set foldlevel=0
 set incsearch
 set laststatus=2
 set nobackup
+set nocompatible
+set norelativenumber
 set nowritebackup
 set number
-set relativenumber
 set re=0 # for yats
 set scrolloff=25
-set signcolumn=yes
-# onderstaande 4 in comment, experiment met biome
-# set autoindent off
-# set tabstop=4
-# set shiftwidth=4
-# set expandtab
-
-set expandtab
-set tabstop=4
 set shiftwidth=4
-set softtabstop=4
-set autoindent
+set signcolumn=yes
 set smartindent
-
+set softtabstop=4
+set splitright
+set tabstop=4
+set termguicolors
 set timeoutlen=800
+set undodir=~/.vim/undo
 set undofile
+set undolevels=1000
+set undoreload=10000
 set updatetime=10000
 set wildmenu
 set wildoptions=pum
-set termguicolors
-set cursorline
-
-set splitright
 
 filetype plugin indent on
 syntax on
@@ -51,7 +48,6 @@ syntax on
 no <C-z> <nop>
 no <SPACE> <nop>
 no <ESC> :noh<CR>
-
 nn <C-c> mcVyp`cj
 # mc = mark c, `c = jump to mark c
 vn <C-c> :copy'><CR>gv=gv
@@ -59,34 +55,24 @@ no <C-j> :move+<CR>
 vn <C-j> :move'>+<CR>gv=gv
 no <C-k> :move-2<CR>
 vn <C-k> :move-2<CR>gv=gv 
-
-# nno j gj
-# nno k gk
-
 no U :redo<CR>
 no <C-e> :Explore<CR>
-no <C-l> :bn<CR>
-no <C-h> :bp<CR>
+no <C-L> :bn<CR>
+no <C-H> :bp<CR>
 
-# Popup: search stuffs
-# no <C-_> :Rg!<CR> 
-# no <C-b> :Buffers!<CR>
-# no <leader>psh :History/!<CR>
-# no <leader>psn :Snippets!<CR>
-# no <leader>pgc :Commits!<CR>
-no <C-f> :FZF!<CR>
-no <C-_> :Rg<CR>
-
-# vim shortcuts
+# Shortcuts:
 nn <leader>vg :copen<CR>:vimgrep // ./src/**/* <LEFT><LEFT><LEFT><LEFT><LEFT><LEFT><LEFT><LEFT><LEFT><LEFT><LEFT><LEFT><LEFT>
 nn <leader>n :cnext<CR>
 nn <leader>p :cprev<CR>
 
+# Popup: search stuffs
 nn <C-b> :Buffers!<CR>
 nn <leader>sh :History/!<CR>
 nn <leader>ss :Snippets!<CR>
 
-# FUGITIVES
+# Panels: <C-w>=
+
+# FuGITives:
 nn <leader>sc :Commits!<CR>
 no <leader>gb :G branch<CR>
 no <leader>gc :G commit -m ''<LEFT>
@@ -96,27 +82,136 @@ no <leader>gp :G push<CR>
 no <leader>gs :w<CR>:G<CR>
 no <leader>gt <ScriptCmd> GitQuickfixCheckout('@-->')<CR>
 no <leader>gv <ScriptCmd> GV!<CR> # requires vim-gv
+no <leader>grc :G rebase --continue<CR>
 
-# diff
+# diff otherBranch with current file
+no <leader>gd :Gvdiffsplit main:%<CR>
+
+# Store the branch name in window-local variable when diff is opened
+command! -nargs=1 GDiffBranch {
+  set winvar(0, 'diff_branch', <q-args>)
+  execute 'Gvdiffsplit ' .. <q-args> .. ':%'
+}
+
+# Function to refresh diff with better error handling
+def RefreshDiff()
+  # Check if we're in a diff window already
+  if &diff
+    return
+  endif
+
+  var branch = getbufvar(winnr('#'), 'diff_branch')
+  if !empty(branch)
+    # Save current position and window layout
+    var curwin = winnr()
+    var curbuf = bufnr()
+
+    try
+      execute 'Gvdiffsplit ' .. branch .. ':%'
+      # Store the branch name on the new window too
+      set winvar(winnr('#'), 'diff_branch', branch)
+    catch
+      echohl ErrorMsg
+      echo 'Failed to diff against branch: ' .. branch
+      echohl None
+    endtry
+  endif
+enddef
+
+# Auto-refresh when entering a buffer
+augroup diff_autorefresh
+  autocmd!
+  autocmd BufEnter * call RefreshDiff()
+augroup END
+
+# Manual refresh command
+command! GDiffRefresh RefreshDiff()
+
+# Close diff windows and clear the branch setting
+def CloseDiff()
+  windo if &diff | execute 'diffoff!' | endif
+  set winvar(0, 'diff_branch', '')
+enddef
+command! GDiffClose CloseDiff()
+
+# Diffs:
 no <leader>dg V:diffget<CR>
 vno <leader>dg :diffget<CR>
 no <leader>dp :'<,'>diffput<CR>
 vno <leader>dp :diffput<CR>
 nnoremap <leader>lipsum :Lipsum<CR>
+nnoremap <leader>bd :bd<CR>:w<CR>:bd<CR>
 
 # Vue: style or related
 # jump to referenced sfc
 no <leader>vd gdngf
 
+nno <leader>ig O<!-- prettier-ignore --><Esc>j
+nno <leader>iG O// prettier-ignore<Esc>j
+
 # MISC MACROS
 # replace current word with latest from register
 no <leader>rw viw"0p
+# no <leader>rw viwp
+# cut current function, leave formatting intact, put cursor on opening curly
+no <leader>cf V%d :echo 'function or declaration cut'<CR>
 # delete current function
 no <leader>df va{Jdd :echo 'function or declaration deleted'<CR>
 # select current function
 no <leader>vf [{V]} " select function
 # yank current function
 no <leader>yf [{V]}y
+
+# Yank: project relative filepath/filename of current file to vim clipboard
+def YankFilename()
+   setreg('"', expand("%")) 
+   echo "Yanked: " .. expand("%")
+enddef
+nnoremap yf <ScriptCmd>YankFilename()<CR>
+
+# Yank: full filepath/filename of current file to system clipboard
+def YankFilenameToSystemClipboard()
+   var filepath = expand("%")
+   echo "Yanked to system clipboard: " .. filepath
+enddef
+nnoremap yF <ScriptCmd>YankFilenameToSystemClipboard()<CR>
+
+def YankTodo(start: number, end: number)
+    var filename = expand("%")
+    var datetime = strftime("%Y-%m-%d %H:%M")
+    var selected = getline(start, end)
+
+    execute "normal! \<Esc>"
+
+    var git_output = system("git rev-parse --abbrev-ref HEAD")
+    var git_branch = substitute(git_output, '\n$', '', '')
+    # replace `repo_name` with the euh.. repo name
+    var todo_path  = './.todo/' .. substitute(git_branch, '\(.*\)\/repo_name\#\(.*\)', '\1\_\2', '') .. '.md'
+
+    var lines = filereadable(todo_path) ? readfile(todo_path) : []
+
+    lines->add("")
+    lines->add("## " .. filename)
+    if (git_branch != "")
+       lines->add(git_branch .. " *" .. datetime .. "*")
+    else
+       lines->add("*" .. datetime .. "*")
+    endif
+    lines->add("```")
+
+    var line_nr = start
+    for line in selected
+        lines->add(line_nr .. ":    " .. line)
+        line_nr += 1
+    endfor
+    lines->add("```")
+    writefile(lines, todo_path)
+
+    echo "Appended lines " .. start .. "-" .. end .. " from " .. filename .. " to " .. todo_path
+enddef
+command -range YankTodo YankTodo(<line1>, <line2>)
+xnoremap <leader>tt :YankTodo<CR>
+
 # select ranges -- Requires 'textDocument/selectionRange' support of LS, ex: coc-tsserver
 nmap <silent> <C-s> <Plug>(coc-range-select)
 xmap <silent> <C-s> <Plug>(coc-range-select)
@@ -124,8 +219,6 @@ xmap <silent> <C-s> <Plug>(coc-range-select)
 nn <leader>lp <ScriptCmd> L<CR>
 # Save and refresh theme bonbasi
 no <leader>rf :w<CR>:colo bonbasi<CR>
-# Turn selection text into t̶e̶x̶t̶ (utf)
-vno <leader>strike :s/\%V\(.\)/\=submatch(1) . "\u0336"/g<CR>
 
 # misc quickmaps
 no <leader>so :so ~/.vimrc<CR>
@@ -146,25 +239,14 @@ no <leader>brp :term<CR>./release.sh<CR>
 no <leader>ff :Format<CR>
 vmap <leader>fa <Plug>(coc-format-selected)
 
+no <leader>ts :CocCommand tsserver.reloadProjects<CR>
 no <silent> <leader>fm :w<CR>:!biome format % --write<CR>:e<CR><CR>ggG<c-o><c-o>
-
-# command! -nargs=0 Format call s:DebugFormat()
-# 
-# function! s:DebugFormat()
-#   echo "Starting format request..."
-#   echo "Filetype: " . &filetype
-#   echo "Coc formatters: " . string(coc#list#formatters())
-# 
-#   " Call the original format
-#   call coc#rpc#request('format', [])
-# endfunction
 
 # Markdown: shortcuts
 # Make Bold
 no <leader>mb I**<esc>A**<esc>
 
 # Macro: macro's
-
 
 # misc
 no <leader>' <left>yi(Pa:',<esc>%a'<esc>A
@@ -184,12 +266,12 @@ command! -bar -bang Wqa wqa<bang>
 command! -bar -bang Bd bd<bang>
 command! -bar -bang Q q<bang>
 
-# yank to system clipboard, although -selection clipboard is too verbose, keep it
-vn <C-y> :w !xclip -selection clipboard<CR> 
-
-# def Grepme()
-	# execute 
-# enddef
+# Xorg: yank to system clipboard
+def YankToSystemClipboard()
+   var yankin = getreg('"')
+   execute system('xclip -selection clipboard', yankin)
+enddef
+vn <C-y> y<ScriptCmd> YankToSystemClipboard()<CR>
 
 def LogPhp()
     execute '!php % | less'
@@ -204,10 +286,16 @@ def NpmTest()
 enddef
 
 def BunLintRunner()
-  cgetexpr system('bun run lint')
-  copen
+    cgetexpr system('bun run lint')
+    copen
 enddef
 nnoremap <leader>bl <ScriptCmd> BunLintRunner()<CR>
+
+def NpmLintRunner()
+  cgetexpr system("npm run lint -- -f unix")
+  copen
+enddef
+nnoremap <leader>nl <ScriptCmd> NpmLintRunner()<CR>
 
 def BunCheckRunner()
   cgetexpr system('bun run check')
@@ -215,6 +303,36 @@ def BunCheckRunner()
 enddef
 nnoremap <leader>bc <ScriptCmd> BunCheckRunner()<CR>
 nnoremap <leader>bC :silent !bun run check-write<CR>
+
+def NpmTscLintRunner()
+    var old_errorformat = &errorformat 
+    set errorformat=%f(%l\\,%c):\ %m    
+    var output = system('npx tsc --noEmit')  
+    var cleaned_output = substitute(output, '^|| ', '', 'g')
+    cexpr cleaned_output  
+    &errorformat = old_errorformat 
+    if !empty(getqflist()) 
+        copen
+    else
+        echo 'No TypeScript errors found'
+    endif
+enddef
+nnoremap <leader>nL <ScriptCmd> NpmTscLintRunner()<CR>
+
+def NepmTscLintRunner()
+    var old_errorformat = &errorformat 
+    set errorformat=%f(%l\\,%c):\ %m    
+    var output = system('npm run lint-info')  
+    var cleaned_output = substitute(output, '^|| ', '', 'g')
+    cexpr cleaned_output  
+    &errorformat = old_errorformat 
+    if !empty(getqflist()) 
+        copen
+    else
+        echo 'No esling errors found'
+    endif
+enddef
+nnoremap <leader>nep <ScriptCmd> NepmTscLintRunner()<CR>
 
 def BunTscLintRunner()
     var old_errorformat = &errorformat 
@@ -230,6 +348,10 @@ def BunTscLintRunner()
     endif
 enddef
 nnoremap <leader>bL <ScriptCmd> BunTscLintRunner()<CR>
+
+# CONVERSION: console.log(myObject[0]) to console.log('myObject[0]:', myObject[0])
+nnoremap <leader>o yi(<esc>Pa:',<esc>F(a'<esc>A
+
 
 ## TROUBLESHOOTING: vue setup
 # def CheckVueSetup()
@@ -275,55 +397,24 @@ def GitQuickfixCheckout(prefix: string)
     execute 'normal! ' .. lnum .. 'G'
 
     # use commit hash to checkout (move HEAD) towards
-    var commit_hash = substitute(getline(lnum), '\v^([0-9a-f]{6}).*', '\1', '')
+    var commit_hash = substitute(getline(lnum), '\v^([0-9a-f]{9}).*', '\1', '')
     execute 'Git checkout ' .. commit_hash
 enddef
 
-# Follow url to Open in browser -- FIXME niet gewoon verwijderen vanwege
-# mapping gx?
-def HandleURL()
-  var uri = matchstr(getline("."), '[a-z]*:\/\/[^ >,;]*')
-  echo uri
-  if uri != ''
-	execute 'silent! !xdg-open "'..s:uri..'" &'
-  else
-    echo "No URI found in line."
-  endif
-enddef
 
-# COC: open mdn link in popup window van :doHover FIXME werkt niet met
-# vim9script man, CocAction not available...
-def OpenMDNReference()
-    # Use CocAction to get hover and try to extract URL
-    try
-        var hover = CocAction('getHover')
-        var content = string(hover)
-        var urls = matchlist(content, 'MDN Reference: \(\https://[^''"]*\)')
-        if !empty(urls) && len(urls) > 1
-            var url = urls[1]
-            if has('mac')
-                silent! call job_start(['open', url])
-            elseif has('unix')
-                silent! call job_start(['xdg-open', url])
-            elseif has('win32')
-                silent! call job_start(['cmd', '/c', 'start', '', url])
-            endif
-            echom "Opening: " .. url
-        else
-            echom "No MDN URL found in hover"
-        endif
-    catch
-        echom "Error getting hover information"
-    endtry
-enddef
-nnoremap <silent> <leader>mdn <ScriptCmd> OpenMDNReference()<CR>
-# /COC: open mdn link in popup window van :doHover
+# COC: show diagnostic on-demand
+nnoremap <leader>k <Cmd>call coc#float#diagnostic()<CR>
 
 # PACKADD NATIVE FUNCTIONS: replacing plugins
-packadd! editorconfig # editorconfig working properly since Vim 9.1, see `:h editorconfig-install` and `:h editorconfig.txt` after that.
-packadd comment # https://vimhelp.org/usr_05.txt.html#comment-install
+packadd! editorconfig
+packadd comment
+# # packadd editorconfig # editorconfig working properly since Vim 9.1, see `:h editorconfig-install` and `:h editorconfig.txt` after that.
+# packadd comment # https://vimhelp.org/usr_05.txt.html#comment-install
+# hlyank-install
 packadd hlyank # https://vimhelp.org/usr_05.txt.html#hlyank-install
 g:hlyank_duration = 100
+g:hlput_enable = 1
+g:hlput_duration = 100
 
 # SirVer/ultisnips.git
 # honza/vim-snippets.git
@@ -353,7 +444,9 @@ enddef
 nnoremap <leader>ws <ScriptCmd> ShowSyntax()<CR>
 nnoremap <leader>wS :echo synstack(line('.'), col('.'))->map({_, v -> synIDattr(v, "name")})<CR>
 
-# COC CONFIG
+# COC: CONFIG
+
+# onderstaande in comment op debian-based, weet niet goed waarom
 def ShowDocumentation()
   if coc#rpc#request('hasProvider', ['hover'])
     coc#rpc#request('doHover', [])
@@ -363,7 +456,13 @@ def ShowDocumentation()
 enddef
 nnoremap <silent> K <ScriptCmd>call ShowDocumentation()<CR>
 
-# /COC CONFIG
+# COC: diagnostic
+# related to:  
+#     "diagnostic.messageDelay": 5000,
+#     "diagnostic.messageTarget": "float"
+nnoremap <leader>k <Plug>(coc-diagnostic-info)
+
+# /COC: CONFIG
 
 # list of installed CoC plugins (:CocList extensions), to be installed i.e. :CocInstall coc-snippets
 # coc-snippets 3.4.7 ~/.config/coc/extensions/node_modules/coc-snippets
@@ -382,6 +481,8 @@ nnoremap <silent> K <ScriptCmd>call ShowDocumentation()<CR>
 # coc-blade 0.18.11 ~/.config/coc/extensions/node_modules/coc-blade
 # coc-biome 1.8.0 ~/.config/coc/extensions/node_modules/coc-biome
 # @yaegassy/coc-volar 0.37.4 ~/.config/coc/extensions/node_modules/@yaegassy/coc-volar
+# @yaegassy/coc-volar-tools 0.3.3 ~/.config/coc/extensions/node_modules/@yaegassy/coc-volar-tools
+
 # @yaegassy/coc-laravel 0.7.18 ~/.config/coc/extensions/node_modules/@yaegassy/coc-laravel
 # @yaegassy/coc-intelephense 0.31.3 ~/.config/coc/extensions/node_modules/@yaegassy/coc-intelephense
 # @yaegassy/coc-astro 0.9.2 ~/.config/coc/extensions/node_modules/@yaegassy/coc-astro
@@ -391,11 +492,12 @@ nnoremap <silent> K <ScriptCmd>call ShowDocumentation()<CR>
 # needed to format .py files
 
 # NOTE: for coc-biome: possibly need to add to ~/.npmrc (if file not exists, create it): `coc.nvim:registry=https://registry.npmmirror.com`
-inoremap <silent><expr> <TAB>
-    \ coc#pum#visible() ? coc#pum#next(1) :
-    \ CheckBackspace() ? "\<Tab>" :
-    \ coc#refresh()
-inoremap <expr><S-TAB> coc#pum#visible() ? coc#pum#prev(1) : "\<C-h>"
+# test 2026-03-02 onderstaand in comment
+# inoremap <silent><expr> <TAB>
+#     \ coc#pum#visible() ? coc#pum#next(1) :
+#     \ CheckBackspace() ? "\<Tab>" :
+#     \ coc#refresh()
+# inoremap <expr><S-TAB> coc#pum#visible() ? coc#pum#prev(1) : "\<C-h>"
 
 # Make <CR> to accept selected completion item or notify coc.nvim to format
 # <C-g>u breaks current undo, please make your own choice
@@ -460,10 +562,15 @@ nmap gY <Plug>(coc-type-definition)
 nmap gI <Plug>(coc-implementation)
 nmap gR <Plug>(coc-references)
 
+
 # CoC: Jump-to-definition for gf in TypeScript/JS files
 
 # Commented 2025-11-04 - Vue works better this way, dno about React yet
-#autocmd FileType typescript,typescriptreact,javascript,javascriptreact,vue nnoremap <buffer> <silent> gf <ScriptCmd> CocAction('jumpDefinition')<CR>
+# autocmd FileType typescript,typescriptreact,javascript,javascriptreact,vue 
+# nnoremap <buffer> <silent> gf <ScriptCmd> CocAction('jumpDefinition')<CR>
+
+# Hackyfix: refresh syntax, for vue-files (options api)
+nmap <leader>rs <c-u><c-u><c-u><c-u><c-d><c-d><c-d><c-d>
 
 # Dumb file jumper with tsconfig alias resolution
 nnoremap <silent> gF <ScriptCmd> DumbFileJump()<CR>
@@ -542,14 +649,40 @@ g:db_ui_auto_execute_table_helpers = 1
 # \ })
 # EINDE (weet niet zo goed wat ik hiermee moet)
 
-# nnoremap <leader>Rg :Rg! --hidden<Space>
-nnoremap <leader>Rg :Rg --no-filename<CR>
+# FZF_RIPGREP: config
+# Popup: search stuffs
+nnoremap F :FZF<CR>
+nnoremap <C-f> :Rg<CR>
 
-# RipGrep: search current word in files
+# Search contents only (ignore filenames)
+nnoremap <C-_> <ScriptCmd>
+\ fzf#vim#grep('rg --column --line-number --no-heading --color=always --smart-case '
+\ .. fzf#shellescape(input('Search (contents only): ')), 1,
+\ fzf#vim#with_preview({'options': '--delimiter : --nth 4..'}), 0)<CR>
+
+# RipGrep search current word in files
 nnoremap <leader>rg <ScriptCmd>
-  \ fzf#vim#grep('rg --column --line-number --no-heading --color=always --smart-case '
-  \ .. fzf#shellescape(expand('<cword>')), 1,
-  \ fzf#vim#with_preview({'options': '--delimiter : --with-nth 3..'}), 0)<CR>
+\ fzf#vim#grep('rg --column --line-number --no-heading --color=always --smart-case '
+\ .. fzf#shellescape(expand('<cword>')), 1,
+\ fzf#vim#with_preview({'options': '--delimiter : --with-nth 3..'}), 0)<CR>
+
+# RipGrep search selected text in visual mode
+vnoremap <leader>rg y<ScriptCmd>
+\ fzf#vim#grep('rg --column --line-number --no-heading --color=always --smart-case '
+\ .. fzf#shellescape(@0), 1,
+\ fzf#vim#with_preview({'options': '--delimiter : --with-nth 3..'}), 0)<CR>
+
+# RipGrep with file paths: search current word in files
+nnoremap <leader>rG <ScriptCmd>
+\ fzf#vim#grep('rg --column --line-number --no-heading --color=always --smart-case '
+\ .. fzf#shellescape(expand('<cword>')), 1,
+\ fzf#vim#with_preview(), 0)<CR>
+
+# RipGrep with file paths: search selected text in visual mode
+vnoremap <leader>rG y<ScriptCmd>
+\ fzf#vim#grep('rg --column --line-number --no-heading --color=always --smart-case '
+\ .. fzf#shellescape(@0), 1,
+\ fzf#vim#with_preview(), 0)<CR>
 
 inoremap <expr> <c-x><c-l> fzf#vim#complete(fzf#wrap({
   \ 'prefix': '^.*$',
@@ -557,13 +690,37 @@ inoremap <expr> <c-x><c-l> fzf#vim#complete(fzf#wrap({
   \ 'options': '--ansi --delimiter : --nth 3..',
   \ 'reducer': { lines -> join(split(lines[0], ':\zs')[2:], '') }}))
 
-set statusline=%<%f\ %h%m%r%{FugitiveStatusline()}%=%-1.\(%)\ %Y\ -\ %(%l,%v[%p%%]\ %)
+# FUGITIVE: Statusline
+# old version: set statusline=%<%f\ %h%m%r%{FugitiveStatusline()}%=%-1.\(%)\ %Y\ -\ %(%l,%v[%p%%]\ %)
+def ShortPath(): string
+  var file = expand('%:p')
+  var git_path = g:FugitivePath(file, '.')
+  if git_path != '.' && git_path != ''
+    return git_path
+  endif
+  return fnamemodify(file, ':~:.')
+enddef
+
+# Legacy wrapper for statusline
+def g:ShortPath(): string
+  return ShortPath()
+enddef
+
+set statusline=%<%{g:ShortPath()}\ %h%m%r%{FugitiveStatusline()}%=%-1.\(%)\ %Y\ -\ %(%l,%v[%p%%]\ %)
+
+# FUGITIVE: modified commands
+# alternative to `coo` to checkout branch, escaping # (comment) character in branch name
+nnoremap <leader>co :execute 'Git checkout' fnameescape(expand('<cfile>'))<CR>
 
  # Abbreviations: General -- see :digraphs / :dig!
-iabbrev digstar1 ☆
-iabbrev digstar2 ★
-iabbrev digok ✓
-iabbrev digx ✗
+iabbrev dgstar ☆
+iabbrev dgstar2 ★
+iabbrev dgok ✓
+iabbrev dgx ✗
+iabbrev dgplay ▶
+
+autocmd FileType markdown syntax match SpecialKeyFail /\v✗/
+autocmd FileType markdown syntax match SpecialKeyOK /\v✓/
 
 # Abbreviations: Português
 g:Port = 0
@@ -631,17 +788,31 @@ nnoremap <leader>tp <ScriptCmd> TogglingPort()<CR>
 
 colorscheme bonbasi
 
+augroup TodoHighlight
+  autocmd!
+  autocmd BufRead,BufNewFile * match TodoLine /.*TODO.*/
+augroup END
+
+
+
 # Syntax optimization settings
 # set synmaxcol=300           # Only highlight first 300 columns
 # set lazyredraw              # Don't redraw during macros
 # set ttyfast                 # Faster terminal connection
 
-# Filetype-specific optimizations
-augroup VuePerformance
-  autocmd!
-  autocmd FileType vue set synmaxcol=500
-  autocmd FileType vue syntax sync minlines=100 maxlines=250
-augroup END
+# Performance: syntax highlight parsing
+# Increase the number of lines Vim looks back for syntax highlighting
+au BufEnter * :syntax sync minlines=1500
+
+##  Filetype-specific optimizations (commented because line above)
+# augroup VuePerformance
+#     autocmd!
+#     autocmd FileType vue syntax sync minlines=500 maxlines=1500
+# augroup END
+
+# experimental 2026-03-02 for quicker vue autosuggest
+autocmd FileType vue inoremap <buffer> <C-Space> <C-x><C-u>
+
 
 # g:vim_markdown_conceal = 1
 # g:vim_markdown_conceal_code_blocks = 1
@@ -915,3 +1086,41 @@ nnoremap <leader>Q <ScriptCmd>PlaySnippetAwareMacro()<CR>
 
 # Optional: Also make the repeat command (@@) snippet-aware
 nnoremap @@ <ScriptCmd>PlaySnippetAwareMacro()<CR>
+
+# Dependencies: Fzf & fzf.vim bronnen
+# set rtp+=~/.vim/pack/plugins/start/fzf.vim
+set rtp+=~/.fzf
+
+# CoC & LSP, only suggest LSP options
+# inoremap <buffer> <C-l> <C-x><C-u>
+
+
+# g:ollama_host = 'http://localhost:11434'
+# USE THE QUANTIZED VERSION
+# g:ollama_model = 'qwen2.5-coder:7b-instruct-q4_K_M'
+# g:ollama_chat_model = 'qwen2.5-coder:7b-instruct-q4_K_M'
+# g:ollama_edit_model = 'qwen2.5-coder:7b-instruct-q4_K_M'
+
+# GENEROUS TIMEOUTS (your 7B model needs these)
+# g:ollama_chat_timeout = 240 
+# g:ollama_edit_timeout = 240 
+
+# Disable auto-completion
+# g:ollama_complete_on_enter = 0
+# g:ollama_complete_delay_ms = 0
+
+nnoremap <leader>lls :Ollama enable
+nnoremap <leader>llc :OllamaChat<CR>
+vnoremap <leader>llr :OllamaReview<CR>
+vnoremap <leader>llt :OllamaTask 
+nnoremap <leader>lld :Ollama disable<CR>
+# # LLM: of SLM/Ollama/Qwen
+# # load ollama config first
+# source ~/.vim/config/ollama.vim
+
+# ~/.vim/pack/plugins/start/vim-ollama/autoload/ollama/config.vim
+# add: qwen2.5-coder:7b-instruct-q4_K_M
+
+# UltiSnips
+set runtimepath+=~/.vim/ultisnips_rep
+
