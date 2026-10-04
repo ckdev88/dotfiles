@@ -1,20 +1,30 @@
 /* See LICENSE file for copyright and license details. */
 
+/* 
+ * applied patches: 
+ *     dwm-6.0-smfact.diff
+ *     dwm-noborder-6.2.diff
+ *     dwm-noborderfloatingfix-6.2.diff
+*/
+
 /* appearance */
-static const unsigned int borderpx  = 2;        /* border pixel of windows */
-static const unsigned int snap      = 32;       /* snap pixel */
+static const unsigned int borderpx  = 1;        /* border pixel of windows */
+static const unsigned int snap      = 20;       /* snap pixel */
 static const unsigned int minwsz    = 20;       /* Minimal height of a client for smfact */
 static const int showbar            = 1;        /* 0 means no bar */
 static const int topbar             = 1;        /* 0 means bottom bar */
-static const char *fonts[]          = { "Iosevka:style=Medium,Regular:size=9:antialias=true" };
-static const char dmenufont[]       = "Iosevka:style=Medium,Regular:size=9:antialias=true";
+static const char *fonts[]          = { "Iosevka Custom:pixelsize=18:antialias=true:autohint=true" };
+static const char dmenufont[]       = "Iosevka Custom:pixelsize=16:antialias=true:autohint=true";
 static const char col_gray1[]       = "#111111";
 static const char col_gray2[]       = "#2a2a2a";
-static const char col_fg_inactive[] = "#8787af";
+static const char col_fg_inactive[] = "#6C6A6B";
 static const char col_white[]       = "#ffffff";
 static const char col_lime[]        = "#00ff00";
 static const char col_yellow[]      = "#eeee00";
 static const char col_black[]       = "#000000";
+static const char col_bg[]          = "#1F1A1B";
+static const char col_navy[]          = "#123456";
+static const char col_greeny[]          = "#12ff56";
 static const char col_fg_active[]   = "#e4e4e4";
 static const char *colors[][3]      = {
 	/*               fg         bg         border   */
@@ -39,12 +49,13 @@ static const float smfact    = 0.00; /* factor of tiled clients [0.00..0.95] */
 static const int nmaster     = 1;    /* number of clients in master area */
 static const int resizehints = 0;    /* 1 means respect size hints in tiled resizals */
 static const int lockfullscreen = 1; /* 1 will force focus on the fullscreen window */
+static const int refreshrate = 120;  /* refresh rate (per second) for client move/resize */
 
 static const Layout layouts[] = {
 	/* symbol     arrange function */
 	{ "[]=",      tile },    /* first entry is default */
 	{ "><>",      NULL },    /* no layout function means floating behavior */
-	{ "[M]",      monocle}
+	{ "[M]",      monocle },
 };
 
 /* key definitions */
@@ -74,12 +85,12 @@ static const Key keys[] = {
 	{ MODKEY,                       XK_d,      incnmaster,     {.i = -1 } },
 	{ MODKEY,                       XK_h,      setmfact,       {.f = -0.05} },
 	{ MODKEY,                       XK_l,      setmfact,       {.f = +0.05} },
-	{ MODKEY,                       XK_m,			 setsmfact,      {.f = +0.05} }, 
-	{ MODKEY,                       XK_n,			 setsmfact,      {.f = -0.05} }, 
+	{ MODKEY,                       XK_m,	   setsmfact,      {.f = +0.05} }, 
+	{ MODKEY,                       XK_n,	   setsmfact,      {.f = -0.05} }, 
 	{ MODKEY,                       XK_Return, zoom,           {0} },
 	{ MODKEY,                       XK_Tab,    view,           {0} },
 	{ MODKEY|ShiftMask,             XK_c,      killclient,     {0} },
-	{ MODKEY,												XK_space,  setlayout,      {.v = &layouts[0]} },
+	{ MODKEY,						XK_space,  setlayout,      {.v = &layouts[0]} },
 	{ MODKEY|ShiftMask,             XK_space,  setlayout,      {.v = &layouts[2]} }, 
 	{ MODKEY,                       XK_comma,  focusmon,       {.i = -1 } }, 
 	{ MODKEY,                       XK_period, focusmon,       {.i = +1 } }, 
