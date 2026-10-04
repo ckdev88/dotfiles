@@ -1132,7 +1132,7 @@ xinit(int cols, int rows)
 {
 	XGCValues gcvalues;
 	Cursor cursor;
-	Window parent;
+	Window parent, root;
 	pid_t thispid = getpid();
 	XColor xmousefg, xmousebg;
 
@@ -1169,16 +1169,19 @@ xinit(int cols, int rows)
 		| ButtonMotionMask | ButtonPressMask | ButtonReleaseMask;
 	xw.attrs.colormap = xw.cmap;
 
+	root = XRootWindow(xw.dpy, xw.scr);
 	if (!(opt_embed && (parent = strtol(opt_embed, NULL, 0))))
-		parent = XRootWindow(xw.dpy, xw.scr);
-	xw.win = XCreateWindow(xw.dpy, parent, xw.l, xw.t,
+		parent = root;
+	xw.win = XCreateWindow(xw.dpy, root, xw.l, xw.t,
 			win.w, win.h, 0, XDefaultDepth(xw.dpy, xw.scr), InputOutput,
 			xw.vis, CWBackPixel | CWBorderPixel | CWBitGravity
 			| CWEventMask | CWColormap, &xw.attrs);
+	if (parent != root)
+		XReparentWindow(xw.dpy, xw.win, parent, xw.l, xw.t);
 
 	memset(&gcvalues, 0, sizeof(gcvalues));
 	gcvalues.graphics_exposures = False;
-	dc.gc = XCreateGC(xw.dpy, parent, GCGraphicsExposures,
+	dc.gc = XCreateGC(xw.dpy, xw.win, GCGraphicsExposures,
 			&gcvalues);
 	xw.buf = XCreatePixmap(xw.dpy, xw.win, win.w, win.h,
 			DefaultDepth(xw.dpy, xw.scr));
@@ -1559,44 +1562,42 @@ xdrawcursor(int cx, int cy, Glyph g, int ox, int oy, Glyph og)
 	/* draw the new one */
 	if (IS_SET(MODE_FOCUSED)) {
 		switch (win.cursor) {
-		default:
-		case 0: /* blinking block */
-		case 1: /* blinking block (default) */
-			if (IS_SET(MODE_BLINK))
-				break;
-			/* FALLTHROUGH */
-		case 2: /* steady block */
-			xdrawglyph(g, cx, cy);
-			break;
-		case 3: /* blinking underline */
-			if (IS_SET(MODE_BLINK))
-				break;
-			/* FALLTHROUGH */
-		case 4: /* steady underline */
-			XftDrawRect(xw.draw, &drawcol,
-					borderpx + cx * win.cw,
-					borderpx + (cy + 1) * win.ch - \
-						cursorthickness,
-					win.cw, cursorthickness);
-			break;
-		case 5: /* blinking bar */
-			if (IS_SET(MODE_BLINK))
-				break;
-			/* FALLTHROUGH */
-		case 6: /* steady bar */
-			XftDrawRect(xw.draw, &drawcol,
-					borderpx + cx * win.cw,
-					borderpx + cy * win.ch,
-					cursorthickness, win.ch);
-			break;
-		case 7: /* blinking st cursor */
-			if (IS_SET(MODE_BLINK))
-				break;
-			/* FALLTHROUGH */
-		case 8: /* steady st cursor */
-			g.u = stcursor;
-			xdrawglyph(g, cx, cy);
-			break;
+		    default:
+            case 0: /* blinking block */
+            case 1: /* blinking block (default) */
+                if (IS_SET(MODE_BLINK))
+                    break;
+                /* FALLTHROUGH */
+            case 2: /* steady block */
+                xdrawglyph(g, cx, cy);
+                break;
+            case 3: /* blinking underline */
+                if (IS_SET(MODE_BLINK))
+                    break;
+            case 4: /* steady underline */
+                XftDrawRect(xw.draw, &drawcol,
+                        borderpx + cx * win.cw,
+                        borderpx + (cy + 1) * win.ch - \
+                            cursorthickness,
+                        win.cw, cursorthickness);
+                break;
+            case 5: /* blinking bar */
+                if (IS_SET(MODE_BLINK))
+                    break;
+            case 6: /* steady bar */
+                XftDrawRect(xw.draw, &drawcol,
+                        borderpx + cx * win.cw,
+                        borderpx + cy * win.ch,
+                        cursorthickness, win.ch);
+                break;
+            case 7: /* blinking st cursor */
+                if (IS_SET(MODE_BLINK))
+                    break;
+                /* FALLTHROUGH */
+            case 8: /* steady st cursor */
+                g.u = stcursor;
+                xdrawglyph(g, cx, cy);
+                break;
 		}
 	} else {
 		XftDrawRect(xw.draw, &drawcol,
@@ -1633,6 +1634,9 @@ xseticontitle(char *p)
 	XTextProperty prop;
 	DEFAULT(p, opt_title);
 
+	if (p[0] == '\0')
+		p = opt_title;
+
 	if (Xutf8TextListToTextProperty(xw.dpy, &p, 1, XUTF8StringStyle,
 	                                &prop) != Success)
 		return;
@@ -1646,6 +1650,9 @@ xsettitle(char *p)
 {
 	XTextProperty prop;
 	DEFAULT(p, opt_title);
+
+	if (p[0] == '\0')
+		p = opt_title;
 
 	if (Xutf8TextListToTextProperty(xw.dpy, &p, 1, XUTF8StringStyle,
 	                                &prop) != Success)

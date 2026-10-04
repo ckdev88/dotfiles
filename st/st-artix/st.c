@@ -416,9 +416,11 @@ tlinelen(int y)
 {
 	int i = term.col;
 
+	/* if (term.line[y][i - 1].mode & ATTR_WRAP) */
 	if (TLINE(y)[i - 1].mode & ATTR_WRAP)
 		return i;
 
+	/* while (i > 0 && term.line[y][i - 1].u == ' ') */
 	while (i > 0 && TLINE(y)[i - 1].u == ' ')
 		--i;
 
@@ -719,19 +721,24 @@ execsh(char *cmd, char **args)
 void
 sigchld(int a)
 {
-	int stat;
+	int stat, olderrno;
 	pid_t p;
 
-	if ((p = waitpid(pid, &stat, WNOHANG)) < 0)
-		die("waiting for pid %hd failed: %s\n", pid, strerror(errno));
+	olderrno = errno;
+	do {
+		p = waitpid(pid, &stat, WNOHANG);
+	} while (p < 0 && errno == EINTR);
 
-	if (pid != p)
+	if (p < 0)
+		_exit(1);
+
+	if (pid != p) {
+		errno = olderrno;
 		return;
+	}
 
-	if (WIFEXITED(stat) && WEXITSTATUS(stat))
-		die("child exited with status %d\n", WEXITSTATUS(stat));
-	else if (WIFSIGNALED(stat))
-		die("child terminated due to signal %d\n", WTERMSIG(stat));
+	if ((WIFEXITED(stat) && WEXITSTATUS(stat)) || WIFSIGNALED(stat))
+		_exit(1);
 	_exit(0);
 }
 
@@ -975,6 +982,9 @@ tsetdirt(int top, int bot)
 {
 	int i;
 
+	if (term.row <= 0)
+		return;
+
 	LIMIT(top, 0, term.row-1);
 	LIMIT(bot, 0, term.row-1);
 
@@ -1194,6 +1204,7 @@ csiparse(void)
 {
 	char *p = csiescseq.buf, *np;
 	long int v;
+	int sep = ';'; /* colon or semi-colon, but not both */
 
 	csiescseq.narg = 0;
 	if (*p == '?') {
@@ -1211,7 +1222,9 @@ csiparse(void)
 			v = -1;
 		csiescseq.arg[csiescseq.narg++] = v;
 		p = np;
-		if (*p != ';' || csiescseq.narg == ESC_ARG_SIZ)
+		if (sep == ';' && *p == ':')
+			sep = ':'; /* allow override to colon once */
+		if (*p != sep || csiescseq.narg == ESC_ARG_SIZ)
 			break;
 		p++;
 	}
@@ -1348,6 +1361,7 @@ tinsertblankline(int n)
 {
 	if (BETWEEN(term.c.y, term.top, term.bot))
 		tscrolldown(term.c.y, n, 0);
+
 }
 
 void
@@ -1479,15 +1493,21 @@ tsetattr(const int *attr, int l)
 			if ((idx = tdefcolor(attr, &i, l)) >= 0)
 				term.c.attr.fg = idx;
 			break;
-		case 39:
+		case 39: /* set foreground color to default */
 			term.c.attr.fg = defaultfg;
 			break;
 		case 48:
 			if ((idx = tdefcolor(attr, &i, l)) >= 0)
 				term.c.attr.bg = idx;
 			break;
-		case 49:
+		case 49: /* set background color to default */
 			term.c.attr.bg = defaultbg;
+			break;
+		case 58:
+			/* This starts a sequence to change the color of
+			 * "underline" pixels. We don't support that and
+			 * instead eat up a following "5;n" or "2;r;g;b". */
+			tdefcolor(attr, &i, l);
 			break;
 		default:
 			if (BETWEEN(attr[i], 30, 37)) {
@@ -1585,7 +1605,7 @@ tsetmode(int priv, int set, const int *args, int narg)
 			case 1006: /* 1006: extended reporting mode */
 				xsetmode(set, MODE_MOUSESGR);
 				break;
-			case 1034:
+			case 1034: /* 1034: enable 8-bit mode for keyboard input */
 				xsetmode(set, MODE_8BIT);
 				break;
 			case 1049: /* swap screen & set/restore cursor as xterm */
@@ -1593,8 +1613,8 @@ tsetmode(int priv, int set, const int *args, int narg)
 					break;
 				tcursor((set) ? CURSOR_SAVE : CURSOR_LOAD);
 				/* FALLTHROUGH */
-			case 47: /* swap screen */
-			case 1047:
+			case 47: /* swap screen buffer */
+			case 1047: /* swap screen buffer */
 				if (!allowaltscreen)
 					break;
 				alt = IS_SET(MODE_ALTSCREEN);
@@ -1607,7 +1627,7 @@ tsetmode(int priv, int set, const int *args, int narg)
 				if (*args != 1049)
 					break;
 				/* FALLTHROUGH */
-			case 1048:
+			case 1048: /* save/restore cursor (like DECSC/DECRC) */
 				tcursor((set) ? CURSOR_SAVE : CURSOR_LOAD);
 				break;
 			case 2004: /* 2004: bracketed paste mode */
@@ -1705,7 +1725,7 @@ csihandle(void)
 			ttywrite(vtiden, strlen(vtiden), 0);
 		break;
 	case 'b': /* REP -- if last char is printable print it <n> more times */
-		DEFAULT(csiescseq.arg[0], 1);
+		LIMIT(csiescseq.arg[0], 1, 65535);
 		if (term.lastc)
 			while (csiescseq.arg[0]-- > 0)
 				tputc(term.lastc);
@@ -1764,7 +1784,7 @@ csihandle(void)
 			}
 			break;
 		case 1: /* above */
-			if (term.c.y > 1)
+			if (term.c.y > 0)
 				tclearregion(0, 0, term.col-1, term.c.y-1);
 			tclearregion(0, term.c.y, term.c.x, term.c.y);
 			break;
@@ -1790,6 +1810,7 @@ csihandle(void)
 		}
 		break;
 	case 'S': /* SU -- Scroll <n> line up */
+		if (csiescseq.priv) break;
 		DEFAULT(csiescseq.arg[0], 1);
 		tscrollup(term.top, csiescseq.arg[0], 0);
 		break;
@@ -1859,7 +1880,11 @@ csihandle(void)
 		tcursor(CURSOR_SAVE);
 		break;
 	case 'u': /* DECRC -- Restore cursor position (ANSI.SYS) */
-		tcursor(CURSOR_LOAD);
+		if (csiescseq.priv) {
+			goto unknown;
+		} else {
+			tcursor(CURSOR_LOAD);
+		}
 		break;
 	case ' ':
 		switch (csiescseq.mode[1]) {
@@ -1961,7 +1986,7 @@ strhandle(void)
 			if (narg > 1)
 				xsettitle(strescseq.args[1]);
 			return;
-		case 52:
+		case 52: /* manipulate selection data */
 			if (narg > 2 && allowwindowops) {
 				dec = base64dec(strescseq.args[2]);
 				if (dec) {
@@ -1972,9 +1997,9 @@ strhandle(void)
 				}
 			}
 			return;
-		case 10:
-		case 11:
-		case 12:
+		case 10: /* set dynamic VT100 text foreground color */
+		case 11: /* set dynamic VT100 text background color */
+		case 12: /* set dynamic text cursor color */
 			if (narg < 2)
 				break;
 			p = strescseq.args[1];
@@ -2012,6 +2037,19 @@ strhandle(void)
 				 * TODO if defaultbg color is changed, borders
 				 * are dirty
 				 */
+				tfulldirt();
+			}
+			return;
+		case 110: /* reset dynamic VT100 text foreground color */
+		case 111: /* reset dynamic VT100 text background color */
+		case 112: /* reset dynamic text cursor color */
+			if (narg != 1)
+				break;
+			if ((j = par - 110) < 0 || j >= LEN(osc_table))
+				break; /* shouldn't be possible */
+			if (xsetcolorname(osc_table[j].idx, NULL)) {
+				fprintf(stderr, "erresc: %s color not found\n", osc_table[j].str);
+			} else {
 				tfulldirt();
 			}
 			return;
@@ -2393,6 +2431,7 @@ eschandle(uchar ascii)
 		resettitle();
 		xloadcols();
 		xsetmode(0, MODE_HIDE);
+		xsetmode(0, MODE_BRCKTPASTE);
 		break;
 	case '=': /* DECPAM -- Application keypad */
 		xsetmode(1, MODE_APPKEYPAD);

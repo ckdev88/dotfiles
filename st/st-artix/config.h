@@ -1,13 +1,18 @@
-
 /* See LICENSE file for copyright and license details. */
+
+/* 
+applied patches:
+st-blinking_cursor-20230819-3a6d6d7.diff     4246 Sun 04 Oct 2026 05:15:21 PM CEST
+st-scrollback-0.9.2.diff                     8955 Sun 04 Oct 2026 05:15:21 PM CEST
+*/ 
 
 /*
  * appearance
  *
  * font: see http://freedesktop.org/software/fontconfig/fontconfig-user.html
  */
-static char *font = "Iosevka Custom Md SmCn:style=Medium Semi-Condensed, Regular:pixelsize=20:antialias=true:hintstyle=2";
-static int borderpx = 6;
+static char *font = "Iosevka Custom:pixelsize=22:antialias=true:autohint=true";
+static int borderpx = 4;
 
 /*
  * What program is execed by st depends of these precedence rules:
@@ -54,14 +59,14 @@ int allowwindowops = 0;
  * near minlatency, but it waits longer for slow updates to avoid partial draw.
  * low minlatency will tear/flicker more, as it can "detect" idle too early.
  */
-static double minlatency = 8;
+static double minlatency = 2;
 static double maxlatency = 33;
 
 /*
  * blinking timeout (set to 0 to disable blinking) for the terminal blinking
  * attribute.
  */
-static unsigned int blinktimeout = 400;
+static unsigned int blinktimeout = 800;
 
 /*
  * thickness of underline and bar cursors
@@ -131,7 +136,7 @@ static const char *colorname[] = {
  * foreground, background, cursor, reverse cursor
  */
 unsigned int defaultfg = 254;
-unsigned int defaultbg = 232;
+unsigned int defaultbg = 234;
 unsigned int defaultcs = 256;
 static unsigned int defaultrcs = 257;
 
@@ -208,8 +213,8 @@ static Shortcut shortcuts[] = {
 	{ TERMMOD,              XK_Y,           selpaste,       {.i =  0} },
 	{ ShiftMask,            XK_Insert,      selpaste,       {.i =  0} },
 	{ TERMMOD,              XK_Num_Lock,    numlock,        {.i =  0} },
-	{ TERMMOD,            	XK_K,     	kscrollup,      {.i = -1} },
-	{ TERMMOD,            	XK_J,   	kscrolldown,    {.i = -1} },
+	{ TERMMOD,            	XK_K,     	    kscrollup,      {.i = -1} },
+	{ TERMMOD,            	XK_J,   	    kscrolldown,    {.i = -1} },
 };
 
 /*
@@ -481,4 +486,3 @@ static char ascii_printable[] =
 	" !\"#$%&'()*+,-./0123456789:;<=>?"
 	"@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\\]^_"
 	"`abcdefghijklmnopqrstuvwxyz{|}~";
-

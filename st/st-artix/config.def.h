@@ -5,7 +5,7 @@
  *
  * font: see http://freedesktop.org/software/fontconfig/fontconfig-user.html
  */
-static char *font = "Iosevka:pixelsize=22:antialias=true:autohint=true";
+static char *font = "Liberation Mono:pixelsize=12:antialias=true:autohint=true";
 static int borderpx = 2;
 
 /*
@@ -53,14 +53,14 @@ int allowwindowops = 0;
  * near minlatency, but it waits longer for slow updates to avoid partial draw.
  * low minlatency will tear/flicker more, as it can "detect" idle too early.
  */
-static double minlatency = 8;
+static double minlatency = 2;
 static double maxlatency = 33;
 
 /*
  * blinking timeout (set to 0 to disable blinking) for the terminal blinking
  * attribute.
  */
-static unsigned int blinktimeout = 500;
+static unsigned int blinktimeout = 800;
 
 /*
  * thickness of underline and bar cursors
@@ -91,7 +91,7 @@ char *termname = "st-256color";
  *
  *	stty tabs
  */
-unsigned int tabspaces = 2;
+unsigned int tabspaces = 8;
 
 /* Terminal colors (16 first used in escape sequence) */
 static const char *colorname[] = {
@@ -103,10 +103,10 @@ static const char *colorname[] = {
 	"blue2",
 	"magenta3",
 	"cyan3",
-	"white",
+	"gray90",
 
 	/* 8 bright colors */
-	"lime",
+	"gray50",
 	"red",
 	"green",
 	"yellow",
@@ -118,9 +118,9 @@ static const char *colorname[] = {
 	[255] = 0,
 
 	/* more colors can be added after 255 to use with DefaultXX */
-	"yellow",
+	"#cccccc",
 	"#555555",
-	"white", /* default foreground colour */
+	"gray90", /* default foreground colour */
 	"black", /* default background colour */
 };
 
@@ -208,8 +208,6 @@ static Shortcut shortcuts[] = {
 	{ TERMMOD,              XK_Y,           selpaste,       {.i =  0} },
 	{ ShiftMask,            XK_Insert,      selpaste,       {.i =  0} },
 	{ TERMMOD,              XK_Num_Lock,    numlock,        {.i =  0} },
-	{ TERMMOD,            	XK_K,     	kscrollup,      {.i = -1} },
-	{ TERMMOD,            	XK_J,   	kscrolldown,    {.i = -1} },
 };
 
 /*
