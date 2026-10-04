@@ -1,13 +1,18 @@
-
 /* See LICENSE file for copyright and license details. */
+
+/*
+ * applied patches:
+ *     st-blinking_cursor-20230819-3a6d6d7.diff
+ *     st-scrollback-0.9.2.diff
+*/ 
 
 /*
  * appearance
  *
  * font: see http://freedesktop.org/software/fontconfig/fontconfig-user.html
  */
-static char *font = "Iosevka Custom Md SmCn:style=Medium Semi-Condensed, Regular:pixelsize=20:antialias=true:hintstyle=2";
-static int borderpx = 6;
+static char *font = "Iosevka Custom:pixelsize=22:antialias=true:autohint=true";
+static int borderpx = 4;
 
 /*
  * What program is execed by st depends of these precedence rules:
@@ -54,14 +59,14 @@ int allowwindowops = 0;
  * near minlatency, but it waits longer for slow updates to avoid partial draw.
  * low minlatency will tear/flicker more, as it can "detect" idle too early.
  */
-static double minlatency = 8;
+static double minlatency = 2;
 static double maxlatency = 33;
 
 /*
  * blinking timeout (set to 0 to disable blinking) for the terminal blinking
  * attribute.
  */
-static unsigned int blinktimeout = 400;
+static unsigned int blinktimeout = 800;
 
 /*
  * thickness of underline and bar cursors
@@ -98,31 +103,31 @@ unsigned int tabspaces = 4;
 static const char *colorname[] = {
 	/* 8 normal colors */
 	"black",
-	"red3",
-	"green3",
-	"yellow3",
-	"blue2",
+	"yellow",
+	"green", /* fg & bg hidden file, folder chmod 777 */
+	"#ffd700",
+	"black", /* hidden file fg, folder chmod 777 */
 	"magenta3",
 	"cyan3",
 	"white",
 
 	/* 8 bright colors */
-	"green",
-	"yellow",
-	"red",
-	"yellow",
-	"#5c5cff",
+	"lightblue",
+	"#ffd700",
+	"red", /* fg chmod +x */
+	"#ffd700",
+	"#acacff", /* fg folder +bold */
 	"magenta",
 	"cyan",
-	"white",
+	"magenta",
 
 	[255] = 0,
 
 	/* more colors can be added after 255 to use with DefaultXX */
 	"#00ff00",
 	"#555555",
-	"white", /* default foreground colour */
-	"black", /* default background colour */
+	"yellow", /* default foreground colour */
+	"lightblue", /* default background colour */
 };
 
 
@@ -131,7 +136,7 @@ static const char *colorname[] = {
  * foreground, background, cursor, reverse cursor
  */
 unsigned int defaultfg = 254;
-unsigned int defaultbg = 232;
+unsigned int defaultbg = 234;
 unsigned int defaultcs = 256;
 static unsigned int defaultrcs = 257;
 
@@ -154,7 +159,6 @@ static Rune stcursor = 0x2603; /* snowman ("☃") */
 /*
  * Default columns and rows numbers
  */
-
 static unsigned int cols = 80;
 static unsigned int rows = 24;
 
@@ -209,8 +213,8 @@ static Shortcut shortcuts[] = {
 	{ TERMMOD,              XK_Y,           selpaste,       {.i =  0} },
 	{ ShiftMask,            XK_Insert,      selpaste,       {.i =  0} },
 	{ TERMMOD,              XK_Num_Lock,    numlock,        {.i =  0} },
-	{ TERMMOD,            	XK_K,     	kscrollup,      {.i = -1} },
-	{ TERMMOD,            	XK_J,   	kscrolldown,    {.i = -1} },
+	{ TERMMOD,            	XK_K,     	    kscrollup,      {.i = -1} },
+	{ TERMMOD,            	XK_J,   	    kscrolldown,    {.i = -1} },
 };
 
 /*
@@ -482,4 +486,3 @@ static char ascii_printable[] =
 	" !\"#$%&'()*+,-./0123456789:;<=>?"
 	"@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\\]^_"
 	"`abcdefghijklmnopqrstuvwxyz{|}~";
-
